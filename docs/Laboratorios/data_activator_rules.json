@@ -1,0 +1,13 @@
+{
+    "trigger": "data_activator_event",
+    "action": {
+        "type": "send_notification",
+        "destination": "Microsoft Teams",
+        "message": "Se ha detectado una anomal\u00eda en los datos."
+    },
+    "condition": {
+        "field": "monto",
+        "operator": ">",
+        "value": 10000
+    }
+}

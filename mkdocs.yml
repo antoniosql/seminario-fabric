@@ -1,0 +1,20 @@
+site_name: Curso Microsoft Fabric
+site_url: ""
+theme:
+  name: material
+  language: es
+  features:
+    - navigation.expand
+    - navigation.sections
+    - navigation.tabs
+    - search.highlight
+    - search.suggest
+markdown_extensions:
+  - admonition
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.tabbed
+  - pymdownx.superfences
+  - pymdownx.details
+docs_dir: docs
