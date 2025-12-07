@@ -90,7 +90,8 @@ Fabric utiliza **unidades de capacidad (CU)**, que definen la cantidad de recurs
 
 Existen algunas funcionalidades, como las de Copilot, que solo están disponibles a partir de la F64. A partir de esta SKU F64, no es necesario disponer de licenciamiento de Power BI para poder visualizar informes, solo los usuarios que necesiten publicar contenido, necesitarían licenciamiento de Power BI Pro
 
-![[Costes Fabric.png]]
+![Costes Fabric](<imagenes/Costes Fabric.png>)
+
 					*Precios a fecha 10 de Febrero de 2025*
 
 Realmente el coste se establece por CU, que es la unidad mínima que se puede reservar, y pueden reservarse unidades impares y el coste se establece a día de hoy (Febrero 2025) en 150,33€ por CU, sin reserva y para todo el mes. Con este cálculo, podemos también saber cuando nos costaría cada CU por hora, tomando unas 720 horas mensuales, tendríamos un coste hora de CU de 0,21€/hora
@@ -114,11 +115,11 @@ El detalle de los costes podemos verlo en este enlace https://azure.microsoft.co
 
 ### 🔹 **Capacidades y Consumos**
 
-#### ¿Qué es una Unidad de Capacidad (CU)?####
+#### ¿Qué es una Unidad de Capacidad (CU)? ####
 
 En Microsoft Fabric, una **Unidad de Capacidad (CU)** es la medida que define la cantidad de recursos de cómputo y almacenamiento asignados a una capacidad específica. Estas unidades determinan el rendimiento y la eficiencia de las cargas de trabajo que se ejecutan en la plataforma. Las capacidades se ofrecen en diferentes tamaños o SKU, que van desde F2 (2 CUs) hasta F2048 (2048 CUs), permitiendo a las organizaciones seleccionar la capacidad que mejor se adapte a sus necesidades operativas.
 
-#### Gestión Dinámica de Recursos: Bursting y Smoothing####
+#### Gestión Dinámica de Recursos: Bursting y Smoothing ####
 
 Para optimizar el uso de los recursos y manejar eficientemente las fluctuaciones en la demanda, Microsoft Fabric implementa dos mecanismos clave: **Bursting** y **Smoothing**.
 
@@ -145,7 +146,8 @@ Para recuperar una capacidad que ha entrado en un estado de limitación severa, 
 
 Para monitorizar los consumos y ver el detalle, disponemos de una aplicación, llamada **Microsoft Fabric Capacity Metrics** https://learn.microsoft.com/es-es/fabric/enterprise/metrics-app 
 
-![[Fabric Capacity Metrics.png]]
+![Fabric Capacity Metrics](<imagenes/Fabric Capacity Metrics.png>)
+
 
 ---
 ## **5. Resumen de Capacidades**
@@ -177,15 +179,16 @@ El detalle completo puedes revisarlo en este enlace https://learn.microsoft.com/
 
 Tal y como hemos comentado, para crear una capacidad de Fabric, es necesario crear un recurso de Fabric en una suscripción de Azure. A la hora de crear el recurso, debemos de especificar las propiedades que se muestran en la siguiente imagen:
 
+![Crear Recurso Fabric](<imagenes/Crear Recurso Fabric.png>)
 
-![[Crear Recurso Fabric.png]]
 En la actualidad, Fabric soporte el concepto de multiregión, por lo que no tenemos por qué crear nuestra capacidad en la misma región en la que esté nuestro tenant (que será donde estén los recursos de Power BI y nuestro Onelake) , pero eso puede tener implicaciones de rendimiento, por lo que no es aconsejable. Las capacidades pueden escalar de tamaño en cualquier momento, y podemos agregar más administradores en caso de que lo necesitemos. 
 
 ### 🔹 **Asignar la capacidad al espacio de trabajo**
 
 Una vez que tenemos la capacidad creada, e iniciada, podemos asignar esa capacidad a nuestros espacios de trabajo, tanto en el momento de su creación, como una vez estén creados desde la configuración del espacio de trabajo. Para ello es necesario que el usuario que está configurando el espacio de trabajo, tenga permisos sobre esa capacidad para poder asignarla.
 
-![[Asignar Capacidad.png]]
+![Asignar Capcidad](<imagenes/Asignar Capacidad.png>)
+
 
 Del mismo modo, si tenemos permisos de administración, desde la administración del portal, podemos ver las capacidades que tenemos desplegadas en nuestro tenant, y los permisos que tenemos sobre ellas, así como los espacios de trabajo que están utilizando esas capacidades. 
 
@@ -195,7 +198,8 @@ Tal y como hemos comentado, sino hemos adquirido la capacidad de Fabric con un c
 
 Pausar e iniciar la capacidad es una tarea que debemos de realizar en el portal de Azure, como se muestra en la imagen
 
-![[Pausar capacidad.png]]
+![Pausar Capacidad](<imagenes/Pausar capacidad.png>)
+
 
 No tenemos una forma "directa" de automatizar el pausado e inicio de la capacidad, pero es posible realizarlo de múltiples maneras, con un script a través del API, utilizando Power Automate, o directamente con recursos de Automatización de Azure, dependiendo de con que solución nos encontremos más cómodos.  
 
