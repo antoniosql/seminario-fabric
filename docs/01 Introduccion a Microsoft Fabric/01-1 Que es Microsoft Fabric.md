@@ -6,8 +6,7 @@
 
 Microsoft Fabric es una plataforma **unificada de datos y análisis** que permite a las organizaciones integrar, procesar y analizar datos en un entorno centralizado. Diseñada como una solución **SaaS (Software as a Service)**, Fabric simplifica la gestión de datos eliminando la necesidad de combinar múltiples servicios y herramientas.
 
-![Fabric SaaS](<../../Materiales/Imagenes/Fabric SaaS.png>)
-
+![Fabric SaaS](<imagenes/Fabric SaaS.png>)
 
 Microsoft Fabric ofrece un conjunto de servicios que incluyen:
 
