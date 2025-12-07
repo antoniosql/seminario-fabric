@@ -95,7 +95,7 @@ Una empresa de e-commerce necesita **consolidar datos de ventas desde SQL Server
 2️⃣ **Proceso:** Se utiliza un **Dataflow Gen2** para transformar y consolidar la información.  
 3️⃣ **Destino:** Los datos limpios se almacenan en **un Data Warehouse en Fabric** para reportes en Power BI.
 
-📌 **Beneficio:** Automatización del proceso ETL y reducción del tiempo de consolidación de datos en un **70%**​.
+📌 **Beneficio:** Automatización del proceso ETL y reducción del tiempo de consolidación de datos en un **70%** ​.
 
 ---
 

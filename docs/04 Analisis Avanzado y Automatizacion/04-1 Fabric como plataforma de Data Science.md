@@ -172,7 +172,7 @@ A continuación se describe el flujo típico de un proyecto de Ciencia de Datos 
 
 ---
 
-## **7. Caso Práctico: Implementación de un Proyecto de Predicción de Churn
+## 7. Caso Práctico: Implementación de un Proyecto de Predicción de Churn
 
 Para ilustrar cómo se pueden integrar todas estas capacidades, describiremos brevemente un caso práctico.
 

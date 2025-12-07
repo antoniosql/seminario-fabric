@@ -63,12 +63,14 @@ Pasos para la configuración:
 2. Seleccionar el tipo de instancias de Spark (RAM/CPU).    
 3. Configurar límites de concurrencia y asignación de memoria.    
 4. Asociar el pool a una capacidad de Fabric.    
-![[Configuracion Pools Spark.png]]
+
+![Configuración de Pools Spark](<imagenes/Configuracion Pools Spark.png>)
+
 ### 🔹**Facturación y Administración de Capacidad**
 
 Microsoft Fabric usa un modelo de **cobro por uso**, donde los recursos de Spark consumen **unidades de capacidad (CU)**. Esta es la tabla con los valores predeterminados que tienen los pools de Spark dependiendo de la SKU. 
 
-![[Pools Spark por defecto SKU.png]]
+![Pools Spark por defecto SKU](<imagenes/Pools Spark por defecto SKU.png>)
 
 - **Estrategias de optimización de costes:**    
     - Utilizar pools compartidos para trabajos recurrentes.        
@@ -78,7 +80,7 @@ Microsoft Fabric usa un modelo de **cobro por uso**, donde los recursos de Spark
 
 Para un pool starter, estas son las tareas que se facturan y las que no. En el caso de un pool personalizado, simplemente desaparece el estado "Pool Idle". 
 
-![[Facturacion Pools Spark.png]]
+![Facturación Pools Sparl](<imagenes/Facturacion Pools Spark.png>)
 
 ---
 

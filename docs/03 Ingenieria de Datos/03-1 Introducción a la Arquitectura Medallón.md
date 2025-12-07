@@ -9,7 +9,8 @@ Microsoft Fabric, con **OneLake** como núcleo central, permite la implementaci�
 
 La **Arquitectura Medallón** es un enfoque de gestión de datos en capas que mejora la calidad y accesibilidad de los datos almacenados en un **Data Lake** o **Lakehouse**. En Microsoft Fabric, esta arquitectura se implementa en **OneLake**, permitiendo gestionar la evolución de los datos desde su ingesta hasta su consumo​. Existen diferentes nomenclaturas para denominar a las capas (bronze, silver, gold ; raw, validated, curated,...) en la documentación oficial de Onelake, Microsoft opta por bronze, silver, gold, así que esa utilizaremos durante este curso. 
 
-![[Arquitectura Medallón.png]]
+![Arquitectura Medallón](<imagenes/Arquitectura Medallón.png>)
+
 ### 🔹 **Capas de la Arquitectura Medallón**
 
 #### **Capa Bronze**

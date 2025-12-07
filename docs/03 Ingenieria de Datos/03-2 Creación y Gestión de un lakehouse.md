@@ -69,7 +69,7 @@ Además de poder crear shortcuts a almacenamientos de ficheros en el área **Fil
 Si pensamos en nuestra arquitectura medallón, y en el paso entre capas, los shortcuts nos pueden servir para, por ejemplo, referenciar tablas que no necesitamos modificar en el paso entre capas, evitando así tener que copiar y duplicar esas tablas entre las diferentes capas.  
 
 ---
-## **3. El SQL Analytics Endpoint
+## 3. El SQL Analytics Endpoint
 
 ### 🔹**Consultando con SQL el lakehouse**
 
@@ -168,7 +168,7 @@ La característica de mantenimiento de tablas nos ofrece tres operaciones.
 
 **Direct Lake** es una opción de modo de almacenamiento para las tablas de un modelo semántico de Power BI almacenado en un área de trabajo de Microsoft Fabric. Está optimizado para grandes volúmenes de datos que se pueden cargar rápidamente en la memoria desde tablas Delta, las cuales almacenan sus datos en archivos Parquet en **OneLake**, el repositorio unificado para todos los datos analíticos. Una vez cargados en memoria, el modelo semántico permite consultas de alto rendimiento, eliminando la necesidad de importar datos al modelo, lo que suele ser un proceso lento y costoso.
 
-![[Direct lake.png]]
+![Direct Lake](<imagenes/Direct lake.png>)
 
 - **Carga Rápida de Datos**: Permite la carga eficiente de grandes volúmenes de datos en memoria, facilitando análisis más rápidos.    
 - **Actualizaciones Eficientes**: Las operaciones de actualización analizan los metadatos de las tablas Delta y actualizan el modelo para referenciar los archivos más recientes en OneLake, reduciendo el tiempo y los recursos necesarios en comparación con las actualizaciones tradicionales.    

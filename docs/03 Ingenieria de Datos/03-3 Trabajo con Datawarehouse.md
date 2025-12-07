@@ -92,7 +92,7 @@ La replicación en Fabric ofrece una experiencia altamente integrada, de extremo
 
 Las tablas Delta resultantes pueden utilizarse en todo Fabric, acelerando así tu transición hacia esta plataforma.
 
-### **¿Por qué utilizarla? 
+### ¿Por qué utilizarla? 
 
 
 

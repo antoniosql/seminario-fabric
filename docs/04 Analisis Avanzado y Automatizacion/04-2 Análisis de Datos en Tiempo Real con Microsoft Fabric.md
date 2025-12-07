@@ -68,7 +68,7 @@ Dentro de las arquitecturas de análisis en tiempo real, existen varios modelos 
     - Mayor complejidad en la integración de ambos caminos.
     - Duplicación de lógica de procesamiento.
 
-![[Arquitectura Lambda II.png]]
+![Arquitectura Lambda](<imagenes/Arquitectura Lambda II.png>)
 
 #### **Arquitectura Kappa**
 
@@ -79,7 +79,9 @@ Dentro de las arquitecturas de análisis en tiempo real, existen varios modelos 
     - Permite re-procesar datos históricos utilizando el mismo mecanismo que los datos en vivo.
 - **Desafíos:**
     - Puede requerir sistemas de almacenamiento y procesamiento muy eficientes para manejar tanto datos históricos como en tiempo real.
-![[Arquitectura Kappa.png]]
+
+![Arquitectura Kappa](<imagenes/Arquitectura Kappa.png>)
+
 ### 🔹**Componentes Clave en una Arquitectura de Análisis en Tiempo Real**
 
 Para diseñar una arquitectura de análisis en tiempo real, se deben considerar los siguientes componentes:

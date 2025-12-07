@@ -108,7 +108,8 @@ La copia puede escalarse en diferentes niveles:
     - Puede especificar la optimización de rendimiento inteligente como máximo para cada actividad de copia y sin servidor.
 - Una única actividad de copia lee y escribe en el almacén de datos **mediante varios subprocesos** en paralelo.
 
-![[Actividad Copia Configuracion.png]]
+![Actividad Copia Configuración](<imagenes/Actividad Copia Configuracion.png>)
+
 #### **Copia Paralela**
 
 Podemos establecer el valor de la propiedad "Grado de paralelismo de copia" en la configuración de la actividad.  Esta propiedad se define como el número máximo de subprocesos dentro de la actividad de copia. Los subprocesos operan en paralelo. Estos subprocesos leen desde el origen o escriben en los almacenes de datos de destino.
@@ -135,7 +136,7 @@ Expandir tabla
 #### **Optimización al leer del origen**
 La actividad de copia también tiene configuraciones de optimización en la lectura de datos, que dependen de los orígenes de datos que utilicemos. Si nos fijamos en el caso concreto, por ejemplo de un origen SQL Server, vemos las siguientes opciones:
 
-![[Partición lectura origen SQL pipeline.png]]
+![PArtición lectura origen SQL pipeline](<imagenes/Partición lectura origen SQL pipeline.png>)
 
 Al habilitar la copia con particiones, la actividad de copia ejecuta consultas en paralelo en el origen de SQL Server para cargar los datos por particiones. El grado en paralelo se controla mediante el valor `parallelCopies` de la actividad de copia. Por ejemplo, si establecemos `parallelCopies` en cuatro, el servicio genera y ejecuta al mismo tiempo cuatro consultas de acuerdo con la configuración y la opción de partición que hemos especificado, y cada consulta recupera una porción de datos de SQL Server.
 
@@ -143,7 +144,7 @@ Al habilitar la copia con particiones, la actividad de copia ejecuta consultas e
 
 La actividad de copia, a diferencia del dataflow, no está orientada a aplicar transformaciones, por lo que no tenemos una configuración concreta para la carga incremental. Sin embargo, esto depende de los tipo de origen de datos que manejemos. Por ejemplo, en caso de los ficheros tenemos esta configuración:
 
-![[Filtro modificación ficheros pipelines.png]]
+![Filtro modificación ficheros pipelines](<imagenes/Filtro modificación ficheros pipelines.png>)
 
 Esta opción comprueba la fecha de modificación de los ficheros, y si se encuentra en el intervalo especificado, los lee, y sino, los descarta. 
 
@@ -163,7 +164,8 @@ Los pipelines permiten configurar **flujos de trabajo completamente automatizado
 
 En el caso concreto de los triggers y evento, estos se disparan creando una alerta sobre un eventstream de un Azure Blob Storage. Esta es la única configuración soportada por el momento. 
 
-![[Triggers Pipelines.png]]
+![Triggers Pipelines](<imagenes/Triggers Pipelines.png>)
+
 ### 🔹 **Administración de dependencias en pipelines**
 
 En escenarios donde las tareas deben ejecutarse en orden, es necesario definir **dependencias** entre actividades.
@@ -174,8 +176,9 @@ En escenarios donde las tareas deben ejecutarse en orden, es necesario definir *
 - **Ejecución paralela:** Varias actividades pueden ejecutarse al mismo tiempo para optimizar rendimiento.
 - **Reintentos automáticos:** Si una tarea falla, se pueden configurar intentos adicionales​
 
-Las dependencias entre las actividades del pipeline, se configuran a la hora de conectar las actividades. 
-![[Dependencias de Actividades pipeline.png]]
+Las dependencias entre las actividades del pipeline, se configuran a la hora de conectar las actividades.
+
+![Dependencias de Actividades pipeline](<imagenes/Dependencias de Actividades pipeline.png>)
 
 - Flecha gris, para decidir que actividad ejecutar cuando se omita la ejecución de la actividad actual
 - Verde, para cuando se ejecute correctamente
@@ -188,7 +191,6 @@ Las dependencias entre las actividades del pipeline, se configuran a la hora de 
 2️⃣ Se activa un **Notebook en Spark** para transformar los datos.  
 3️⃣ Se ejecuta una consulta SQL para cargar datos en un **Data Warehouse en Fabric**.  
 4️⃣ **Power BI actualiza automáticamente los dashboards** cuando los datos están listos​
-
 
 
 ---
@@ -236,7 +238,8 @@ En este laboratorio, el objetivo es entender como orquestar realmente las ingest
 7. Compón un mensaje 
 8. Ejecuta el pipeline. Debería de ejecutarse correctamente y llegarte el mensaje a Teams
 
-![[Mensaje Teams pipeline.png]]
+![Mensaje en Teams de pipeline](<imagenes/Mensaje Teams pipeline.png>)
+
 ---
 
 ## **6. Conclusión y Preguntas Clave**

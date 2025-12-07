@@ -23,7 +23,8 @@ Las bases de datos operacionales (OLTP) están diseñadas para manejar transacci
 ✅ **Estructura altamente normalizada** para evitar redundancia. 
 ✅ **Optimización para inserciones y actualizaciones rápidas**.
 
-![[OLTP.png]]
+![OLTP](imagenes/OLTP.png)
+
 #### **Modelado Dimensional para análisis (OLAP)**
 
 El **Modelado Dimensional** se centra en la optimización para el análisis de datos, consolidando información en estructuras de fácil acceso. Sus características son: 
@@ -58,7 +59,7 @@ El **Modelado Dimensional** se centra en la optimización para el análisis de d
 - Adecuado para grandes empresas con múltiples áreas de negocio.
 - Arquitectura centralizada que luego se desglosa en Data Marts.
 
-![[Enfoque Inmon.png]]
+![Enfoque Immon](<imagenes/Enfoque Inmon.png>)
 
 ### 🔹 **Enfoque de Kimball (Bottom-Up)**
 
@@ -66,8 +67,7 @@ El **Modelado Dimensional** se centra en la optimización para el análisis de d
 - Cada Data Mart está optimizado para reportes y análisis rápidos.
 - Se integran gradualmente en una estructura de Data Warehouse.
 
-
-![[Enfoque Kimball.png]]
+![Enfoque Kimball](<imagenes/Enfoque Kimball.png>)
 
 ### 🔹 **Modelo Híbrido**
 
@@ -111,13 +111,14 @@ Representan entidades descriptivas como clientes, productos o fechas. Caracterí
 - La tabla de hechos se relaciona directamente con cada dimensión.
 - **Ventajas**: Rápido para consultas, fácil de entender y usar.
 
-![[Estrella.png]]
+![Esquema en Estrella](imagenes/Estrella.png)
+
 ### 🔹 **Esquema en Copo de Nieve**
 
 - Las dimensiones están normalizadas en múltiples tablas.
 - **Ventajas**: Reducción de redundancia, pero con mayor complejidad de consultas.
 
-![[Copo de Nieve.png]]
+![Copo de nieve](<imagenes/Copo de Nieve.png>)
 
 ---
 ## **6.Patrón SCD (Slowly Changing Dimension)**
@@ -151,10 +152,10 @@ Para dar soporte a este tipo de seguimiento de cambios para las SCD2 , existen v
 Para este ejemplo utilizaremos dos ficheros .csv muy simples, que puedes crearte directamente, y que por agilidad, y para ver alguna opción adicional, alojaremos en SharePoint o Onedrive para así poder modificarlos fácilmente y ver el funcionamiento de este seguimiento de cambios. Adicionalmente a eso, vamos a implementar una arquitectura más compleja, donde crearemos un lakehouse con esos cargados, para posteriormente simular un esquema en estrella en un datawarehouse. 
 Los fichero serían:
 
-![[ventas-csv.png]]
+![ventas-csv](imagenes/ventas-csv.png)
 
 
-![[clientes-csv.png]]
+![clientes-csv](imagenes/clientes-csv.png)
 
 ---
 Puedes acceder a los archivos desde esta ruta si no quieres crearlos [CursoFabric](https://vernedev-my.sharepoint.com/:f:/g/personal/admin_vernedev_onmicrosoft_com/Eq1FfcBjQOxNj4RVsUpB9p0B7LeENsbxdGKcbiEywQsddQ?e=aHajsw)  y así puedes copiarlos directamente en tu Onedrive. 
@@ -187,7 +188,8 @@ CREATE TABLE [fact].[ventas]
 
 - Una vez tenemos el esquema generado, ahora podemos cargar los datos desde el lakehouse, al datawarehouse
 
-![[dataflow SCD2.png]]
+![dataflow SCD2](<imagenes/dataflow SCD2.png>)
+
 Para el resto del laboratorio, seguiremos el patrón que está documentado en este ejemplo: https://learn.microsoft.com/en-us/fabric/data-factory/slowly-changing-dimension-type-two 
 ## **7.Importancia del Modelado Dimensional**
 
