@@ -2,8 +2,6 @@
 
 Bienvenido al curso de Microsoft Fabric.
 
-En el menú  encontrarás todas las unidades teóricas dentro de la carpeta **Materiales**, así como los **Laboratorios** y **Demos** asociados.
-
 ## **📌 Introducción**
 
 Microsoft Fabric es una plataforma **unificada de datos y análisis** que permite gestionar, transformar y analizar datos de forma eficiente. Este curso está diseñado para proporcionar un **enfoque práctico** en la implementación de soluciones avanzadas con **Lakehouse, Data Warehouse, Arquitectura Medallón, Ciencia de Datos y Análisis en Tiempo Real** dentro de Microsoft Fabric.
@@ -41,7 +39,6 @@ Durante el curso, se realizará un recorrido a través de las diferentes caracte
 ### **🟠 Módulo 5: Fabric Databases**
 ✅ **Introducción a Fabric Databases:** Datos relacionales en Microsoft Fabric[[05-1 Fabric Databases]]
 ✅ **Escenarios:** Escenarios de utilización de Fabric Databases[[05-2 Escenarios de Fabric Databases]]
-
 
 ---
 
