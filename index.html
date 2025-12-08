@@ -1,0 +1,1522 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+        <link rel="next" href="01%20Introduccion%20a%20Microsoft%20Fabric/01-1%20Que%20es%20Microsoft%20Fabric/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Curso Introducción a Microsoft Fabric</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#seminario-microsoft-fabric" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="." title="Curso Introducción a Microsoft Fabric" class="md-header__button md-logo" aria-label="Curso Introducción a Microsoft Fabric" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Curso Introducción a Microsoft Fabric
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Seminario Microsoft Fabric
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Seminario Microsoft Fabric
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="01%20Introduccion%20a%20Microsoft%20Fabric/01-1%20Que%20es%20Microsoft%20Fabric/" class="md-tabs__link">
+          
+  
+  
+  01 Introduccion a Microsoft Fabric
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="02%20Carga%20de%20Datos/02-0%20Ingesta%20de%20Datos%20en%20Microsoft%20Fabric/" class="md-tabs__link">
+          
+  
+  
+  02 Carga de Datos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="03%20Ingenieria%20de%20Datos/03-1%20Introducci%C3%B3n%20a%20la%20Arquitectura%20Medall%C3%B3n/" class="md-tabs__link">
+          
+  
+  
+  03 Ingenieria de Datos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="04%20Analisis%20Avanzado%20y%20Automatizacion/04-1%20Fabric%20como%20plataforma%20de%20Data%20Science/" class="md-tabs__link">
+          
+  
+  
+  04 Analisis Avanzado y Automatizacion
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="05%20Fabric%20Databases/05-1%20Fabric%20Databases/" class="md-tabs__link">
+          
+  
+  
+  05 Fabric Databases
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Curso Introducción a Microsoft Fabric" class="md-nav__button md-logo" aria-label="Curso Introducción a Microsoft Fabric" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Curso Introducción a Microsoft Fabric
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Seminario Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Seminario Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#arquitectura-moderna-ia-generativa-y-casos-reales-antonio-soto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitectura moderna, IA generativa y casos reales — Antonio Soto
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agenda-del-curso-21-horas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📅 Agenda del Curso (21 horas)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📅 Agenda del Curso (21 horas)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modulo-1-introduccion-a-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟠 Módulo 1: Introducción a Microsoft Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modulo-2-carga-de-datos-en-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟠 Módulo 2: Carga de Datos en Microsoft Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modulo-3-ingenieria-de-datos-con-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟠 Módulo 3: Ingeniería de Datos con Microsoft Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modulo-4-analisis-avanzado-y-automatizacion-en-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟠 Módulo 4: Análisis Avanzado y Automatización en Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modulo-5-fabric-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟠 Módulo 5: Fabric Databases
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos-del-curso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Objetivos del Curso
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 Introduccion a Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    01 Introduccion a Microsoft Fabric
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01%20Introduccion%20a%20Microsoft%20Fabric/01-1%20Que%20es%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ¿Qué es Microsoft Fabric?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01%20Introduccion%20a%20Microsoft%20Fabric/01-2%20El%20Concepto%20de%20Onelake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 2 El Concepto de Onelake
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01%20Introduccion%20a%20Microsoft%20Fabric/01-3%20Escenarios%20End-to-End%20en%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 3 Escenarios End to End en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 Carga de Datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    02 Carga de Datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02%20Carga%20de%20Datos/02-0%20Ingesta%20de%20Datos%20en%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ingesta de Datos en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02%20Carga%20de%20Datos/02-1%20ELT%20con%20flujos%20de%20datos%20de%20Gen2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ELT con flujos de Generación 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02%20Carga%20de%20Datos/02-2%20Orquestando%20Cargas%20con%20Pipelines%20de%20Data%20Factory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    **Orquestando Cargas con Pipelines de Data Factory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02%20Carga%20de%20Datos/02-3%20Modelado%20Dimensional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelado Dimensional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02%20Carga%20de%20Datos/02-4%20Desarrollo%20con%20Apache%20Spark/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desarrollo con Apache Spark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02%20Carga%20de%20Datos/02-5%20Guia%20de%20Decisi%C3%B3n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    **Guía de decisión entre Actividad de Copia de un Pipeline, Dataflow Gen2 y Apache Spark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 Ingenieria de Datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    03 Ingenieria de Datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="03%20Ingenieria%20de%20Datos/03-1%20Introducci%C3%B3n%20a%20la%20Arquitectura%20Medall%C3%B3n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción a la Arquitectura Medallón
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="03%20Ingenieria%20de%20Datos/03-2%20Creaci%C3%B3n%20y%20Gesti%C3%B3n%20de%20un%20lakehouse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 2 Creación y Gestión de un lakehouse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="03%20Ingenieria%20de%20Datos/03-3%20Trabajo%20con%20Datawarehouse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trabajando con Datawarehouse en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 Analisis Avanzado y Automatizacion
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    04 Analisis Avanzado y Automatizacion
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="04%20Analisis%20Avanzado%20y%20Automatizacion/04-1%20Fabric%20como%20plataforma%20de%20Data%20Science/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-01 Microsoft Fabric como plataforma de Ciencia de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="04%20Analisis%20Avanzado%20y%20Automatizacion/04-2%20An%C3%A1lisis%20de%20Datos%20en%20Tiempo%20Real%20con%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-02Analítica en Tiempo Real en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="04%20Analisis%20Avanzado%20y%20Automatizacion/04-3%20Introducci%C3%B3n%20a%20Data%20Activator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-03 Introducción a Data Activator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    05 Fabric Databases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="05%20Fabric%20Databases/05-1%20Fabric%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="05%20Fabric%20Databases/05-2%20Escenarios%20de%20Fabric%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escenarios de uso de Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#arquitectura-moderna-ia-generativa-y-casos-reales-antonio-soto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitectura moderna, IA generativa y casos reales — Antonio Soto
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agenda-del-curso-21-horas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📅 Agenda del Curso (21 horas)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📅 Agenda del Curso (21 horas)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modulo-1-introduccion-a-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟠 Módulo 1: Introducción a Microsoft Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modulo-2-carga-de-datos-en-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟠 Módulo 2: Carga de Datos en Microsoft Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modulo-3-ingenieria-de-datos-con-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟠 Módulo 3: Ingeniería de Datos con Microsoft Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modulo-4-analisis-avanzado-y-automatizacion-en-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟠 Módulo 4: Análisis Avanzado y Automatización en Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modulo-5-fabric-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟠 Módulo 5: Fabric Databases
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos-del-curso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Objetivos del Curso
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="seminario-microsoft-fabric">Seminario Microsoft Fabric<a class="headerlink" href="#seminario-microsoft-fabric" title="Permanent link">&para;</a></h1>
+<h2 id="arquitectura-moderna-ia-generativa-y-casos-reales-antonio-soto">Arquitectura moderna, IA generativa y casos reales — Antonio Soto<a class="headerlink" href="#arquitectura-moderna-ia-generativa-y-casos-reales-antonio-soto" title="Permanent link">&para;</a></h2>
+<p>En este seminario aprenderás cómo aplicar Microsoft Fabric para construir arquitecturas reales de datos y cómo integrar IA generativa y agentes. Incluye ejemplos, casos de uso y mejores prácticas.</p>
+<h2 id="introduccion"><strong>📌 Introducción</strong><a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h2>
+<p>Microsoft Fabric es una plataforma <strong>unificada de datos y análisis</strong> que permite gestionar, transformar y analizar datos de forma eficiente. Este curso está diseñado para proporcionar un <strong>enfoque práctico</strong> en la implementación de soluciones avanzadas con <strong>Lakehouse, Data Warehouse, Arquitectura Medallón, Ciencia de Datos y Análisis en Tiempo Real</strong> dentro de Microsoft Fabric.</p>
+<p>Durante el curso, se realizará un recorrido a través de las diferentes características y funcionalidades que nos proporcionar Microsoft Fabric. </p>
+<hr />
+<h2 id="agenda-del-curso-21-horas"><strong>📅 Agenda del Curso (21 horas)</strong><a class="headerlink" href="#agenda-del-curso-21-horas" title="Permanent link">&para;</a></h2>
+<h3 id="modulo-1-introduccion-a-microsoft-fabric"><strong>🟠 Módulo 1: Introducción a Microsoft Fabric</strong><a class="headerlink" href="#modulo-1-introduccion-a-microsoft-fabric" title="Permanent link">&para;</a></h3>
+<p>✅ <strong>¿Qué es Microsoft Fabric?</strong> Diferencias con Power BI e integración con otras herramientas. <a href="01%20Introduccion%20a%20Microsoft%20Fabric/01-1%20Que%20es%20Microsoft%20Fabric/">Que es Microsoft Fabric</a> </p>
+<p>✅ <strong>El Concepto de OneLake:</strong> Arquitectura y ventajas de un Data Lake unificado.  <a href="01%20Introduccion%20a%20Microsoft%20Fabric/01-2%20El%20Concepto%20de%20Onelake/">El Concepto de Onelake</a></p>
+<p>✅ <strong>Escenarios End to End:</strong> Implementación de cargas ETL, almacenamiento y análisis.<a href="01%20Introduccion%20a%20Microsoft%20Fabric/01-3%20Escenarios%20End-to-End%20en%20Microsoft%20Fabric/">Escenarios End-to-End en Microsoft Fabric</a></p>
+<h3 id="modulo-2-carga-de-datos-en-microsoft-fabric"><strong>🟠 Módulo 2: Carga de Datos en Microsoft Fabric</strong><a class="headerlink" href="#modulo-2-carga-de-datos-en-microsoft-fabric" title="Permanent link">&para;</a></h3>
+<p>✅ <strong>ETL con Flujos de Datos de Gen2:</strong> Creación, transformación y optimización de datos.  <a href="02%20Carga%20de%20Datos/02-0%20Ingesta%20de%20Datos%20en%20Microsoft%20Fabric/">ELT con flujos de datos de Gen2</a></p>
+<p>✅ <strong>Orquestación con Pipelines de Data Factory:</strong> Automatización de cargas y dependencias. <a href="02%20Carga%20de%20Datos/02-2%20Orquestando%20Cargas%20con%20Pipelines%20de%20Data%20Factory/">Orquestando Cargas con Pipelines de Data Factory</a> </p>
+<p>✅ <strong>Desarrollo con Apache Spark:</strong> Uso de Notebooks y PySpark para Ingeniería de Datos.<a href="02%20Carga%20de%20Datos/02-4%20Desarrollo%20con%20Apache%20Spark/">Desarrollo con Apache Spark</a></p>
+<h3 id="modulo-3-ingenieria-de-datos-con-microsoft-fabric"><strong>🟠 Módulo 3: Ingeniería de Datos con Microsoft Fabric</strong><a class="headerlink" href="#modulo-3-ingenieria-de-datos-con-microsoft-fabric" title="Permanent link">&para;</a></h3>
+<p>✅ <strong>Arquitectura Medallón:</strong> Implementación de un modelo Bronce-Plata-Oro en Fabric. <a href="03%20Ingenieria%20de%20Datos/03-1%20Introducci%C3%B3n%20a%20la%20Arquitectura%20Medall%C3%B3n/">Introducción a la Arquitectura Medallón</a> </p>
+<p>✅ <strong>Lakehouse en Fabric:</strong> Creación y gestión de un Lakehouse, almacenamiento y consultas SQL. <a href="03%20Ingenieria%20de%20Datos/03-2%20Creaci%C3%B3n%20y%20Gesti%C3%B3n%20de%20un%20lakehouse/">Creación y Gestión de un lakehouse</a> </p>
+<p>✅ <strong>Data Warehouses en Fabric:</strong> Optimización de modelos de datos para análisis eficientes.<a href="03%20Ingenieria%20de%20Datos/03-3%20Trabajo%20con%20Datawarehouse/">Trabajo con Datawarehouse</a></p>
+<h3 id="modulo-4-analisis-avanzado-y-automatizacion-en-fabric"><strong>🟠 Módulo 4: Análisis Avanzado y Automatización en Fabric</strong><a class="headerlink" href="#modulo-4-analisis-avanzado-y-automatizacion-en-fabric" title="Permanent link">&para;</a></h3>
+<p>✅ <strong>Plataforma para Ciencia de Datos:</strong> Fabric como plataforma para el desarrollo de proyectos de Ciencia de Datos. <a href="04%20Analisis%20Avanzado%20y%20Automatizacion/04-1%20Fabric%20como%20plataforma%20de%20Data%20Science/">Fabric como plataforma de Data Science</a> </p>
+<p>✅ <strong>Análisis en Tiempo Real:</strong> Analítica de datos en streaming y KQL. <a href="04%20Analisis%20Avanzado%20y%20Automatizacion/04-2%20An%C3%A1lisis%20de%20Datos%20en%20Tiempo%20Real%20con%20Microsoft%20Fabric/">Análisis de Datos en Tiempo Real con Microsoft Fabric</a> </p>
+<p>✅ <strong>Data Activator:</strong> Automatización de procesos basada en eventos e integración con Power Automate.<a href="04%20Analisis%20Avanzado%20y%20Automatizacion/04-3%20Introducci%C3%B3n%20a%20Data%20Activator/">Introducción a Data Activator</a></p>
+<h3 id="modulo-5-fabric-databases"><strong>🟠 Módulo 5: Fabric Databases</strong><a class="headerlink" href="#modulo-5-fabric-databases" title="Permanent link">&para;</a></h3>
+<p>✅ <strong>Introducción a Fabric Databases:</strong> Datos relacionales en Microsoft Fabric <a href="05%20Fabric%20Databases/05-1%20Fabric%20Databases/">Fabric Databases</a></p>
+<p>✅ <strong>Escenarios:</strong> Escenarios de utilización de Fabric Databases <a href="05%20Fabric%20Databases/05-2%20Escenarios%20de%20Fabric%20Databases/">Escenarios de Fabric Databases</a></p>
+<hr />
+<h2 id="objetivos-del-curso"><strong>🎯 Objetivos del Curso</strong><a class="headerlink" href="#objetivos-del-curso" title="Permanent link">&para;</a></h2>
+<p>🔹 Comprender la arquitectura y funcionalidades de <strong>Microsoft Fabric</strong>.<br />
+🔹 Implementar <strong>ETL con Dataflows Gen2 y Pipelines de Data Factory</strong>.<br />
+🔹 Construir soluciones de datos usando <strong>Arquitectura Medallón, Lakehouse y Data Warehouse</strong>.<br />
+🔹 Aplicar <strong>ciencia de datos con PySpark ** en Fabric.<br />
+🔹 Analizar datos en </strong>tiempo real con EventStream y Power BI<strong>.<br />
+🔹 Automatizar procesos con </strong>Data Activator e integración con Power Automate**.</p>
+<p>Este curso es ideal para <strong>ingenieros de datos, analistas y científicos de datos</strong> que desean aprender a <strong>gestionar, transformar y analizar datos en Fabric</strong> de manera eficiente. 🚀</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.expand", "navigation.sections", "navigation.tabs", "search.highlight", "search.suggest"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2104 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../04-1%20Fabric%20como%20plataforma%20de%20Data%20Science/">
+      
+      
+        <link rel="next" href="../04-3%20Introducci%C3%B3n%20a%20Data%20Activator/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>04-02Analítica en Tiempo Real en Microsoft Fabric - Curso Introducción a Microsoft Fabric</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#04-02analitica-en-tiempo-real-en-microsoft-fabric" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Curso Introducción a Microsoft Fabric" class="md-header__button md-logo" aria-label="Curso Introducción a Microsoft Fabric" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Curso Introducción a Microsoft Fabric
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              04-02Analítica en Tiempo Real en Microsoft Fabric
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Seminario Microsoft Fabric
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-1%20Que%20es%20Microsoft%20Fabric/" class="md-tabs__link">
+          
+  
+  
+  01 Introduccion a Microsoft Fabric
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../02%20Carga%20de%20Datos/02-0%20Ingesta%20de%20Datos%20en%20Microsoft%20Fabric/" class="md-tabs__link">
+          
+  
+  
+  02 Carga de Datos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../03%20Ingenieria%20de%20Datos/03-1%20Introducci%C3%B3n%20a%20la%20Arquitectura%20Medall%C3%B3n/" class="md-tabs__link">
+          
+  
+  
+  03 Ingenieria de Datos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../04-1%20Fabric%20como%20plataforma%20de%20Data%20Science/" class="md-tabs__link">
+          
+  
+  
+  04 Analisis Avanzado y Automatizacion
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../05%20Fabric%20Databases/05-1%20Fabric%20Databases/" class="md-tabs__link">
+          
+  
+  
+  05 Fabric Databases
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Curso Introducción a Microsoft Fabric" class="md-nav__button md-logo" aria-label="Curso Introducción a Microsoft Fabric" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Curso Introducción a Microsoft Fabric
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Seminario Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 Introduccion a Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    01 Introduccion a Microsoft Fabric
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-1%20Que%20es%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ¿Qué es Microsoft Fabric?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-2%20El%20Concepto%20de%20Onelake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 2 El Concepto de Onelake
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-3%20Escenarios%20End-to-End%20en%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 3 Escenarios End to End en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 Carga de Datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    02 Carga de Datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-0%20Ingesta%20de%20Datos%20en%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ingesta de Datos en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-1%20ELT%20con%20flujos%20de%20datos%20de%20Gen2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ELT con flujos de Generación 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-2%20Orquestando%20Cargas%20con%20Pipelines%20de%20Data%20Factory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    **Orquestando Cargas con Pipelines de Data Factory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-3%20Modelado%20Dimensional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelado Dimensional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-4%20Desarrollo%20con%20Apache%20Spark/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desarrollo con Apache Spark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-5%20Guia%20de%20Decisi%C3%B3n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    **Guía de decisión entre Actividad de Copia de un Pipeline, Dataflow Gen2 y Apache Spark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 Ingenieria de Datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    03 Ingenieria de Datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Ingenieria%20de%20Datos/03-1%20Introducci%C3%B3n%20a%20la%20Arquitectura%20Medall%C3%B3n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción a la Arquitectura Medallón
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Ingenieria%20de%20Datos/03-2%20Creaci%C3%B3n%20y%20Gesti%C3%B3n%20de%20un%20lakehouse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 2 Creación y Gestión de un lakehouse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Ingenieria%20de%20Datos/03-3%20Trabajo%20con%20Datawarehouse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trabajando con Datawarehouse en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 Analisis Avanzado y Automatizacion
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    04 Analisis Avanzado y Automatizacion
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-1%20Fabric%20como%20plataforma%20de%20Data%20Science/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-01 Microsoft Fabric como plataforma de Ciencia de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-02Analítica en Tiempo Real en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-02Analítica en Tiempo Real en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduccion-a-la-analitica-en-tiempo-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción a la Analítica en Tiempo Real
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Introducción a la Analítica en Tiempo Real">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es-la-analitica-en-tiempo-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Qué es la Analítica en Tiempo Real?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contexto-y-necesidad-en-la-era-digital" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Contexto y Necesidad en la Era Digital
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-arquitecturas-para-la-analitica-en-tiempo-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Arquitecturas para la Analítica en Tiempo Real
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Arquitecturas para la Analítica en Tiempo Real">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diferencia-entre-arquitectura-tradicional-y-arquitectura-en-tiempo-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Diferencia entre Arquitectura Tradicional y Arquitectura en Tiempo Real
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modelos-arquitectonicos-para-procesamiento-en-tiempo-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Modelos Arquitectónicos para Procesamiento en Tiempo Real
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔹Modelos Arquitectónicos para Procesamiento en Tiempo Real">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arquitectura-lambda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitectura Lambda
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arquitectura-kappa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitectura Kappa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#componentes-clave-en-una-arquitectura-de-analisis-en-tiempo-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Componentes Clave en una Arquitectura de Análisis en Tiempo Real
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-la-arquitectura-de-analitica-en-tiempo-real-en-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. La Arquitectura de Analítica en Tiempo Real en Microsoft Fabric
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. La Arquitectura de Analítica en Tiempo Real en Microsoft Fabric">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#microsoft-fabric-una-plataforma-unificada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Microsoft Fabric: Una Plataforma Unificada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#componentes-de-analitica-en-tiempo-real-en-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Componentes de Analítica en Tiempo Real en Fabric
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔹Componentes de Analítica en Tiempo Real en Fabric">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#eventstream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EventStream
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eventhouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EventHouse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-time-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-Time Hub
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dashboards-en-tiempo-real-y-power-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dashboards en Tiempo Real y Power BI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kql-kusto-query-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KQL (Kusto Query Language)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integracion-y-flujo-de-datos-en-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Integración y Flujo de Datos en Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-conclusiones-y-perspectivas-futuras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Conclusiones y Perspectivas Futuras
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Conclusiones y Perspectivas Futuras">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resumen-de-lo-aprendido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Resumen de lo Aprendido
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reflexiones-finales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Reflexiones Finales
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-3%20Introducci%C3%B3n%20a%20Data%20Activator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-03 Introducción a Data Activator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    05 Fabric Databases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20Fabric%20Databases/05-1%20Fabric%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20Fabric%20Databases/05-2%20Escenarios%20de%20Fabric%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escenarios de uso de Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduccion-a-la-analitica-en-tiempo-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción a la Analítica en Tiempo Real
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Introducción a la Analítica en Tiempo Real">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es-la-analitica-en-tiempo-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Qué es la Analítica en Tiempo Real?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contexto-y-necesidad-en-la-era-digital" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Contexto y Necesidad en la Era Digital
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-arquitecturas-para-la-analitica-en-tiempo-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Arquitecturas para la Analítica en Tiempo Real
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Arquitecturas para la Analítica en Tiempo Real">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diferencia-entre-arquitectura-tradicional-y-arquitectura-en-tiempo-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Diferencia entre Arquitectura Tradicional y Arquitectura en Tiempo Real
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modelos-arquitectonicos-para-procesamiento-en-tiempo-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Modelos Arquitectónicos para Procesamiento en Tiempo Real
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔹Modelos Arquitectónicos para Procesamiento en Tiempo Real">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arquitectura-lambda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitectura Lambda
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arquitectura-kappa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitectura Kappa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#componentes-clave-en-una-arquitectura-de-analisis-en-tiempo-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Componentes Clave en una Arquitectura de Análisis en Tiempo Real
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-la-arquitectura-de-analitica-en-tiempo-real-en-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. La Arquitectura de Analítica en Tiempo Real en Microsoft Fabric
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. La Arquitectura de Analítica en Tiempo Real en Microsoft Fabric">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#microsoft-fabric-una-plataforma-unificada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Microsoft Fabric: Una Plataforma Unificada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#componentes-de-analitica-en-tiempo-real-en-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Componentes de Analítica en Tiempo Real en Fabric
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔹Componentes de Analítica en Tiempo Real en Fabric">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#eventstream" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EventStream
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eventhouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EventHouse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-time-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-Time Hub
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dashboards-en-tiempo-real-y-power-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dashboards en Tiempo Real y Power BI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kql-kusto-query-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KQL (Kusto Query Language)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integracion-y-flujo-de-datos-en-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Integración y Flujo de Datos en Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-conclusiones-y-perspectivas-futuras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Conclusiones y Perspectivas Futuras
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Conclusiones y Perspectivas Futuras">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resumen-de-lo-aprendido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Resumen de lo Aprendido
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reflexiones-finales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Reflexiones Finales
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="04-02analitica-en-tiempo-real-en-microsoft-fabric"><strong>04-02Analítica en Tiempo Real en Microsoft Fabric</strong><a class="headerlink" href="#04-02analitica-en-tiempo-real-en-microsoft-fabric" title="Permanent link">&para;</a></h1>
+<h2 id="1-introduccion-a-la-analitica-en-tiempo-real"><strong>1. Introducción a la Analítica en Tiempo Real</strong><a class="headerlink" href="#1-introduccion-a-la-analitica-en-tiempo-real" title="Permanent link">&para;</a></h2>
+<h3 id="que-es-la-analitica-en-tiempo-real">🔹<strong>Qué es la Analítica en Tiempo Real?</strong><a class="headerlink" href="#que-es-la-analitica-en-tiempo-real" title="Permanent link">&para;</a></h3>
+<p>La <strong>analítica en tiempo real</strong> se refiere a la capacidad de procesar, analizar y visualizar datos a medida que se generan o se reciben, sin la necesidad de esperar a que se completen procesos batch o se acumulen grandes volúmenes de datos. Esto permite a las organizaciones obtener insights instantáneos, reaccionar de inmediato ante eventos y tomar decisiones fundamentadas en información actualizada al instante.</p>
+<ul>
+<li><strong>Definición:</strong><br />
+    Es el proceso de transformar datos en movimiento en información accionable en el mismo instante en que se producen los eventos.</li>
+<li><strong>Importancia:</strong><br />
+    En un mundo cada vez más competitivo y dinámico, la velocidad en la toma de decisiones es clave. La analítica en tiempo real ayuda a:<ul>
+<li>Detectar y responder rápidamente a incidencias.</li>
+<li>Optimizar procesos operativos.</li>
+<li>Mejorar la experiencia del cliente mediante respuestas inmediatas.</li>
+</ul>
+</li>
+<li><strong>Ejemplos comunes:</strong><ul>
+<li>Monitorización de transacciones financieras para detectar fraudes.</li>
+<li>Seguimiento de flotas de vehículos en tiempo real en el sector logístico.</li>
+<li>Gestión de inventario en retail y supervisión de procesos en manufactura.</li>
+</ul>
+</li>
+</ul>
+<h3 id="contexto-y-necesidad-en-la-era-digital">🔹<strong>Contexto y Necesidad en la Era Digital</strong><a class="headerlink" href="#contexto-y-necesidad-en-la-era-digital" title="Permanent link">&para;</a></h3>
+<p>El auge de tecnologías como IoT, la creciente cantidad de dispositivos conectados y el aumento exponencial de datos generan la necesidad de poder analizar y actuar sobre estos datos en tiempo real.</p>
+<ul>
+<li><strong>Big Data e IoT:</strong><br />
+    La proliferación de dispositivos IoT y sensores en entornos industriales, urbanos y de consumo genera grandes volúmenes de datos. Analizar estos datos en el instante en que se producen es esencial para obtener ventajas competitivas.</li>
+<li><strong>Toma de Decisiones Inmediata:</strong><br />
+    En sectores como finanzas, salud, retail y manufactura, una decisión retrasada puede representar pérdidas económicas o impactos negativos en la seguridad y satisfacción del cliente.</li>
+<li><strong>Beneficios de la Inmediatez:</strong><ul>
+<li><strong>Mejora en la eficiencia operativa:</strong> Identificación temprana de cuellos de botella y problemas en procesos críticos.</li>
+<li><strong>Optimización de recursos:</strong> Ajuste dinámico de operaciones y asignación de recursos en función de la demanda instantánea.</li>
+<li><strong>Experiencias personalizadas:</strong> Capacidad para interactuar con clientes en el momento preciso, brindando ofertas o soluciones personalizadas.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="2-arquitecturas-para-la-analitica-en-tiempo-real"><strong>2. Arquitecturas para la Analítica en Tiempo Real</strong><a class="headerlink" href="#2-arquitecturas-para-la-analitica-en-tiempo-real" title="Permanent link">&para;</a></h2>
+<h3 id="diferencia-entre-arquitectura-tradicional-y-arquitectura-en-tiempo-real">🔹<strong>Diferencia entre Arquitectura Tradicional y Arquitectura en Tiempo Real</strong><a class="headerlink" href="#diferencia-entre-arquitectura-tradicional-y-arquitectura-en-tiempo-real" title="Permanent link">&para;</a></h3>
+<p>Las arquitecturas tradicionales de análisis de datos suelen basarse en procesos batch (por lotes), donde los datos se recopilan, se almacenan y se procesan en períodos determinados (diarios, semanales, etc.). Este enfoque es adecuado para análisis históricos y reportes periódicos, pero resulta insuficiente para escenarios donde la inmediatez es clave.</p>
+<p>En contraste, la <strong>arquitectura en tiempo real</strong> está diseñada para manejar datos de forma continua y ofrecer respuestas inmediatas. Algunas diferencias principales son:</p>
+<ul>
+<li><strong>Retraso en la actualización:</strong><ul>
+<li><em>Batch:</em> Puede haber horas o días de retraso en la actualización de los datos.</li>
+<li><em>Tiempo Real:</em> Los datos se actualizan en segundos o milisegundos.</li>
+</ul>
+</li>
+<li><strong>Tipo de procesamiento:</strong><ul>
+<li><em>Batch:</em> Procesamiento por lotes, ideal para grandes volúmenes de datos históricos.</li>
+<li><em>Tiempo Real:</em> Procesamiento de streams o flujos continuos de datos, permitiendo un análisis instantáneo.</li>
+</ul>
+</li>
+<li><strong>Casos de uso:</strong><ul>
+<li><em>Batch:</em> Reportes periódicos, análisis histórico.</li>
+<li><em>Tiempo Real:</em> Monitorización de sistemas, detección de fraudes, análisis de tendencias inmediatas.</li>
+</ul>
+</li>
+</ul>
+<h3 id="modelos-arquitectonicos-para-procesamiento-en-tiempo-real">🔹<strong>Modelos Arquitectónicos para Procesamiento en Tiempo Real</strong><a class="headerlink" href="#modelos-arquitectonicos-para-procesamiento-en-tiempo-real" title="Permanent link">&para;</a></h3>
+<p>Dentro de las arquitecturas de análisis en tiempo real, existen varios modelos que permiten organizar y estructurar el procesamiento de datos en movimiento. Dos de los enfoques más comunes son:</p>
+<h4 id="arquitectura-lambda"><strong>Arquitectura Lambda</strong><a class="headerlink" href="#arquitectura-lambda" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Concepto:</strong><br />
+    La arquitectura Lambda combina dos caminos de procesamiento:<ul>
+<li><strong>Batch Layer:</strong> Procesa grandes volúmenes de datos en intervalos regulares para generar vistas históricas.</li>
+<li><strong>Speed Layer (o Real-Time Layer):</strong> Procesa datos en tiempo real para ofrecer resultados inmediatos.</li>
+</ul>
+</li>
+<li><strong>Ventajas:</strong><ul>
+<li>Permite tener tanto análisis históricos como en tiempo real.</li>
+<li>Asegura la exactitud al combinar resultados batch con resultados instantáneos.</li>
+</ul>
+</li>
+<li><strong>Desafíos:</strong><ul>
+<li>Mayor complejidad en la integración de ambos caminos.</li>
+<li>Duplicación de lógica de procesamiento.</li>
+</ul>
+</li>
+</ul>
+<p><img alt="Arquitectura Lambda" src="../imagenes/Arquitectura%20Lambda%20II.png" /></p>
+<h4 id="arquitectura-kappa"><strong>Arquitectura Kappa</strong><a class="headerlink" href="#arquitectura-kappa" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Concepto:</strong><br />
+    La arquitectura Kappa propone un único camino para el procesamiento de datos: todo se procesa como un flujo de datos en tiempo real.</li>
+<li><strong>Ventajas:</strong><ul>
+<li>Simplifica la arquitectura al eliminar la necesidad de mantener dos sistemas paralelos.</li>
+<li>Permite re-procesar datos históricos utilizando el mismo mecanismo que los datos en vivo.</li>
+</ul>
+</li>
+<li><strong>Desafíos:</strong><ul>
+<li>Puede requerir sistemas de almacenamiento y procesamiento muy eficientes para manejar tanto datos históricos como en tiempo real.</li>
+</ul>
+</li>
+</ul>
+<p><img alt="Arquitectura Kappa" src="../imagenes/Arquitectura%20Kappa.png" /></p>
+<h3 id="componentes-clave-en-una-arquitectura-de-analisis-en-tiempo-real">🔹<strong>Componentes Clave en una Arquitectura de Análisis en Tiempo Real</strong><a class="headerlink" href="#componentes-clave-en-una-arquitectura-de-analisis-en-tiempo-real" title="Permanent link">&para;</a></h3>
+<p>Para diseñar una arquitectura de análisis en tiempo real, se deben considerar los siguientes componentes:</p>
+<ul>
+<li>
+<p><strong>Ingesta de Datos:</strong><br />
+    Herramientas y mecanismos que permiten capturar datos en movimiento desde diversas fuentes (sensores, logs, aplicaciones, etc.). Ejemplos: Apache Kafka, Event Hubs.</p>
+</li>
+<li>
+<p><strong>Procesamiento en Streaming:</strong><br />
+    Motores que procesan los datos conforme llegan, permitiendo realizar transformaciones, filtrados y agregaciones en tiempo real. Ejemplos: Apache Spark Streaming, Flink.</p>
+</li>
+<li>
+<p><strong>Almacenamiento en Tiempo Real:</strong><br />
+    Bases de datos o almacenes de datos diseñados para almacenar grandes volúmenes de datos de manera eficiente y con baja latencia. Ejemplos: bases de datos NoSQL, almacenes de datos en memoria.</p>
+</li>
+<li>
+<p><strong>Visualización y Dashboards:</strong><br />
+    Herramientas de BI que permiten crear dashboards en tiempo real para monitorizar los datos. Ejemplos: Power BI, Tableau.</p>
+</li>
+<li>
+<p><strong>Consultas y Análisis:</strong><br />
+    Lenguajes y herramientas de consulta (como KQL – Kusto Query Language) que permiten analizar rápidamente la información.</p>
+</li>
+<li>
+<p><strong>Integración y Orquestación:</strong><br />
+    Sistemas que permiten coordinar y conectar todos los componentes anteriores, asegurando un flujo continuo de datos desde la fuente hasta la visualización.</p>
+</li>
+</ul>
+<hr />
+<h2 id="3-la-arquitectura-de-analitica-en-tiempo-real-en-microsoft-fabric"><strong>3. La Arquitectura de Analítica en Tiempo Real en Microsoft Fabric</strong><a class="headerlink" href="#3-la-arquitectura-de-analitica-en-tiempo-real-en-microsoft-fabric" title="Permanent link">&para;</a></h2>
+<p>Microsoft Fabric ha sido diseñado para unificar diversas cargas de trabajo de análisis de datos en una única plataforma SaaS. En el contexto de la analítica en tiempo real, Fabric ofrece una serie de componentes y funcionalidades que simplifican la ingesta, el procesamiento y la visualización de datos en movimiento.</p>
+<h3 id="microsoft-fabric-una-plataforma-unificada">🔹<strong>Microsoft Fabric: Una Plataforma Unificada</strong><a class="headerlink" href="#microsoft-fabric-una-plataforma-unificada" title="Permanent link">&para;</a></h3>
+<p>Microsoft Fabric integra múltiples experiencias de análisis de datos, como Data Engineering, Data Warehouse, Data Science, y Real-Time Intelligence, dentro de una única solución basada en la nube. Algunas de sus ventajas son:</p>
+<ul>
+<li><strong>Integración Nativa:</strong><br />
+    No es necesario combinar soluciones de diferentes proveedores, ya que Fabric integra de manera nativa los procesos de ingesta, transformación y visualización.</li>
+<li><strong>Unificación de Datos:</strong><br />
+    Todos los datos, ya sean estructurados, semiestructurados o en texto, se almacenan en un único repositorio centralizado llamado <strong>OneLake</strong>, lo que elimina los silos y facilita la colaboración.</li>
+<li><strong>Simplicidad y Escalabilidad:</strong><br />
+    Fabric simplifica la complejidad inherente a la gestión de infraestructura, permitiendo que los usuarios se concentren en el análisis y la toma de decisiones.</li>
+</ul>
+<hr />
+<h3 id="componentes-de-analitica-en-tiempo-real-en-fabric">🔹<strong>Componentes de Analítica en Tiempo Real en Fabric</strong><a class="headerlink" href="#componentes-de-analitica-en-tiempo-real-en-fabric" title="Permanent link">&para;</a></h3>
+<p>Dentro de Microsoft Fabric, la analítica en tiempo real se compone de varios elementos que trabajan conjuntamente para transformar datos en movimiento en insights accionables. A continuación, se describen los componentes clave:</p>
+<h4 id="eventstream"><strong>EventStream</strong><a class="headerlink" href="#eventstream" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Descripción:</strong><br />
+    Es el componente encargado de gestionar la ingesta de datos en streaming. Permite capturar eventos de diversas fuentes y llevarlos al sistema de análisis.</li>
+<li><strong>Características:</strong><ul>
+<li><strong>Ingesta Automática:</strong> La ingesta de datos en streaming está habilitada por defecto, lo que facilita la integración con orígenes de eventos tanto internos como externos.</li>
+<li><strong>Indexación por Defecto:</strong> Todos los datos ingeridos se indexan automáticamente, permitiendo consultas rápidas y eficientes.</li>
+<li><strong>Particionado de Datos:</strong> Los datos se particionan por tiempo y hash, lo que optimiza el rendimiento de las consultas.</li>
+</ul>
+</li>
+<li><strong>Beneficios:</strong><ul>
+<li><strong>Reducción de la Complejidad:</strong> El manejo automático de la ingesta y el particionado simplifica la arquitectura.</li>
+<li><strong>Escalabilidad:</strong> Capacidad para manejar grandes volúmenes de datos sin degradar el rendimiento.</li>
+</ul>
+</li>
+<li><strong>Emoticono:</strong> ¡Captura cada evento en el momento preciso! 📡</li>
+</ul>
+<h4 id="eventhouse"><strong>EventHouse</strong><a class="headerlink" href="#eventhouse" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Descripción:</strong><br />
+    Aunque el término “eventhouse” puede no ser tan conocido fuera del ecosistema Fabric, en este contexto se refiere al almacenamiento y la gestión lógica de los eventos procesados.</li>
+<li><strong>Características:</strong><ul>
+<li><strong>Almacenamiento Lógico:</strong> Permite organizar y estructurar los eventos para facilitar su análisis.</li>
+<li><strong>Integración con otros Componentes:</strong> Funciona de manera complementaria con EventStream, ofreciendo una copia lógica de los datos para análisis adicionales.</li>
+</ul>
+</li>
+<li><strong>Beneficios:</strong><ul>
+<li><strong>Optimización del Procesamiento:</strong> Facilita la transformación y el filtrado de los datos en tiempo real.</li>
+</ul>
+</li>
+</ul>
+<h4 id="real-time-hub"><strong>Real-Time Hub</strong><a class="headerlink" href="#real-time-hub" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Descripción:</strong><br />
+    Es la interfaz centralizada en Microsoft Fabric para gestionar y consumir datos en tiempo real.</li>
+<li><strong>Características:</strong><ul>
+<li><strong>Integración Completa:</strong> Está integrado con todos los componentes de ingesta y procesamiento, lo que permite a los usuarios descubrir, gestionar y consumir datos en movimiento.</li>
+<li><strong>Mirroring a OneLake:</strong> Los datos procesados en tiempo real pueden replicarse automáticamente en OneLake, facilitando su reutilización en otros escenarios de análisis.</li>
+<li><strong>Transformaciones In-Place:</strong> Permite realizar transformaciones directamente sobre los datos sin necesidad de moverlos a otro repositorio.</li>
+</ul>
+</li>
+<li><strong>Beneficios:</strong><ul>
+<li><strong>Acceso Rápido:</strong> Facilita la consulta inmediata de los datos para generar insights al instante.</li>
+<li><strong>Interoperabilidad:</strong> Los datos del Real-Time Hub pueden ser consumidos por otros componentes de Fabric, como dashboards y herramientas de visualización.</li>
+</ul>
+</li>
+</ul>
+<h4 id="dashboards-en-tiempo-real-y-power-bi"><strong>Dashboards en Tiempo Real y Power BI</strong><a class="headerlink" href="#dashboards-en-tiempo-real-y-power-bi" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Descripción:</strong><br />
+    Microsoft Fabric se integra de forma nativa con Power BI para ofrecer dashboards en tiempo real.</li>
+<li><strong>Características:</strong><ul>
+<li><strong>Visualización Dinámica:</strong> Permite crear reportes y dashboards que se actualizan de forma continua, mostrando información en tiempo real.</li>
+<li><strong>Interactividad:</strong> Los usuarios pueden interactuar con los datos, aplicar filtros y profundizar en los detalles sin necesidad de recargar la página.</li>
+<li><strong>Integración con Orígenes de Eventos:</strong> Gracias a la integración nativa con EventStream y el Real-Time Hub, los dashboards reflejan los datos más recientes.</li>
+</ul>
+</li>
+<li><strong>Beneficios:</strong><ul>
+<li><strong>Decisiones Instantáneas:</strong> Los líderes empresariales pueden tomar decisiones basadas en datos actualizados al minuto.</li>
+<li><strong>Mayor Transparencia:</strong> Facilita el seguimiento de KPIs y métricas críticas en tiempo real.</li>
+</ul>
+</li>
+</ul>
+<h4 id="kql-kusto-query-language"><strong>KQL (Kusto Query Language)</strong><a class="headerlink" href="#kql-kusto-query-language" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Descripción:</strong><br />
+    KQL es un lenguaje de consulta optimizado para el análisis de grandes volúmenes de datos en tiempo real.</li>
+<li><strong>Características:</strong><ul>
+<li><strong>Consultas Rápidas y Eficientes:</strong> Permite realizar búsquedas y análisis complejos con baja latencia.</li>
+<li><strong>Flexibilidad:</strong> Soporta consultas sobre datos estructurados, semiestructurados y en texto.</li>
+<li><strong>Integración Nativa:</strong> Se integra de forma natural con los datos almacenados en el Real-Time Hub y OneLake.</li>
+</ul>
+</li>
+<li><strong>Beneficios:</strong><ul>
+<li><strong>Profundidad Analítica:</strong> Los usuarios pueden extraer insights complejos y detallados de los datos en tiempo real.</li>
+<li><strong>Interactividad:</strong> Facilita la creación de análisis ad hoc que pueden ajustar las respuestas según las necesidades inmediatas.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="integracion-y-flujo-de-datos-en-fabric">🔹<strong>Integración y Flujo de Datos en Fabric</strong><a class="headerlink" href="#integracion-y-flujo-de-datos-en-fabric" title="Permanent link">&para;</a></h3>
+<p>En Microsoft Fabric, el flujo de datos para la analítica en tiempo real se puede resumir en los siguientes pasos:</p>
+<ol>
+<li>
+<p><strong>Captura de Datos en Tiempo Real:</strong></p>
+<ul>
+<li>Los datos se capturan mediante <strong>EventStream</strong> a partir de diversas fuentes (por ejemplo, dispositivos IoT, logs de aplicaciones, cambios en bases de datos, etc.).</li>
+<li>La ingesta se realiza de forma automática y está optimizada para manejar grandes volúmenes sin intervención manual.</li>
+<li><strong>Emoticono:</strong> ¡Cada dato cuenta desde el primer instante! ⏱️</li>
+<li>
+<p><strong>Procesamiento y Transformación:</strong></p>
+</li>
+<li>
+<p>Una vez capturados, los datos se procesan en streaming. Esto incluye transformaciones in-place, filtrados, agregaciones y particionamiento (por tiempo y hash).</p>
+</li>
+<li>Este procesamiento se lleva a cabo en el <strong>Real-Time Hub</strong>, lo que permite que los datos estén listos para ser consultados casi de inmediato.</li>
+</ul>
+</li>
+<li>
+<p><strong>Almacenamiento y Mirroring:</strong></p>
+<ul>
+<li>Los datos procesados se almacenan lógicamente en el <strong>EventHouse</strong> y, de forma opcional, se replican (mirroring) en <strong>OneLake</strong> para integrarlos con otras cargas de trabajo.</li>
+<li>Este mecanismo de replicación asegura que los datos en tiempo real puedan ser consultados y analizados desde múltiples perspectivas, sin duplicación innecesaria.</li>
+</ul>
+</li>
+<li>
+<p><strong>Consulta y Visualización:</strong></p>
+<ul>
+<li>Mediante KQL y otras herramientas de consulta, los usuarios pueden analizar los datos en tiempo real directamente desde el <strong>Real-Time Hub</strong>.</li>
+<li>Los resultados se pueden visualizar en dashboards interactivos a través de Power BI, permitiendo un seguimiento continuo de KPIs y métricas críticas.</li>
+</ul>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code>graph TD
+    subgraph Fuentes de Datos
+        A[Fuente de Datos 1]
+        B[Fuente de Datos 2]
+        C[Fuente de Datos 3]
+    end
+    A --&gt;|Envía datos| D[EventStream]
+    B --&gt; D
+    C --&gt; D
+    D --&gt;|Procesa datos| E[Real-Time Hub]
+    E --&gt;|Replica datos| F[OneLake]
+    F --&gt;|Visualiza| G[Dashboards Power BI]
+</code></pre></div>
+<hr />
+<h2 id="4-conclusiones-y-perspectivas-futuras"><strong>4. Conclusiones y Perspectivas Futuras</strong><a class="headerlink" href="#4-conclusiones-y-perspectivas-futuras" title="Permanent link">&para;</a></h2>
+<h3 id="resumen-de-lo-aprendido">🔹<strong>Resumen de lo Aprendido</strong><a class="headerlink" href="#resumen-de-lo-aprendido" title="Permanent link">&para;</a></h3>
+<p>En este material hemos explorado en profundidad la analítica en tiempo real y su aplicación dentro del ecosistema de Microsoft Fabric. Los puntos clave incluyen:</p>
+<ul>
+<li><strong>Definición e importancia:</strong><br />
+    La analítica en tiempo real permite convertir datos en movimiento en insights inmediatos, fundamentales para la toma de decisiones en entornos dinámicos.</li>
+<li><strong>Modelos arquitectónicos:</strong><br />
+    Se han comparado arquitecturas tradicionales basadas en procesamiento batch con arquitecturas en tiempo real (Lambda y Kappa), destacando las ventajas y desafíos de cada una.</li>
+<li><strong>Componentes en Microsoft Fabric:</strong><ul>
+<li><strong>EventStream:</strong> Para la ingesta automática y la indexación de datos en streaming.</li>
+<li><strong>EventHouse:</strong> Para la organización lógica de los eventos.</li>
+<li><strong>Real-Time Hub:</strong> Como interfaz central para gestionar y consumir datos en tiempo real, con mirroring a OneLake.</li>
+<li><strong>Dashboards en Tiempo Real y Power BI:</strong> Que permiten visualizar y analizar datos al instante.</li>
+<li><strong>KQL:</strong> Para realizar consultas rápidas y complejas en los datos.</li>
+</ul>
+</li>
+<li><strong>Casos de uso:</strong><br />
+    Se han presentado ejemplos concretos en industrias tan diversas como retail, finanzas, manufactura, telecomunicaciones y salud, ilustrando cómo la analítica en tiempo real aporta ventajas competitivas.</li>
+</ul>
+<h3 id="reflexiones-finales">🔹<strong>Reflexiones Finales</strong><a class="headerlink" href="#reflexiones-finales" title="Permanent link">&para;</a></h3>
+<p>✅ <strong>Fabric permite análisis en tiempo real con EventStream, EventHouse y Real-Time Dashboards.</strong><br />
+✅ <strong>La integración con Power BI y Power Automate facilita la toma de decisiones en tiempo real.</strong><br />
+✅ <strong>El uso de KQL y SQL Analytics permite consultas rápidas sobre eventos en movimiento.</strong></p>
+<p>Laboratorio de Ejemplo: <a href="https://blog.fabric.microsoft.com/en-us/blog/announcing-rti-end-to-end-sample?ft=All">Announcing RTI End-to-End Sample | Microsoft Fabric Blog | Microsoft Fabric</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.expand", "navigation.sections", "navigation.tabs", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

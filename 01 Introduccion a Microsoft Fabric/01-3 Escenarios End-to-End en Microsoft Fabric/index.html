@@ -1,0 +1,1909 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../01-2%20El%20Concepto%20de%20Onelake/">
+      
+      
+        <link rel="next" href="../../02%20Carga%20de%20Datos/02-0%20Ingesta%20de%20Datos%20en%20Microsoft%20Fabric/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>01 3 Escenarios End to End en Microsoft Fabric - Curso Introducción a Microsoft Fabric</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-etl-con-microsoft-fabric-uso-de-dataflows-gen2-y-pipelines" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Curso Introducción a Microsoft Fabric" class="md-header__button md-logo" aria-label="Curso Introducción a Microsoft Fabric" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Curso Introducción a Microsoft Fabric
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              01 3 Escenarios End to End en Microsoft Fabric
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Seminario Microsoft Fabric
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../01-1%20Que%20es%20Microsoft%20Fabric/" class="md-tabs__link">
+          
+  
+  
+  01 Introduccion a Microsoft Fabric
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../02%20Carga%20de%20Datos/02-0%20Ingesta%20de%20Datos%20en%20Microsoft%20Fabric/" class="md-tabs__link">
+          
+  
+  
+  02 Carga de Datos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../03%20Ingenieria%20de%20Datos/03-1%20Introducci%C3%B3n%20a%20la%20Arquitectura%20Medall%C3%B3n/" class="md-tabs__link">
+          
+  
+  
+  03 Ingenieria de Datos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-1%20Fabric%20como%20plataforma%20de%20Data%20Science/" class="md-tabs__link">
+          
+  
+  
+  04 Analisis Avanzado y Automatizacion
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../05%20Fabric%20Databases/05-1%20Fabric%20Databases/" class="md-tabs__link">
+          
+  
+  
+  05 Fabric Databases
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Curso Introducción a Microsoft Fabric" class="md-nav__button md-logo" aria-label="Curso Introducción a Microsoft Fabric" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Curso Introducción a Microsoft Fabric
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Seminario Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 Introduccion a Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    01 Introduccion a Microsoft Fabric
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-1%20Que%20es%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ¿Qué es Microsoft Fabric?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-2%20El%20Concepto%20de%20Onelake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 2 El Concepto de Onelake
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 3 Escenarios End to End en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 3 Escenarios End to End en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-etl-con-microsoft-fabric-uso-de-dataflows-gen2-y-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. ETL con Microsoft Fabric: Uso de Dataflows Gen2 y Pipelines
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. ETL con Microsoft Fabric: Uso de Dataflows Gen2 y Pipelines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduccion-a-los-procesos-etl-en-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Introducción a los procesos ETL en Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dataflows-gen2-transformaciones-sin-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Dataflows Gen2: Transformaciones sin código
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipelines-de-data-factory-orquestacion-avanzada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Pipelines de Data Factory: Orquestación avanzada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notebooks-de-pyspark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Notebooks de PySpark
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-almacenamiento-y-analisis-integracion-con-lakehouses-y-data-warehouses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Almacenamiento y Análisis: Integración con Lakehouses y Data Warehouses
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Almacenamiento y Análisis: Integración con Lakehouses y Data Warehouses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lakehouses-en-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Lakehouses en Microsoft Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-warehouses-en-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Data Warehouses en Microsoft Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-caso-practico-diseno-de-una-solucion-de-datos-escalable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Caso práctico: Diseño de una solución de datos escalable
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Caso práctico: Diseño de una solución de datos escalable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario-realista-plataforma-de-analisis-de-ventas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Escenario realista: Plataforma de Análisis de Ventas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔹 Escenario realista: Plataforma de Análisis de Ventas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requerimientos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requerimientos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arquitectura-de-la-solucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitectura de la solución
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-escenarios-y-arquitecturas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Escenarios y Arquitecturas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Escenarios y Arquitecturas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#el-mas-sencillo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 El más sencillo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monolitico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Monolítico
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capacidad-compartida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Capacidad Compartida
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#escalado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Escalado
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-conclusion-y-preguntas-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Conclusión y Preguntas Clave
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Conclusión y Preguntas Clave">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preguntas-de-reflexion-para-la-sesion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preguntas de reflexión para la sesión
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 Carga de Datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    02 Carga de Datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-0%20Ingesta%20de%20Datos%20en%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ingesta de Datos en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-1%20ELT%20con%20flujos%20de%20datos%20de%20Gen2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ELT con flujos de Generación 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-2%20Orquestando%20Cargas%20con%20Pipelines%20de%20Data%20Factory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    **Orquestando Cargas con Pipelines de Data Factory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-3%20Modelado%20Dimensional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelado Dimensional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-4%20Desarrollo%20con%20Apache%20Spark/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desarrollo con Apache Spark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-5%20Guia%20de%20Decisi%C3%B3n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    **Guía de decisión entre Actividad de Copia de un Pipeline, Dataflow Gen2 y Apache Spark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 Ingenieria de Datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    03 Ingenieria de Datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Ingenieria%20de%20Datos/03-1%20Introducci%C3%B3n%20a%20la%20Arquitectura%20Medall%C3%B3n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción a la Arquitectura Medallón
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Ingenieria%20de%20Datos/03-2%20Creaci%C3%B3n%20y%20Gesti%C3%B3n%20de%20un%20lakehouse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 2 Creación y Gestión de un lakehouse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Ingenieria%20de%20Datos/03-3%20Trabajo%20con%20Datawarehouse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trabajando con Datawarehouse en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 Analisis Avanzado y Automatizacion
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    04 Analisis Avanzado y Automatizacion
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-1%20Fabric%20como%20plataforma%20de%20Data%20Science/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-01 Microsoft Fabric como plataforma de Ciencia de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-2%20An%C3%A1lisis%20de%20Datos%20en%20Tiempo%20Real%20con%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-02Analítica en Tiempo Real en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-3%20Introducci%C3%B3n%20a%20Data%20Activator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-03 Introducción a Data Activator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    05 Fabric Databases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20Fabric%20Databases/05-1%20Fabric%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20Fabric%20Databases/05-2%20Escenarios%20de%20Fabric%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escenarios de uso de Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-etl-con-microsoft-fabric-uso-de-dataflows-gen2-y-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. ETL con Microsoft Fabric: Uso de Dataflows Gen2 y Pipelines
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. ETL con Microsoft Fabric: Uso de Dataflows Gen2 y Pipelines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduccion-a-los-procesos-etl-en-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Introducción a los procesos ETL en Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dataflows-gen2-transformaciones-sin-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Dataflows Gen2: Transformaciones sin código
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipelines-de-data-factory-orquestacion-avanzada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Pipelines de Data Factory: Orquestación avanzada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notebooks-de-pyspark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Notebooks de PySpark
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-almacenamiento-y-analisis-integracion-con-lakehouses-y-data-warehouses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Almacenamiento y Análisis: Integración con Lakehouses y Data Warehouses
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Almacenamiento y Análisis: Integración con Lakehouses y Data Warehouses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lakehouses-en-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Lakehouses en Microsoft Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-warehouses-en-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Data Warehouses en Microsoft Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-caso-practico-diseno-de-una-solucion-de-datos-escalable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Caso práctico: Diseño de una solución de datos escalable
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Caso práctico: Diseño de una solución de datos escalable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario-realista-plataforma-de-analisis-de-ventas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Escenario realista: Plataforma de Análisis de Ventas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔹 Escenario realista: Plataforma de Análisis de Ventas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requerimientos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requerimientos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arquitectura-de-la-solucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitectura de la solución
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-escenarios-y-arquitecturas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Escenarios y Arquitecturas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Escenarios y Arquitecturas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#el-mas-sencillo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 El más sencillo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monolitico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Monolítico
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capacidad-compartida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Capacidad Compartida
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#escalado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Escalado
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-conclusion-y-preguntas-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Conclusión y Preguntas Clave
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Conclusión y Preguntas Clave">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preguntas-de-reflexion-para-la-sesion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preguntas de reflexión para la sesión
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>01 3 Escenarios End to End en Microsoft Fabric</h1>
+
+<h2 id="1-etl-con-microsoft-fabric-uso-de-dataflows-gen2-y-pipelines"><strong>1. ETL con Microsoft Fabric: Uso de Dataflows Gen2 y Pipelines</strong><a class="headerlink" href="#1-etl-con-microsoft-fabric-uso-de-dataflows-gen2-y-pipelines" title="Permanent link">&para;</a></h2>
+<h3 id="introduccion-a-los-procesos-etl-en-fabric">🔹 <strong>Introducción a los procesos ETL en Fabric</strong><a class="headerlink" href="#introduccion-a-los-procesos-etl-en-fabric" title="Permanent link">&para;</a></h3>
+<p>En Microsoft Fabric, los procesos ETL (Extract, Transform, Load) pueden realizarse a través de tres  herramientas principales:</p>
+<ol>
+<li><strong>Dataflows Gen2</strong> (para transformaciones sin código o de bajo código).</li>
+<li><strong>Pipelines en Data Factory</strong> (para cargas y orquestación más avanzadas).</li>
+<li><strong>Notebooks</strong> de PySpark, con código completamente personalizable</li>
+</ol>
+<p>Ambas herramientas están diseñadas para simplificar la ingesta y transformación de datos, integrándose con <strong>OneLake, Lakehouses y Data Warehouses</strong>.</p>
+<h3 id="dataflows-gen2-transformaciones-sin-codigo">🔹 <strong>Dataflows Gen2: Transformaciones sin código</strong><a class="headerlink" href="#dataflows-gen2-transformaciones-sin-codigo" title="Permanent link">&para;</a></h3>
+<p>Los <strong>Dataflows Gen2</strong> permiten la creación de procesos ETL en un entorno visual, facilitando:<br />
+✅ Conexión con múltiples fuentes de datos, incluyendo <strong>OneLake, SQL, SaaS y APIs</strong>.<br />
+✅ Uso de <strong>Power Query</strong> para transformaciones sin necesidad de programación.<br />
+✅ <strong>Automatización de cargas periódicas</strong> con programación de actualizaciones.</p>
+<p>📌 <strong>Ventajas de Dataflows Gen2</strong></p>
+<ul>
+<li>Ideal para <strong>usuarios de negocio y analistas de datos</strong> que necesitan transformar datos sin escribir código.</li>
+<li>Se ejecuta directamente en <strong>Microsoft Fabric</strong>, evitando la necesidad de exportaciones a otros servicios.</li>
+<li>Puede alimentar <strong>modelos semánticos de Power BI</strong> sin pasos adicionales.</li>
+</ul>
+<p>Una de las grandes diferencias entre los Dataflows tradicionales y los Dataflows de Generación 2, es que estos últimos pueden almacenar el resultado de sus ejecuciones en diferentes destinos
+![[Dataflow Gen2 Destinos.png]]</p>
+<h3 id="pipelines-de-data-factory-orquestacion-avanzada">🔹 <strong>Pipelines de Data Factory: Orquestación avanzada</strong><a class="headerlink" href="#pipelines-de-data-factory-orquestacion-avanzada" title="Permanent link">&para;</a></h3>
+<p>Los <strong>Pipelines en Data Factory</strong> dentro de Fabric proporcionan una solución <strong>más avanzada y escalable</strong> para la integración de datos:<br />
+✅ Permite la creación de <strong>flujos de trabajo de datos complejos</strong> con múltiples pasos.<br />
+✅ Integración con <strong>Azure Data Factory</strong> para reutilización de flujos existentes.<br />
+✅ Soporta <strong>activadores y ejecución basada en eventos</strong>, lo que facilita la automatización de cargas.</p>
+<p>📌 <strong>Diferencias entre Dataflows Gen2 y Pipelines</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Característica</strong></th>
+<th><strong>Dataflows Gen2</strong></th>
+<th><strong>Pipelines en Data Factory</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Orientación</strong></td>
+<td>Usuarios de negocio, analistas</td>
+<td>Ingenieros de datos, arquitectos</td>
+</tr>
+<tr>
+<td><strong>Código necesario</strong></td>
+<td>No-Code/Low-Code (Power Query)</td>
+<td>Requiere configuración avanzada</td>
+</tr>
+<tr>
+<td><strong>Escalabilidad</strong></td>
+<td>Adecuado para volúmenes moderados de datos</td>
+<td>Ideal para cargas de datos masivas</td>
+</tr>
+<tr>
+<td><strong>Automatización</strong></td>
+<td>Programaciones básicas</td>
+<td>Orquestación avanzada con dependencias</td>
+</tr>
+</tbody>
+</table>
+<p>🔹 <strong>Ejemplo práctico</strong>: Un <strong>Dataflow Gen2</strong> puede usarse para transformar datos de ventas en bruto en <strong>OneLake</strong>, mientras que un <strong>Pipeline</strong> se encargará de la carga incremental en un <strong>Data Warehouse</strong>​fabric-fundamentals.</p>
+<h3 id="notebooks-de-pyspark">🔹 <strong>Notebooks de PySpark</strong><a class="headerlink" href="#notebooks-de-pyspark" title="Permanent link">&para;</a></h3>
+<p>Para cargas de trabajo que requieran de la flexibilidad que proporciona un lenguaje de programación como Python, escalando a través de Apache Spark, tenemos la posibilidad de escribir todos nuestros procesos utilizando Notebooks de PySpark. Son una opción flexible, porque además de tener a nuestra disposición una gran cantidad de librerías para procesado, y toda la potencia de los clústeres de Apache Spark, estos Notebooks son la opción que más nos aísla de Microsoft Fabric. Si por ejemplo, el día de mañana queremos migrar alguna carga de trabajo a Databricks, podríamos reutilizar una gran cantidad de ese código, algo que no es posible si utilizamos Dataflows y muy complicado con los Pipelines de Data Factory. </p>
+<hr />
+<h2 id="2-almacenamiento-y-analisis-integracion-con-lakehouses-y-data-warehouses"><strong>2. Almacenamiento y Análisis: Integración con Lakehouses y Data Warehouses</strong><a class="headerlink" href="#2-almacenamiento-y-analisis-integracion-con-lakehouses-y-data-warehouses" title="Permanent link">&para;</a></h2>
+<h3 id="lakehouses-en-microsoft-fabric">🔹 <strong>Lakehouses en Microsoft Fabric</strong><a class="headerlink" href="#lakehouses-en-microsoft-fabric" title="Permanent link">&para;</a></h3>
+<p>El <strong>Lakehouse</strong> es una combinación de <strong>Data Lake y Data Warehouse</strong>, permitiendo almacenar y analizar datos en un único entorno.</p>
+<p>✅ Basado en el formato <strong>Delta Lake</strong>, lo que permite transacciones ACID y versionado de datos.<br />
+✅ Integrado con <strong>OneLake</strong>, lo que elimina la duplicación de datos.<br />
+✅ Soporta acceso desde <strong>T-SQL y Spark</strong>, facilitando la colaboración entre equipos de datos.</p>
+<p>📌 <strong>Cuándo usar un Lakehouse</strong></p>
+<ul>
+<li>Si se necesitan <strong>tanto análisis estructurados como semiestructurados</strong> en un mismo entorno.</li>
+<li>Cuando los <strong>científicos de datos y analistas</strong> deben trabajar sobre el mismo conjunto de datos.</li>
+<li>Para <strong>procesamiento en batch y en tiempo real</strong> dentro de Fabric​.</li>
+</ul>
+<h3 id="data-warehouses-en-microsoft-fabric">🔹 <strong>Data Warehouses en Microsoft Fabric</strong><a class="headerlink" href="#data-warehouses-en-microsoft-fabric" title="Permanent link">&para;</a></h3>
+<p>Un <strong>Data Warehouse en Fabric</strong> es una solución de almacenamiento estructurado, optimizada para consultas SQL y análisis de datos transaccionales.</p>
+<p>✅ Usa <strong>T-SQL nativo</strong>, facilitando la migración desde bases de datos SQL tradicionales.<br />
+✅ Soporta consultas de alto rendimiento y escalabilidad automática.<br />
+✅ Permite la integración con <strong>Power BI y otros servicios de Fabric</strong>.</p>
+<p>📌 <strong>Cuándo usar un Data Warehouse</strong></p>
+<ul>
+<li>Si los datos son <strong>estructurados</strong> y requieren consultas SQL optimizadas.</li>
+<li>Cuando se necesita <strong>compatibilidad con herramientas de análisis basadas en SQL</strong>.</li>
+<li>Si los datos deben <strong>mantenerse en un formato relacional con transacciones ACID</strong>.</li>
+</ul>
+<p>🔹 <strong>Ejemplo práctico</strong>: Un <strong>Lakehouse</strong> puede almacenar grandes volúmenes de datos en bruto de sensores IoT, mientras que un <strong>Data Warehouse</strong> almacena versiones agregadas para análisis financieros​.</p>
+<p>Otro criterio de selección, está relacionado con los conocimientos que tengan los equipos para el desarrollo y mantenimiento de la solución. Teniendo en cuenta que el almacenamiento se realiza en Onelake y en formato Delta, es relevante el hecho de que los equipos deban de conocer o familiarizarse con Notebooks y PySpark, o por el contrario conocimientos de T-SQL. </p>
+<hr />
+<h2 id="3-caso-practico-diseno-de-una-solucion-de-datos-escalable"><strong>3. Caso práctico: Diseño de una solución de datos escalable</strong><a class="headerlink" href="#3-caso-practico-diseno-de-una-solucion-de-datos-escalable" title="Permanent link">&para;</a></h2>
+<h3 id="escenario-realista-plataforma-de-analisis-de-ventas">🔹 <strong>Escenario realista: Plataforma de Análisis de Ventas</strong><a class="headerlink" href="#escenario-realista-plataforma-de-analisis-de-ventas" title="Permanent link">&para;</a></h3>
+<p>Se diseñará una solución que permita a una empresa de retail analizar sus ventas y optimizar la distribución de productos en sus tiendas.</p>
+<h4 id="requerimientos"><strong>Requerimientos</strong><a class="headerlink" href="#requerimientos" title="Permanent link">&para;</a></h4>
+<p>1️⃣ <strong>Ingesta de datos de ventas en tiempo real</strong> desde múltiples sistemas POS.<br />
+2️⃣ <strong>Procesamiento de datos con Dataflows Gen2</strong> para limpieza y transformación.<br />
+3️⃣ <strong>Carga en OneLake</strong> utilizando Pipelines de Data Factory.<br />
+4️⃣ <strong>Uso de un Lakehouse</strong> para almacenar datos históricos en bruto.<br />
+5️⃣ <strong>Creación de un Data Warehouse</strong> para consultas SQL optimizadas.<br />
+6️⃣ <strong>Modelado en Power BI</strong> para generación de informes interactivos.</p>
+<h4 id="arquitectura-de-la-solucion"><strong>Arquitectura de la solución</strong><a class="headerlink" href="#arquitectura-de-la-solucion" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Extracción de datos</strong> desde bases de datos SQL y APIs de terceros.</li>
+<li><strong>Transformación en Dataflows Gen2</strong> para limpieza y agregaciones.</li>
+<li><strong>Carga en OneLake y procesamiento con Spark en un Lakehouse</strong>.</li>
+<li><strong>Creación de un modelo analítico en un Data Warehouse</strong> para consultas SQL.</li>
+<li><strong>Publicación en Power BI</strong> con dashboards en tiempo real.</li>
+</ol>
+<p>🔹 <strong>Beneficios de esta arquitectura:</strong><br />
+✅ <strong>Eficiencia y escalabilidad:</strong> Fabric maneja grandes volúmenes de datos sin sobrecargar sistemas transaccionales.<br />
+✅ <strong>Análisis en tiempo real:</strong> Las decisiones pueden tomarse con información actualizada al minuto.<br />
+✅ <strong>Reducción de costos:</strong> No se requiere infraestructura dedicada, todo funciona en la nube con escalabilidad automática.</p>
+<p>📌 <strong>Resultado esperado:</strong><br />
+Con esta solución, los equipos de ventas y finanzas pueden acceder a datos en tiempo real sobre el desempeño de productos en distintas ubicaciones, optimizando la cadena de suministro y aumentando la rentabilidad​.</p>
+<hr />
+<h2 id="4-escenarios-y-arquitecturas"><strong>4. Escenarios y Arquitecturas</strong><a class="headerlink" href="#4-escenarios-y-arquitecturas" title="Permanent link">&para;</a></h2>
+<h3 id="el-mas-sencillo">🔹 <strong>El más sencillo</strong><a class="headerlink" href="#el-mas-sencillo" title="Permanent link">&para;</a></h3>
+<p>Imaginemos que queremos actualizar nuestra arquitectura Power BI, porque tenemos más necesidades de carga de datos, o simplemente queremos comenzar a analizar datos no estructuras de un modo más ágil. En un escenario de este estilo, podríamos tener:
+- Un espacio de trabajo con una capacidad F2 o F4, iniciada únicamente en los momentos en los que necesitamos realizar la carga y procesamiento de los datos
+- Nuestros procesos de ingeniería de datos para limpieza y demás tareas que dejen los datos listos en nuestro warehouse
+- Otro espacio de trabajo en el que tengamos los modelos semánticos de Power BI, en modo import, y sus correspondientes informes
+De esta forma, podemos disponer de las capacidades de Fabric de un modo económico, al estar pagando únicamente por el tiempo en el que realizamos las cargas de datos. Al tener los modelos semánticos en Modo Import, no necesitamos que la capacidad de Fabric esté iniciada cuando los usuarios acceden a los informes. </p>
+<h3 id="monolitico">🔹 <strong>Monolítico</strong><a class="headerlink" href="#monolitico" title="Permanent link">&para;</a></h3>
+<p>En un escenario de este tipo, disponemos únicamente de una capacidad que está asignada a un único espacio de trabajo de Fabric, para dar soporte, por ejemplo, a lo comentado en la sección anterior. 
+![[Despliegue Monolitico.png]]</p>
+<h3 id="capacidad-compartida">🔹 <strong>Capacidad Compartida</strong><a class="headerlink" href="#capacidad-compartida" title="Permanent link">&para;</a></h3>
+<p>Disponemos de una única capacidad de Fabric que es compartida por diferentes espacios de trabajo, para dar soporte a las cargas que se ejecuten en dichos espacios de trabajo</p>
+<p>![[Despliegue Compartido.png]]</p>
+<h3 id="escalado">🔹 <strong>Escalado</strong><a class="headerlink" href="#escalado" title="Permanent link">&para;</a></h3>
+<p>Para escenarios que requieren de recursos dedicados, o que sea necesario escalar los recursos, podemos disponer de diferentes capacidades asignadas a distintos espacios de trabajo de Fabric</p>
+<p>![[Despliegue Escalado.png]]</p>
+<hr />
+<h2 id="5-conclusion-y-preguntas-clave"><strong>5. Conclusión y Preguntas Clave</strong><a class="headerlink" href="#5-conclusion-y-preguntas-clave" title="Permanent link">&para;</a></h2>
+<p>✅ <strong>Microsoft Fabric permite diseñar soluciones end-to-end combinando ETL, almacenamiento y análisis en una única plataforma.</strong><br />
+✅ <strong>Dataflows Gen2 y Pipelines facilitan la ingesta y transformación de datos en Fabric.</strong><br />
+✅ <strong>El uso combinado de Lakehouses y Data Warehouses proporciona una arquitectura flexible y escalable.</strong><br />
+✅ <strong>Un diseño bien estructurado en Fabric mejora la eficiencia, reduce costes y habilita análisis avanzados.</strong></p>
+<h3 id="preguntas-de-reflexion-para-la-sesion"><strong>Preguntas de reflexión para la sesión</strong><a class="headerlink" href="#preguntas-de-reflexion-para-la-sesion" title="Permanent link">&para;</a></h3>
+<ol>
+<li>¿Cuándo deberías utilizar Dataflows Gen2 en lugar de Pipelines en Data Factory?</li>
+<li>¿En qué casos es preferible usar un Lakehouse en vez de un Data Warehouse?</li>
+<li>¿Cómo asegurarías la escalabilidad de una solución de datos en Fabric para grandes volúmenes de datos?</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.expand", "navigation.sections", "navigation.tabs", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

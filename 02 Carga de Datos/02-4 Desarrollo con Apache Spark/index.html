@@ -1,0 +1,1954 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../02-3%20Modelado%20Dimensional/">
+      
+      
+        <link rel="next" href="../02-5%20Guia%20de%20Decisi%C3%B3n/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Desarrollo con Apache Spark - Curso Introducción a Microsoft Fabric</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#desarrollo-con-apache-spark" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Curso Introducción a Microsoft Fabric" class="md-header__button md-logo" aria-label="Curso Introducción a Microsoft Fabric" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Curso Introducción a Microsoft Fabric
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Desarrollo con Apache Spark
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Seminario Microsoft Fabric
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-1%20Que%20es%20Microsoft%20Fabric/" class="md-tabs__link">
+          
+  
+  
+  01 Introduccion a Microsoft Fabric
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../02-0%20Ingesta%20de%20Datos%20en%20Microsoft%20Fabric/" class="md-tabs__link">
+          
+  
+  
+  02 Carga de Datos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../03%20Ingenieria%20de%20Datos/03-1%20Introducci%C3%B3n%20a%20la%20Arquitectura%20Medall%C3%B3n/" class="md-tabs__link">
+          
+  
+  
+  03 Ingenieria de Datos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-1%20Fabric%20como%20plataforma%20de%20Data%20Science/" class="md-tabs__link">
+          
+  
+  
+  04 Analisis Avanzado y Automatizacion
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../05%20Fabric%20Databases/05-1%20Fabric%20Databases/" class="md-tabs__link">
+          
+  
+  
+  05 Fabric Databases
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Curso Introducción a Microsoft Fabric" class="md-nav__button md-logo" aria-label="Curso Introducción a Microsoft Fabric" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Curso Introducción a Microsoft Fabric
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Seminario Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 Introduccion a Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    01 Introduccion a Microsoft Fabric
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-1%20Que%20es%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ¿Qué es Microsoft Fabric?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-2%20El%20Concepto%20de%20Onelake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 2 El Concepto de Onelake
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-3%20Escenarios%20End-to-End%20en%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 3 Escenarios End to End en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 Carga de Datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    02 Carga de Datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-0%20Ingesta%20de%20Datos%20en%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ingesta de Datos en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-1%20ELT%20con%20flujos%20de%20datos%20de%20Gen2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ELT con flujos de Generación 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-2%20Orquestando%20Cargas%20con%20Pipelines%20de%20Data%20Factory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    **Orquestando Cargas con Pipelines de Data Factory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-3%20Modelado%20Dimensional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelado Dimensional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desarrollo con Apache Spark
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desarrollo con Apache Spark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-como-se-integra-apache-spark-en-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        **1. ¿Cómo se integra Apache Spark en Microsoft Fabric?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="**1. ¿Cómo se integra Apache Spark en Microsoft Fabric?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#componentes-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Componentes Clave
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-conceptos-clave-de-spark-compute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Conceptos Clave de Spark Compute
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Conceptos Clave de Spark Compute">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compute-engines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Compute Engines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tipos-de-jobs-en-fabric-spark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Tipos de Jobs en Fabric Spark
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-configuracion-y-gestion-de-pools-de-spark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Configuración y Gestión de Pools de Spark
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Configuración y Gestión de Pools de Spark">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pools-predeterminados-starter-pools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Pools Predeterminados (Starter Pools)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creacion-de-pools-personalizados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Creación de Pools Personalizados
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#facturacion-y-administracion-de-capacidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Facturación y Administración de Capacidad
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-gestion-de-concurrencia-y-encolado-de-trabajos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Gestión de Concurrencia y Encolado de Trabajos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Gestión de Concurrencia y Encolado de Trabajos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modo-de-alta-concurrencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Modo de Alta Concurrencia
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#administracion-de-admision-de-trabajos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Administración de Admisión de Trabajos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encolado-de-trabajos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Encolado de Trabajos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-optimizacion-y-autoajuste-en-spark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Optimización y Autoajuste en Spark
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Optimización y Autoajuste en Spark">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tecnicas-de-optimizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Técnicas de Optimización
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uso-de-autotune" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Uso de AutoTune
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-uso-de-pyspark-para-la-ingenieria-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Uso de PySpark para la ingeniería de datos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Uso de PySpark para la ingeniería de datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es-pyspark-y-por-que-usarlo-en-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 ¿Qué es PySpark y por qué usarlo en Fabric?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-de-codigo-pyspark-en-un-notebook-de-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Ejemplo de código PySpark en un Notebook de Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-5%20Guia%20de%20Decisi%C3%B3n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    **Guía de decisión entre Actividad de Copia de un Pipeline, Dataflow Gen2 y Apache Spark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 Ingenieria de Datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    03 Ingenieria de Datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Ingenieria%20de%20Datos/03-1%20Introducci%C3%B3n%20a%20la%20Arquitectura%20Medall%C3%B3n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción a la Arquitectura Medallón
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Ingenieria%20de%20Datos/03-2%20Creaci%C3%B3n%20y%20Gesti%C3%B3n%20de%20un%20lakehouse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 2 Creación y Gestión de un lakehouse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Ingenieria%20de%20Datos/03-3%20Trabajo%20con%20Datawarehouse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trabajando con Datawarehouse en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 Analisis Avanzado y Automatizacion
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    04 Analisis Avanzado y Automatizacion
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-1%20Fabric%20como%20plataforma%20de%20Data%20Science/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-01 Microsoft Fabric como plataforma de Ciencia de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-2%20An%C3%A1lisis%20de%20Datos%20en%20Tiempo%20Real%20con%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-02Analítica en Tiempo Real en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-3%20Introducci%C3%B3n%20a%20Data%20Activator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-03 Introducción a Data Activator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    05 Fabric Databases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20Fabric%20Databases/05-1%20Fabric%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20Fabric%20Databases/05-2%20Escenarios%20de%20Fabric%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escenarios de uso de Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-como-se-integra-apache-spark-en-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        **1. ¿Cómo se integra Apache Spark en Microsoft Fabric?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="**1. ¿Cómo se integra Apache Spark en Microsoft Fabric?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#componentes-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Componentes Clave
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-conceptos-clave-de-spark-compute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Conceptos Clave de Spark Compute
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Conceptos Clave de Spark Compute">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compute-engines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Compute Engines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tipos-de-jobs-en-fabric-spark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Tipos de Jobs en Fabric Spark
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-configuracion-y-gestion-de-pools-de-spark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Configuración y Gestión de Pools de Spark
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Configuración y Gestión de Pools de Spark">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pools-predeterminados-starter-pools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Pools Predeterminados (Starter Pools)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creacion-de-pools-personalizados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Creación de Pools Personalizados
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#facturacion-y-administracion-de-capacidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Facturación y Administración de Capacidad
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-gestion-de-concurrencia-y-encolado-de-trabajos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Gestión de Concurrencia y Encolado de Trabajos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Gestión de Concurrencia y Encolado de Trabajos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modo-de-alta-concurrencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Modo de Alta Concurrencia
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#administracion-de-admision-de-trabajos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Administración de Admisión de Trabajos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encolado-de-trabajos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Encolado de Trabajos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-optimizacion-y-autoajuste-en-spark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Optimización y Autoajuste en Spark
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Optimización y Autoajuste en Spark">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tecnicas-de-optimizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Técnicas de Optimización
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uso-de-autotune" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Uso de AutoTune
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-uso-de-pyspark-para-la-ingenieria-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Uso de PySpark para la ingeniería de datos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Uso de PySpark para la ingeniería de datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es-pyspark-y-por-que-usarlo-en-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 ¿Qué es PySpark y por qué usarlo en Fabric?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-de-codigo-pyspark-en-un-notebook-de-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Ejemplo de código PySpark en un Notebook de Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="desarrollo-con-apache-spark"><strong>Desarrollo con Apache Spark</strong><a class="headerlink" href="#desarrollo-con-apache-spark" title="Permanent link">&para;</a></h1>
+<p><strong>Apache Spark</strong> es un motor de procesamiento distribuido de <strong>código abierto</strong> diseñado para <strong>procesamiento de datos a gran escala</strong>. Se ejecuta en clusters y permite el análisis de datos en <strong>tiempo real y batch</strong>, proporcionando APIs en <strong>Python (PySpark), Scala, Java, R y SQL</strong>.</p>
+<p>✔ <strong>Alta velocidad</strong> gracias a su ejecución en memoria.<br />
+✔ <strong>Escalabilidad</strong> para procesar desde <strong>megabytes hasta petabytes</strong> de datos.<br />
+✔ <strong>Compatibilidad con múltiples fuentes de datos</strong>, como <strong>OneLake, Data Warehouses, Data Lakes y bases de datos SQL</strong>.</p>
+<p>En <strong>Microsoft Fabric</strong>, Spark es una pieza clave del <strong>Data Engineering</strong> y se integra con otros servicios como <strong>Data Factory, OneLake, Power BI y Data Science</strong>.</p>
+<hr />
+<h2 id="1-como-se-integra-apache-spark-en-microsoft-fabric">**1. ¿Cómo se integra Apache Spark en Microsoft Fabric?<a class="headerlink" href="#1-como-se-integra-apache-spark-en-microsoft-fabric" title="Permanent link">&para;</a></h2>
+<p>En <strong>Microsoft Fabric</strong>, Spark se ejecuta en un entorno <strong>completamente administrado</strong>, eliminando la necesidad de configurar clusters manualmente.</p>
+<h3 id="componentes-clave"><strong>🔹 Componentes Clave</strong><a class="headerlink" href="#componentes-clave" title="Permanent link">&para;</a></h3>
+<p>✔ <strong>Clusters de Spark administrados</strong>: Se asignan dinámicamente recursos según la carga de trabajo.<br />
+✔ <strong>Pools de Spark</strong>: Grupos de recursos donde se ejecutan notebooks y trabajos de Spark. 
+✔ <strong>Notebooks de Fabric</strong>: Espacios interactivos para escribir código en <strong>PySpark, Scala y SQL</strong>.<br />
+✔ <strong>OneLake</strong>: Almacenamiento unificado para datos procesados por Spark.<br />
+✔ <strong>Integración con Data Factory</strong>: Automatización de cargas y ejecución de pipelines.</p>
+<p>📌 <strong>Ejemplo:</strong><br />
+Si una empresa quiere procesar <strong>grandes volúmenes de datos de ventas</strong>, Spark puede leer los datos desde <strong>OneLake</strong>, aplicar transformaciones con PySpark y guardar el resultado en un <strong>Data Warehouse</strong> para su análisis en Power BI.</p>
+<hr />
+<h2 id="2-conceptos-clave-de-spark-compute"><strong>2. Conceptos Clave de Spark Compute</strong><a class="headerlink" href="#2-conceptos-clave-de-spark-compute" title="Permanent link">&para;</a></h2>
+<h3 id="compute-engines">🔹<strong>Compute Engines</strong><a class="headerlink" href="#compute-engines" title="Permanent link">&para;</a></h3>
+<p>Microsoft Fabric permite ejecutar Spark en un entorno administrado donde los <strong>clusters</strong> se crean y gestionan automáticamente. Esto permite a los usuarios centrarse en el desarrollo sin preocuparse por la infraestructura subyacente.</p>
+<h3 id="tipos-de-jobs-en-fabric-spark">🔹<strong>Tipos de Jobs en Fabric Spark</strong><a class="headerlink" href="#tipos-de-jobs-en-fabric-spark" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Batch Jobs:</strong> Se utilizan para procesamiento de datos en grandes volúmenes.    </li>
+<li><strong>Streaming Jobs:</strong> Permiten el procesamiento en tiempo real de datos en movimiento.    </li>
+<li><strong>Notebooks y Pipelines:</strong> Usados para desarrollo interactivo y modelado de datos.    </li>
+</ul>
+<hr />
+<h2 id="3-configuracion-y-gestion-de-pools-de-spark"><strong>3. Configuración y Gestión de Pools de Spark</strong><a class="headerlink" href="#3-configuracion-y-gestion-de-pools-de-spark" title="Permanent link">&para;</a></h2>
+<h3 id="pools-predeterminados-starter-pools">🔹<strong>Pools Predeterminados (Starter Pools)</strong><a class="headerlink" href="#pools-predeterminados-starter-pools" title="Permanent link">&para;</a></h3>
+<p>Los <strong>Starter Pools</strong> en Microsoft Fabric son grupos preconfigurados de recursos de Spark que permiten ejecutar trabajos de manera rápida sin necesidad de configuración avanzada.</p>
+<p><strong>Ventajas:</strong></p>
+<ul>
+<li>No requieren configuración manual.    </li>
+<li>Son ideales para entornos de desarrollo y pruebas.    </li>
+<li>Ofrecen un rendimiento óptimo para cargas de trabajo moderadas.    </li>
+</ul>
+<h3 id="creacion-de-pools-personalizados">🔹<strong>Creación de Pools Personalizados</strong><a class="headerlink" href="#creacion-de-pools-personalizados" title="Permanent link">&para;</a></h3>
+<p>Para cargas de trabajo más complejas, es posible <strong>crear pools de Spark personalizados</strong> con configuraciones específicas.</p>
+<p>Pasos para la configuración:</p>
+<ol>
+<li>Definir el tamaño del pool de nodos.    </li>
+<li>Seleccionar el tipo de instancias de Spark (RAM/CPU).    </li>
+<li>Configurar límites de concurrencia y asignación de memoria.    </li>
+<li>Asociar el pool a una capacidad de Fabric.    </li>
+</ol>
+<p><img alt="Configuración de Pools Spark" src="../imagenes/Configuracion%20Pools%20Spark.png" /></p>
+<h3 id="facturacion-y-administracion-de-capacidad">🔹<strong>Facturación y Administración de Capacidad</strong><a class="headerlink" href="#facturacion-y-administracion-de-capacidad" title="Permanent link">&para;</a></h3>
+<p>Microsoft Fabric usa un modelo de <strong>cobro por uso</strong>, donde los recursos de Spark consumen <strong>unidades de capacidad (CU)</strong>. Esta es la tabla con los valores predeterminados que tienen los pools de Spark dependiendo de la SKU. </p>
+<p><img alt="Pools Spark por defecto SKU" src="../imagenes/Pools%20Spark%20por%20defecto%20SKU.png" /></p>
+<ul>
+<li><strong>Estrategias de optimización de costes:</strong>    <ul>
+<li>Utilizar pools compartidos para trabajos recurrentes.        </li>
+<li>Configurar límites de uso en trabajos Spark.        </li>
+<li>Monitorear el consumo con herramientas de Fabric.        </li>
+</ul>
+</li>
+</ul>
+<p>Para un pool starter, estas son las tareas que se facturan y las que no. En el caso de un pool personalizado, simplemente desaparece el estado "Pool Idle". </p>
+<p><img alt="Facturación Pools Sparl" src="../imagenes/Facturacion%20Pools%20Spark.png" /></p>
+<hr />
+<h2 id="4-gestion-de-concurrencia-y-encolado-de-trabajos"><strong>4. Gestión de Concurrencia y Encolado de Trabajos</strong><a class="headerlink" href="#4-gestion-de-concurrencia-y-encolado-de-trabajos" title="Permanent link">&para;</a></h2>
+<h3 id="modo-de-alta-concurrencia">🔹<strong>Modo de Alta Concurrencia</strong><a class="headerlink" href="#modo-de-alta-concurrencia" title="Permanent link">&para;</a></h3>
+<p>El <strong>modo de alta concurrencia</strong> en Fabric permite ejecutar múltiples trabajos Spark simultáneamente dentro de un mismo pool de recursos.</p>
+<p><strong>Beneficios:</strong></p>
+<ul>
+<li>Mayor eficiencia en la ejecución de tareas paralelas.    </li>
+<li>Menos sobrecarga en la creación de clusters.    </li>
+<li>Uso más eficiente de los recursos disponibles.    </li>
+</ul>
+<h3 id="administracion-de-admision-de-trabajos">🔹<strong>Administración de Admisión de Trabajos</strong><a class="headerlink" href="#administracion-de-admision-de-trabajos" title="Permanent link">&para;</a></h3>
+<p>Fabric permite configurar políticas de <strong>admisión de trabajos</strong> para controlar la cantidad de tareas en ejecución simultánea y evitar sobrecargas.</p>
+<p><strong>Opciones disponibles:</strong></p>
+<ul>
+<li>Asignar prioridades a diferentes tipos de trabajos.    </li>
+<li>Limitar el número de trabajos simultáneos.    </li>
+<li>Definir reglas de asignación de recursos.    </li>
+</ul>
+<h3 id="encolado-de-trabajos">🔹<strong>Encolado de Trabajos</strong><a class="headerlink" href="#encolado-de-trabajos" title="Permanent link">&para;</a></h3>
+<p>Cuando los recursos están ocupados, los nuevos trabajos ingresan a una <strong>cola de espera</strong> hasta que haya capacidad disponible.</p>
+<p><strong>Buenas prácticas:</strong></p>
+<ul>
+<li>Priorizar trabajos críticos con etiquetas de urgencia.    </li>
+<li>Definir límites de tiempo de espera para evitar bloqueos.    </li>
+<li>Monitorear el estado de la cola para ajustes dinámicos.    </li>
+</ul>
+<hr />
+<h2 id="5-optimizacion-y-autoajuste-en-spark"><strong>5. Optimización y Autoajuste en Spark</strong><a class="headerlink" href="#5-optimizacion-y-autoajuste-en-spark" title="Permanent link">&para;</a></h2>
+<h3 id="tecnicas-de-optimizacion">🔹<strong>Técnicas de Optimización</strong><a class="headerlink" href="#tecnicas-de-optimizacion" title="Permanent link">&para;</a></h3>
+<p>Para mejorar el rendimiento de trabajos Spark en Fabric, se pueden aplicar las siguientes estrategias:</p>
+<ul>
+<li><strong>Particionamiento de Datos:</strong> Para paralelizar el procesamiento.    </li>
+<li><strong>Broadcast Join:</strong> Para evitar movimientos de datos innecesarios.    </li>
+<li><strong>Uso de Cache:</strong> Para almacenar datos frecuentemente utilizados.    </li>
+<li><strong>Compresión de Datos:</strong> Para reducir el tiempo de procesamiento.    </li>
+</ul>
+<h3 id="uso-de-autotune">🔹<strong>Uso de AutoTune</strong><a class="headerlink" href="#uso-de-autotune" title="Permanent link">&para;</a></h3>
+<p>Fabric ofrece <strong>AutoTune</strong>, una funcionalidad que ajusta automáticamente los parámetros de ejecución de Spark para maximizar la eficiencia.</p>
+<p><strong>¿Cómo funciona?</strong></p>
+<ol>
+<li>Analiza patrones de ejecución de trabajos anteriores.    </li>
+<li>Ajusta dinámicamente parámetros como el número de ejecutores y la asignación de memoria.    </li>
+<li>Optimiza la distribución de tareas dentro del cluster.    </li>
+</ol>
+<p><strong>Ventajas:</strong></p>
+<ul>
+<li>Reducción del tiempo de ejecución.    </li>
+<li>Menos intervención manual en la configuración de Spark.    </li>
+<li>Uso más eficiente de los recursos disponibles.</li>
+</ul>
+<hr />
+<h2 id="6-uso-de-pyspark-para-la-ingenieria-de-datos"><strong>6. Uso de PySpark para la ingeniería de datos</strong><a class="headerlink" href="#6-uso-de-pyspark-para-la-ingenieria-de-datos" title="Permanent link">&para;</a></h2>
+<h3 id="que-es-pyspark-y-por-que-usarlo-en-fabric">🔹 <strong>¿Qué es PySpark y por qué usarlo en Fabric?</strong><a class="headerlink" href="#que-es-pyspark-y-por-que-usarlo-en-fabric" title="Permanent link">&para;</a></h3>
+<p>PySpark es la implementación de <strong>Apache Spark en Python</strong>, y es una herramienta clave para procesar grandes volúmenes de datos en paralelo dentro de Fabric.</p>
+<p>📌 <strong>Beneficios de PySpark en Fabric:</strong><br />
+✅ <strong>Escalabilidad:</strong> Ejecuta procesos de datos en clústeres distribuidos.<br />
+✅ <strong>Compatibilidad con Delta Lake:</strong> Soporta almacenamiento en <strong>OneLake</strong> con formato optimizado.<br />
+✅ <strong>Interoperabilidad con SQL y Power BI:</strong> Permite consultas híbridas con T-SQL​.</p>
+<h3 id="ejemplo-de-codigo-pyspark-en-un-notebook-de-fabric">🔹 <strong>Ejemplo de código PySpark en un Notebook de Fabric</strong><a class="headerlink" href="#ejemplo-de-codigo-pyspark-en-un-notebook-de-fabric" title="Permanent link">&para;</a></h3>
+<p>`from pyspark.sql import SparkSession  </p>
+<h1 id="crear-sesion-de-spark">Crear sesión de Spark<a class="headerlink" href="#crear-sesion-de-spark" title="Permanent link">&para;</a></h1>
+<p>spark = SparkSession.builder.appName("FabricPySparkDemo").getOrCreate()  </p>
+<h1 id="cargar-datos-desde-onelake">Cargar datos desde OneLake<a class="headerlink" href="#cargar-datos-desde-onelake" title="Permanent link">&para;</a></h1>
+<p>df = spark.read.format("delta").load("onelake://mi_empresa/datasets/ventas")  </p>
+<h1 id="transformaciones-en-pyspark">Transformaciones en PySpark<a class="headerlink" href="#transformaciones-en-pyspark" title="Permanent link">&para;</a></h1>
+<p>df_filtrado = df.filter(df["ingresos"] &gt; 10000)  # Mostrar resultados df_filtrado.show()`</p>
+<p>📌 <strong>Explicación del código:</strong><br />
+1️⃣ Se inicia una sesión de <strong>Spark en Fabric</strong>.<br />
+2️⃣ Se cargan datos en formato <strong>Delta Lake desde OneLake</strong>.<br />
+3️⃣ Se aplican transformaciones con <strong>PySpark (filtros y manipulación de datos)</strong>.</p>
+<hr />
+<h2 id="7-introduccion-a-los-notebooks-en-microsoft-fabric"><strong>7. Introducción a los Notebooks en Microsoft Fabric</strong><a class="headerlink" href="#7-introduccion-a-los-notebooks-en-microsoft-fabric" title="Permanent link">&para;</a></h2>
+<h3 id="que-es-un-notebook-en-microsoft-fabric">🔹 <strong>¿Qué es un Notebook en Microsoft Fabric?</strong><a class="headerlink" href="#que-es-un-notebook-en-microsoft-fabric" title="Permanent link">&para;</a></h3>
+<p>Un <strong>Notebook en Microsoft Fabric</strong> es un entorno interactivo que permite escribir y ejecutar código en múltiples lenguajes (<strong>Python, Scala, SQL y .NET</strong>). Está diseñado para <strong>ingenieros de datos, científicos de datos y analistas</strong>, facilitando la exploración y transformación de datos​.</p>
+<h3 id="caracteristicas-clave-de-los-notebooks-en-fabric">🔹 <strong>Características clave de los Notebooks en Fabric</strong><a class="headerlink" href="#caracteristicas-clave-de-los-notebooks-en-fabric" title="Permanent link">&para;</a></h3>
+<p>✅ <strong>Soporte multi-lenguaje:</strong> Python (PySpark), Scala, SQL y .NET.<br />
+✅ <strong>Integración con OneLake:</strong> Accede y manipula datos almacenados en Fabric.<br />
+✅ <strong>Ejecuta Spark Jobs en paralelo:</strong> Alta capacidad de cómputo distribuido.<br />
+✅ <strong>Versionado con Git:</strong> Soporte para control de versiones e integración con CI/CD.<br />
+✅ <strong>Orquestación con Pipelines:</strong> Los notebooks pueden ejecutarse como parte de un flujo de datos​.</p>
+<p>📌 <strong>Ejemplo de uso:</strong> Un equipo de análisis de datos puede usar un Notebook en Fabric para limpiar y transformar datos financieros antes de almacenarlos en un Data Warehouse.</p>
+<hr />
+<h2 id="8-optimizacion-del-rendimiento-en-spark-y-mejores-practicas"><strong>8. Optimización del rendimiento en Spark y mejores prácticas</strong><a class="headerlink" href="#8-optimizacion-del-rendimiento-en-spark-y-mejores-practicas" title="Permanent link">&para;</a></h2>
+<h3 id="estrategias-para-mejorar-el-rendimiento-de-apache-spark-en-fabric">🔹 <strong>Estrategias para mejorar el rendimiento de Apache Spark en Fabric</strong><a class="headerlink" href="#estrategias-para-mejorar-el-rendimiento-de-apache-spark-en-fabric" title="Permanent link">&para;</a></h3>
+<p>📌 <strong>Optimización del rendimiento con Spark en Fabric:</strong></p>
+<p>✅ <strong>Uso de formato Delta Lake</strong> → Acelera la lectura/escritura y permite transacciones ACID​.<br />
+✅ <strong>Paralelismo en tareas Spark</strong> → Ajustar el número de particiones para evitar cuellos de botella.<br />
+✅ <strong>Uso de caché en Spark</strong> → Permite mejorar tiempos de respuesta en datasets reutilizados.<br />
+✅ <strong>Aplicación de V-Order en Parquet</strong> → Optimiza el rendimiento de consultas SQL sobre datos en Fabric.</p>
+<p>📌 <strong>Ejemplo de optimización con caché en PySpark</strong></p>
+<p><code>df.cache()  # Mantiene el DataFrame en memoria para acelerar consultas df.count()  # Ejecuta una acción para materializar el cache</code></p>
+<p>🔹 <strong>Estrategia de particionamiento recomendada:</strong></p>
+<p><code>df.repartition(10)  # Distribuir datos en 10 particiones para balanceo de carga</code></p>
+<p>✅ <strong>Monitorización de Spark Jobs en Fabric:</strong> Fabric proporciona herramientas de mointorización para visualizar el rendimiento de cada tarea de Spark, permitiendo identificar cuellos de botella​.</p>
+<hr />
+<h2 id="9carga-incremental-con-scd2-con-pyspark"><strong>9.Carga Incremental con SCD2 con PySpark</strong><a class="headerlink" href="#9carga-incremental-con-scd2-con-pyspark" title="Permanent link">&para;</a></h2>
+<p>En los escenarios de BI comunes donde disponemos de un Data Warehouses en SQL Server On-Premises o en la nube, nos encontrábamos con la característica IDENTITY que se asignaba a las claves subrogadas de las dimensiones. Ahora, con las tablas <strong>Delta</strong> nos encontramos con la <strong>problemática</strong> de que las <strong>IDENTITY desaparecen</strong>, por lo que el versionado de las SCD2 tiene que ser rediseñado.</p>
+<p>Para ello, proponemos una <strong>solución</strong> para emular el atributo IDENTITY almacenando en una variable el último valor de la clave subrogada cargada, para después con código escrito en Spark SQL y la función de ventana ROW_NUMBER(), gestionar y mantener los índices autoincreméntales en los elementos que entren nuevos o hayan cambiado de versión.</p>
+<p>1) Partiendo de la siguiente dimensión que presenta el nombre “tabla_delta”:</p>
+<p><img alt="tabla_delta" src="https://www.vernegroup.com/wp-content/uploads/2025/02/Imagen1.png" title="tabla_delta" /></p>
+<p>Con estas primeras líneas de código importamos las funciones del módulo pyspark.sql.functions, almacenamos la <em>pk</em> en la variable <em>key_column</em>, guardamos los campos en una lista, la reorganizamos para dejar <em>fromDate</em> al final y convertimos esa lista en un <em>string</em> separado por comas.</p>
+<p><img alt="string" src="https://www.vernegroup.com/wp-content/uploads/2025/02/Captura-de-pantalla-2025-02-12-170322-1.png" title="string" /></p>
+<p>2) Suponiendo que en la variable <em>sdf</em> tenemos almacenado el <em>DataFrame</em> con los datos que han entrado en la última ejecución:</p>
+<p><img alt="datos-dataframe" src="https://www.vernegroup.com/wp-content/uploads/2025/02/Imagen2.png" title="datos-dataframe" /></p>
+<p>Con el siguiente código le añadimos el campo <em>toDate</em> y <em>isCurrent</em>, además de añadir un hash con la función <em>xxhash64</em>. Este hash puede estar compuesto por todos los elementos de la dimensión o únicamente por los que nos interesen para versionar.</p>
+<p><img alt="hash" src="https://www.vernegroup.com/wp-content/uploads/2025/02/Captura-de-pantalla-2025-02-12-171012.png" title="hash" /></p>
+<p>1) Después, almacenamos en la variable <em>next_surrogate_key</em> el valor de la última <em>sk</em> cargada en la tabla, y guardamos en una vista temporal el <em>DataFrame</em> <em>sdf</em>.</p>
+<p><img alt="vista-temporal-dataframe" src="https://www.vernegroup.com/wp-content/uploads/2025/02/Captura-de-pantalla-2025-02-12-171322.png" title="vista-temporal-dataframe" /></p>
+<p>2) Por último, añadimos las líneas de Spark SQL encargadas de finalizar las versiones actuales de la dimensión y de insertar las nuevas.</p>
+<p><img alt="lineas-spark-sql" src="https://www.vernegroup.com/wp-content/uploads/2025/02/Captura-de-pantalla-2025-02-12-171643-1.png" title="lineas-spark-sql" /></p>
+<p>Tras ejecutar todo el código el resultado de la dimensión sería el siguiente:</p>
+<p><img alt="codigo-resultado-dimensión" src="https://www.vernegroup.com/wp-content/uploads/2025/02/Imagen3-1.png" title="codigo-resultado-dimensión" /></p>
+<p>En el cual disponemos de <strong>dos versiones</strong> para los <strong>id 2 y 6</strong> y la <strong>nueva inserción</strong> para el <strong>id 7</strong>, cada una de ellas <strong>con</strong> <strong>su</strong> <strong>propia clave subrogada</strong> (<em>sk</em>).</p>
+<hr />
+<h2 id="10-conclusion-y-preguntas-clave"><strong>10. Conclusión y Preguntas Clave</strong><a class="headerlink" href="#10-conclusion-y-preguntas-clave" title="Permanent link">&para;</a></h2>
+<p>✅ <strong>Los Notebooks en Microsoft Fabric son herramientas clave para la ingeniería de datos con Apache Spark.</strong><br />
+✅ <strong>PySpark permite la manipulación y transformación de datos a gran escala de manera eficiente.</strong><br />
+✅ <strong>Optimizar el rendimiento con Delta Lake y técnicas de caching mejora la eficiencia del procesamiento.</strong><br />
+✅ <strong>Fabric facilita la integración de Spark con almacenamiento en OneLake y análisis en Power BI.</strong></p>
+<h3 id="preguntas-para-reflexion-y-discusion"><strong>Preguntas para reflexión y discusión</strong><a class="headerlink" href="#preguntas-para-reflexion-y-discusion" title="Permanent link">&para;</a></h3>
+<p>1️⃣ ¿Cómo elegir entre SQL, PySpark y .NET dentro de un Notebook en Fabric?<br />
+2️⃣ ¿Cuándo se debe usar <strong>cache()</strong> y <strong>repartition()</strong> en Spark para optimizar rendimiento?<br />
+3️⃣ ¿Cómo se pueden monitorear y depurar errores en Spark dentro de Microsoft Fabric?</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.expand", "navigation.sections", "navigation.tabs", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

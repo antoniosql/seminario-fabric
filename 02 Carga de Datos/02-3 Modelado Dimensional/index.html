@@ -1,0 +1,1969 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../02-2%20Orquestando%20Cargas%20con%20Pipelines%20de%20Data%20Factory/">
+      
+      
+        <link rel="next" href="../02-4%20Desarrollo%20con%20Apache%20Spark/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Modelado Dimensional - Curso Introducción a Microsoft Fabric</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#modelado-dimensional" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Curso Introducción a Microsoft Fabric" class="md-header__button md-logo" aria-label="Curso Introducción a Microsoft Fabric" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Curso Introducción a Microsoft Fabric
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Modelado Dimensional
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Seminario Microsoft Fabric
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-1%20Que%20es%20Microsoft%20Fabric/" class="md-tabs__link">
+          
+  
+  
+  01 Introduccion a Microsoft Fabric
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../02-0%20Ingesta%20de%20Datos%20en%20Microsoft%20Fabric/" class="md-tabs__link">
+          
+  
+  
+  02 Carga de Datos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../03%20Ingenieria%20de%20Datos/03-1%20Introducci%C3%B3n%20a%20la%20Arquitectura%20Medall%C3%B3n/" class="md-tabs__link">
+          
+  
+  
+  03 Ingenieria de Datos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-1%20Fabric%20como%20plataforma%20de%20Data%20Science/" class="md-tabs__link">
+          
+  
+  
+  04 Analisis Avanzado y Automatizacion
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../05%20Fabric%20Databases/05-1%20Fabric%20Databases/" class="md-tabs__link">
+          
+  
+  
+  05 Fabric Databases
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Curso Introducción a Microsoft Fabric" class="md-nav__button md-logo" aria-label="Curso Introducción a Microsoft Fabric" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Curso Introducción a Microsoft Fabric
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Seminario Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 Introduccion a Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    01 Introduccion a Microsoft Fabric
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-1%20Que%20es%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ¿Qué es Microsoft Fabric?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-2%20El%20Concepto%20de%20Onelake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 2 El Concepto de Onelake
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-3%20Escenarios%20End-to-End%20en%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 3 Escenarios End to End en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 Carga de Datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    02 Carga de Datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-0%20Ingesta%20de%20Datos%20en%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ingesta de Datos en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-1%20ELT%20con%20flujos%20de%20datos%20de%20Gen2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ELT con flujos de Generación 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-2%20Orquestando%20Cargas%20con%20Pipelines%20de%20Data%20Factory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    **Orquestando Cargas con Pipelines de Data Factory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelado Dimensional
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelado Dimensional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-por-que-es-importante-el-modelado-dimensional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. ¿Por qué es importante el Modelado Dimensional?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. ¿Por qué es importante el Modelado Dimensional?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diferencias-entre-oltp-y-olap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Diferencias entre OLTP y OLAP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔹Diferencias entre OLTP y OLAP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bases-de-datos-transaccionales-oltp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bases de datos transaccionales (OLTP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modelado-dimensional-para-analisis-olap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modelado Dimensional para análisis (OLAP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-pasos-para-construir-un-modelo-dimensional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Pasos para construir un modelo dimensional
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3principales-enfoques-de-modelado-dimensional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.Principales enfoques de Modelado Dimensional
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.Principales enfoques de Modelado Dimensional">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enfoque-de-inmon-top-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Enfoque de Inmon (Top-Down)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enfoque-de-kimball-bottom-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Enfoque de Kimball (Bottom-Up)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modelo-hibrido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Modelo Híbrido
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4elementos-clave-del-modelado-dimensional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.Elementos clave del Modelado Dimensional
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.Elementos clave del Modelado Dimensional">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tablas-de-hechos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Tablas de Hechos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tablas-de-dimension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Tablas de Dimensión
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5modelos-de-esquemas-dimensionales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.Modelos de esquemas dimensionales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.Modelos de esquemas dimensionales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#esquema-en-estrella" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Esquema en Estrella
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#esquema-en-copo-de-nieve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Esquema en Copo de Nieve
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6patron-scd-slowly-changing-dimension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.Patrón SCD (Slowly Changing Dimension)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.Patrón SCD (Slowly Changing Dimension)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#seguimientos-de-cambios-en-las-dimensiones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Seguimientos de Cambios en las dimensiones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tipos-de-scd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Tipos de SCD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hands-on-implementando-scd2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Hands On: Implementando SCD2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7importancia-del-modelado-dimensional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.Importancia del Modelado Dimensional
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-4%20Desarrollo%20con%20Apache%20Spark/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desarrollo con Apache Spark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-5%20Guia%20de%20Decisi%C3%B3n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    **Guía de decisión entre Actividad de Copia de un Pipeline, Dataflow Gen2 y Apache Spark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 Ingenieria de Datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    03 Ingenieria de Datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Ingenieria%20de%20Datos/03-1%20Introducci%C3%B3n%20a%20la%20Arquitectura%20Medall%C3%B3n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción a la Arquitectura Medallón
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Ingenieria%20de%20Datos/03-2%20Creaci%C3%B3n%20y%20Gesti%C3%B3n%20de%20un%20lakehouse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 2 Creación y Gestión de un lakehouse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Ingenieria%20de%20Datos/03-3%20Trabajo%20con%20Datawarehouse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trabajando con Datawarehouse en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 Analisis Avanzado y Automatizacion
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    04 Analisis Avanzado y Automatizacion
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-1%20Fabric%20como%20plataforma%20de%20Data%20Science/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-01 Microsoft Fabric como plataforma de Ciencia de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-2%20An%C3%A1lisis%20de%20Datos%20en%20Tiempo%20Real%20con%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-02Analítica en Tiempo Real en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-3%20Introducci%C3%B3n%20a%20Data%20Activator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-03 Introducción a Data Activator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    05 Fabric Databases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20Fabric%20Databases/05-1%20Fabric%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20Fabric%20Databases/05-2%20Escenarios%20de%20Fabric%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escenarios de uso de Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-por-que-es-importante-el-modelado-dimensional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. ¿Por qué es importante el Modelado Dimensional?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. ¿Por qué es importante el Modelado Dimensional?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diferencias-entre-oltp-y-olap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Diferencias entre OLTP y OLAP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔹Diferencias entre OLTP y OLAP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bases-de-datos-transaccionales-oltp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bases de datos transaccionales (OLTP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modelado-dimensional-para-analisis-olap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modelado Dimensional para análisis (OLAP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-pasos-para-construir-un-modelo-dimensional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Pasos para construir un modelo dimensional
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3principales-enfoques-de-modelado-dimensional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.Principales enfoques de Modelado Dimensional
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.Principales enfoques de Modelado Dimensional">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enfoque-de-inmon-top-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Enfoque de Inmon (Top-Down)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enfoque-de-kimball-bottom-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Enfoque de Kimball (Bottom-Up)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modelo-hibrido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Modelo Híbrido
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4elementos-clave-del-modelado-dimensional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.Elementos clave del Modelado Dimensional
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.Elementos clave del Modelado Dimensional">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tablas-de-hechos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Tablas de Hechos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tablas-de-dimension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Tablas de Dimensión
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5modelos-de-esquemas-dimensionales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.Modelos de esquemas dimensionales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.Modelos de esquemas dimensionales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#esquema-en-estrella" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Esquema en Estrella
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#esquema-en-copo-de-nieve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Esquema en Copo de Nieve
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6patron-scd-slowly-changing-dimension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.Patrón SCD (Slowly Changing Dimension)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.Patrón SCD (Slowly Changing Dimension)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#seguimientos-de-cambios-en-las-dimensiones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Seguimientos de Cambios en las dimensiones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tipos-de-scd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Tipos de SCD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hands-on-implementando-scd2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Hands On: Implementando SCD2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7importancia-del-modelado-dimensional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.Importancia del Modelado Dimensional
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="modelado-dimensional"><strong>Modelado Dimensional</strong><a class="headerlink" href="#modelado-dimensional" title="Permanent link">&para;</a></h1>
+<p>Cuando se está trabajando en proyectos de analítica de datos al uso, lo más habitual es que nuestra capa de servicio o capa gold, aquella destina a servir ya finalmente a los usuarios que necesiten conectarse directamente a nuestros datos para sus análisis, o los modelos semánticos de Power BI, es muy habitual que se sigue un modelo en estrella para </p>
+<h2 id="1-por-que-es-importante-el-modelado-dimensional"><strong>1. ¿Por qué es importante el Modelado Dimensional?</strong><a class="headerlink" href="#1-por-que-es-importante-el-modelado-dimensional" title="Permanent link">&para;</a></h2>
+<p>Imagina un <strong>supermercado</strong> donde múltiples procesos ocurren simultáneamente:</p>
+<ul>
+<li>Cajeros registrando compras.</li>
+<li>Administradores ingresando facturas.</li>
+<li>Gerentes consultando ventas en tiempo real.</li>
+</ul>
+<p>Dado que muchas personas leen y escriben información al mismo tiempo, la base de datos debe estar diseñada para soportar este acceso concurrente de manera eficiente.</p>
+<hr />
+<h3 id="diferencias-entre-oltp-y-olap">🔹<strong>Diferencias entre OLTP y OLAP</strong><a class="headerlink" href="#diferencias-entre-oltp-y-olap" title="Permanent link">&para;</a></h3>
+<h4 id="bases-de-datos-transaccionales-oltp"><strong>Bases de datos transaccionales (OLTP)</strong><a class="headerlink" href="#bases-de-datos-transaccionales-oltp" title="Permanent link">&para;</a></h4>
+<p>Las bases de datos operacionales (OLTP) están diseñadas para manejar transacciones rápidas y frecuentes, como ventas, registros de clientes y actualizaciones de inventario. Se caracterizan por: 
+✅ <strong>Alta concurrencia</strong> (muchos usuarios escribiendo datos). 
+✅ <strong>Estructura altamente normalizada</strong> para evitar redundancia. 
+✅ <strong>Optimización para inserciones y actualizaciones rápidas</strong>.</p>
+<p><img alt="OLTP" src="../imagenes/OLTP.png" /></p>
+<h4 id="modelado-dimensional-para-analisis-olap"><strong>Modelado Dimensional para análisis (OLAP)</strong><a class="headerlink" href="#modelado-dimensional-para-analisis-olap" title="Permanent link">&para;</a></h4>
+<p>El <strong>Modelado Dimensional</strong> se centra en la optimización para el análisis de datos, consolidando información en estructuras de fácil acceso. Sus características son: 
+✅ <strong>Desnormalización</strong> para mejorar la velocidad de consulta. 
+✅ <strong>Optimización para reportes y análisis históricos</strong>. 
+✅ <strong>Uso de tablas de hechos y dimensiones</strong>.</p>
+<hr />
+<h2 id="2-pasos-para-construir-un-modelo-dimensional"><strong>2. Pasos para construir un modelo dimensional</strong><a class="headerlink" href="#2-pasos-para-construir-un-modelo-dimensional" title="Permanent link">&para;</a></h2>
+<p>1️⃣ <strong>Identificar el proceso de negocio a analizar</strong><br />
+📌 Ejemplo: Análisis de ventas en un supermercado.</p>
+<p>2️⃣ <strong>Determinar la granularidad de los datos</strong><br />
+📌 Nivel de detalle con el que se almacenan los datos (ejemplo: ventas por día, por tienda, por producto).</p>
+<p>3️⃣ <strong>Definir dimensiones y atributos</strong><br />
+📌 Crear tablas de dimensiones como <strong>Tiempo, Producto, Cliente, Ubicación</strong>.</p>
+<p>4️⃣ <strong>Construir la tabla de hechos</strong><br />
+📌 Contiene las métricas clave (Ej: cantidad de ventas, ingresos totales).</p>
+<hr />
+<h2 id="3principales-enfoques-de-modelado-dimensional"><strong>3.Principales enfoques de Modelado Dimensional</strong><a class="headerlink" href="#3principales-enfoques-de-modelado-dimensional" title="Permanent link">&para;</a></h2>
+<h3 id="enfoque-de-inmon-top-down">🔹 <strong>Enfoque de Inmon (Top-Down)</strong><a class="headerlink" href="#enfoque-de-inmon-top-down" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Se construye un <strong>Data Warehouse corporativo</strong> antes de crear Data Marts.</li>
+<li>Priorizado en integridad y calidad de datos.</li>
+<li>Adecuado para grandes empresas con múltiples áreas de negocio.</li>
+<li>Arquitectura centralizada que luego se desglosa en Data Marts.</li>
+</ul>
+<p><img alt="Enfoque Immon" src="../imagenes/Enfoque%20Inmon.png" /></p>
+<h3 id="enfoque-de-kimball-bottom-up">🔹 <strong>Enfoque de Kimball (Bottom-Up)</strong><a class="headerlink" href="#enfoque-de-kimball-bottom-up" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Se crean <strong>Data Marts</strong> específicos para procesos clave del negocio.</li>
+<li>Cada Data Mart está optimizado para reportes y análisis rápidos.</li>
+<li>Se integran gradualmente en una estructura de Data Warehouse.</li>
+</ul>
+<p><img alt="Enfoque Kimball" src="../imagenes/Enfoque%20Kimball.png" /></p>
+<h3 id="modelo-hibrido">🔹 <strong>Modelo Híbrido</strong><a class="headerlink" href="#modelo-hibrido" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Combina la velocidad del enfoque <strong>Kimball</strong> con la integración del <strong>Inmon</strong>.</li>
+<li>Permite una implementación ágil con una estrategia de consolidación a largo plazo.</li>
+</ul>
+<hr />
+<h2 id="4elementos-clave-del-modelado-dimensional"><strong>4.Elementos clave del Modelado Dimensional</strong><a class="headerlink" href="#4elementos-clave-del-modelado-dimensional" title="Permanent link">&para;</a></h2>
+<h3 id="tablas-de-hechos">🔹 <strong>Tablas de Hechos</strong><a class="headerlink" href="#tablas-de-hechos" title="Permanent link">&para;</a></h3>
+<p>Contienen métricas o hechos que representan eventos o transacciones. Características:</p>
+<ul>
+<li>Altas y estrechas (muchos registros, pocas columnas).</li>
+<li>Clave primaria compuesta por claves foráneas de las dimensiones.</li>
+<li>Ejemplo: <strong>Tabla de Ventas</strong> con columnas de <strong>cantidad, precio total, ID del producto, fecha</strong>.</li>
+</ul>
+<h3 id="tablas-de-dimension">🔹 <strong>Tablas de Dimensión</strong><a class="headerlink" href="#tablas-de-dimension" title="Permanent link">&para;</a></h3>
+<p>Representan entidades descriptivas como clientes, productos o fechas. Características:</p>
+<ul>
+<li>Anchas y cortas (menos registros, muchas columnas descriptivas).</li>
+<li>Desnormalizadas para mejorar el rendimiento.</li>
+<li>Contienen jerarquías (Ej: Año → Mes → Día).</li>
+</ul>
+<p><strong>Ejemplo: Dimensión Producto</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID_Producto</th>
+<th>Nombre</th>
+<th>Categoría</th>
+<th>Marca</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>Laptop</td>
+<td>Electrónica</td>
+<td>Dell</td>
+</tr>
+<tr>
+<td>102</td>
+<td>Teléfono</td>
+<td>Móviles</td>
+<td>Samsung</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5modelos-de-esquemas-dimensionales"><strong>5.Modelos de esquemas dimensionales</strong><a class="headerlink" href="#5modelos-de-esquemas-dimensionales" title="Permanent link">&para;</a></h2>
+<h3 id="esquema-en-estrella">🔹 <strong>Esquema en Estrella</strong><a class="headerlink" href="#esquema-en-estrella" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Cada dimensión se almacena en una única tabla.</li>
+<li>La tabla de hechos se relaciona directamente con cada dimensión.</li>
+<li><strong>Ventajas</strong>: Rápido para consultas, fácil de entender y usar.</li>
+</ul>
+<p><img alt="Esquema en Estrella" src="../imagenes/Estrella.png" /></p>
+<h3 id="esquema-en-copo-de-nieve">🔹 <strong>Esquema en Copo de Nieve</strong><a class="headerlink" href="#esquema-en-copo-de-nieve" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Las dimensiones están normalizadas en múltiples tablas.</li>
+<li><strong>Ventajas</strong>: Reducción de redundancia, pero con mayor complejidad de consultas.</li>
+</ul>
+<p><img alt="Copo de nieve" src="../imagenes/Copo%20de%20Nieve.png" /></p>
+<hr />
+<h2 id="6patron-scd-slowly-changing-dimension"><strong>6.Patrón SCD (Slowly Changing Dimension)</strong><a class="headerlink" href="#6patron-scd-slowly-changing-dimension" title="Permanent link">&para;</a></h2>
+<p>Como hemos comentado anteriormente, la información de los sistemas transaccionales puede ser modificada, aunque éstos sólo guardan la última versión. Por el contrario en un Data Warehouse, debemos reflejar ese historial de cambios para mostrar la verdad que había en el momento en que se produjeron los hechos.</p>
+<h3 id="seguimientos-de-cambios-en-las-dimensiones">🔹 <strong>Seguimientos de Cambios en las dimensiones</strong><a class="headerlink" href="#seguimientos-de-cambios-en-las-dimensiones" title="Permanent link">&para;</a></h3>
+<p>Veamos un ejemplo. Si en nuestro sistema transaccional asociamos cada venta al comercial que la realiza, y éste a su vez depende de un director de zona. En la tabla de ventas queda reflejado el comercial que realiza la venta, y en la tabla del empleado se almacena el director de zona del que depende, ya que tenemos los datos normalizados. ¿Qué ocurre si un comercial, por cualquier motivo, bien personal o bien laboral, le cambian la zona asignada?, ¿Y si además la nueva zona depende de otro director de zona?, ¿Y qué ocurre si sacamos un informe de ventas de ese nuevo director de zona? Pues que se le han trasladado a él todas las ventas que ha hecho este comercial durante toda su vida laboral en la empresa. Esto no es real, e imaginamos que su antiguo jefe de zona no estará en absoluto de acuerdo con estos informes de ventas, además de que no son ciertos. Cuando diseñamos un Data Warehouse debemos evitar esta problemática que tenemos en muchos sistemas transaccionales, donde sólo tenemos la versión actual de los datos. Para ello hay una serie de técnicas que nos permiten ir detectando los cambios que ocurren en el transaccional y dejándolos reflejados. Volviendo con el ejemplo anterior, en la tabla de dimensiones se deberían tener dos filas (o versiones) del empleado, una en la que se indica cuál es su jefe de zona antiguo, y durante qué periodo ha sido su jefe de zona, y otra que indica cuál es su jefe actual y desde cuándo. Adicionalmente, cada una de las ventas debe estar apuntando a la versión correcta del comercial, es decir, las ventas deben apuntar a la versión del comercial correspondiente al momento en que se produjeron, quedando así reflejado el jefe de zona y la zona que realmente tenía asignados en el momento de cada venta.</p>
+<p>Por el contrario, hay otros casos en los que no necesito reflejar el historial, por ejemplo, si corrijo el nombre de dicho comercial porque lo tenía mal escrito, no quiero tener dos versiones de él, una con el nombre mal escrito y otra con él bien escrito, sino que quiero que se sobrescriba y siempre aparezca la versión actual que es donde está escrito correctamente.</p>
+<h3 id="tipos-de-scd">🔹 <strong>Tipos de SCD</strong><a class="headerlink" href="#tipos-de-scd" title="Permanent link">&para;</a></h3>
+<p>Vistos estos ejemplos, pasemos a describir los diferentes tipos de SCD más habituales. Existe otros muchos, porque la combinatoria de lo que necesitemos hacer puede ser variada, pero para simplificar, los dos más habituales y básicos son :</p>
+<ul>
+<li>
+<p><strong>SCD tipo 1, Sobrescritura</strong>: la nueva información sobrescribe a la antigua, no se guardan históricos y sólo se tiene la versión actual. Dicha sobre escritura se produce cuando se detecta algún error en los valores para corregirlo y mejorar la calidad del dato. Desde el punto de vista analítico sólo interesa la versión actual.</p>
+</li>
+<li>
+<p><strong>SCD tipo 2, historial de cambios</strong>: refleja toda la información histórica. Por cada cambio que se produzca, se crea una nueva fila en la tabla de dimensiones con la fecha de inicio y una nueva clave subrogada, y se marca la fecha de fin de la versión anterior. Cada hecho que entra, debe comprobar a qué versión de la fila en la tabla de dimensiones se debe asociar (qué clave subrogada debe almacenar) en función de la fecha en la que se produzca.</p>
+</li>
+</ul>
+<p>Para dar soporte a este tipo de seguimiento de cambios para las SCD2 , existen varias maneras, pero la más habitual, utiliza fechas de inicio y fin que indican la validez, por lo que la estructura de nuestras dimensiones quedaría compuesta por :</p>
+<ul>
+<li><strong>Clave subrogada:</strong> Es la clave principal de la tabla de dimensiones. Nos permite identificar de forma única cada fila, suele ser un entero auto- incremental. Es totalmente transparente al usuario de negocio, no la usará en ningún momento, ni tan siquiera tendrá conocimiento de su existencia.</li>
+<li><strong>Clave de negocio:</strong> Es la clave con la que trabaja habitualmente el usuario, pero no puede ser la clave principal porque se pueden producir duplicidades.</li>
+<li><strong>Atributos de la dimensión</strong>: serán cada una de las características que necesitemos almacenar. Lo habitual es que haya varias decenas de ellos, incluso que en algunos casos superen el centenar. -</li>
+<li><strong>Fecha de Inicio y Fecha de Fin</strong>: Servirán para conocer el periodo de vigencia de cada una de las versiones de los atributos.</li>
+</ul>
+<h3 id="hands-on-implementando-scd2">🔹 <strong>Hands On: Implementando SCD2</strong><a class="headerlink" href="#hands-on-implementando-scd2" title="Permanent link">&para;</a></h3>
+<p>Para este ejemplo utilizaremos dos ficheros .csv muy simples, que puedes crearte directamente, y que por agilidad, y para ver alguna opción adicional, alojaremos en SharePoint o Onedrive para así poder modificarlos fácilmente y ver el funcionamiento de este seguimiento de cambios. Adicionalmente a eso, vamos a implementar una arquitectura más compleja, donde crearemos un lakehouse con esos cargados, para posteriormente simular un esquema en estrella en un datawarehouse. 
+Los fichero serían:</p>
+<p><img alt="ventas-csv" src="../imagenes/ventas-csv.png" /></p>
+<p><img alt="clientes-csv" src="../imagenes/clientes-csv.png" /></p>
+<hr />
+<p>Puedes acceder a los archivos desde esta ruta si no quieres crearlos <a href="https://vernedev-my.sharepoint.com/:f:/g/personal/admin_vernedev_onmicrosoft_com/Eq1FfcBjQOxNj4RVsUpB9p0B7LeENsbxdGKcbiEywQsddQ?e=aHajsw">CursoFabric</a>  y así puedes copiarlos directamente en tu Onedrive. </p>
+<p>Una vez tenemos los ficheros creamos:
+- Un <strong>lakehouse</strong> que llamaremos lakescd2 y un <strong>datawarehouse</strong> que llamaremos dwscd2
+- Crearemos un Dataflow Gen2, con el que leeremos ambos ficheros y simplemente los copiaremos (convirtiendo los tipos de datos) al lakehouse, como tablas. 
+- En el Dataflow, utilizaremos un origen de <strong>Texto/CSV</strong> y navegaremos a la carpeta de Onedrive donde los hayamos generado, y creamos las dos consultas, para clientes y para ventas. 
+- Seleccionamos como destino de ambos, el lakehouse <strong>lakescd2</strong> 
+- Como siguiente paso, vamos a nuestro dwscd2 y creamos el esquema necesario:
+<div class="highlight"><pre><span></span><code>CREATE SCHEMA [dim]
+GO
+CREATE SCHEMA [fact]
+GO
+CREATE TABLE [dim].[clientes]
+    (clientesk int,
+    idcliente int,
+    nombre varchar(500),
+    zona varchar(100),
+    fechainicio DATE,
+    fechafin DATE)
+GO
+CREATE TABLE [fact].[ventas]
+    (idventa int,
+    icliente int,
+    catagoria varchar(500),
+    importe FLOAT)
+</code></pre></div></p>
+<ul>
+<li>Una vez tenemos el esquema generado, ahora podemos cargar los datos desde el lakehouse, al datawarehouse</li>
+</ul>
+<p><img alt="dataflow SCD2" src="../imagenes/dataflow%20SCD2.png" /></p>
+<p>Para el resto del laboratorio, seguiremos el patrón que está documentado en este ejemplo: https://learn.microsoft.com/en-us/fabric/data-factory/slowly-changing-dimension-type-two </p>
+<h2 id="7importancia-del-modelado-dimensional"><strong>7.Importancia del Modelado Dimensional</strong><a class="headerlink" href="#7importancia-del-modelado-dimensional" title="Permanent link">&para;</a></h2>
+<p>✅ <strong>Simplifica el acceso y análisis de datos</strong>.<br />
+✅ <strong>Optimiza el rendimiento de consultas y reportes</strong>.<br />
+✅ <strong>Facilita la integración con herramientas de BI</strong>.<br />
+✅ <strong>Permite la reutilización de estructuras de datos</strong>.<br />
+✅ <strong>Asegura que los datos soporten las necesidades del negocio</strong>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.expand", "navigation.sections", "navigation.tabs", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

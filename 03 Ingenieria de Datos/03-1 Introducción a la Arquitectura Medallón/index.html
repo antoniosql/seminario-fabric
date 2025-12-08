@@ -1,0 +1,1901 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../02%20Carga%20de%20Datos/02-5%20Guia%20de%20Decisi%C3%B3n/">
+      
+      
+        <link rel="next" href="../03-2%20Creaci%C3%B3n%20y%20Gesti%C3%B3n%20de%20un%20lakehouse/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Introducción a la Arquitectura Medallón - Curso Introducción a Microsoft Fabric</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduccion-a-la-arquitectura-medallon" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Curso Introducción a Microsoft Fabric" class="md-header__button md-logo" aria-label="Curso Introducción a Microsoft Fabric" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Curso Introducción a Microsoft Fabric
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Introducción a la Arquitectura Medallón
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Seminario Microsoft Fabric
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-1%20Que%20es%20Microsoft%20Fabric/" class="md-tabs__link">
+          
+  
+  
+  01 Introduccion a Microsoft Fabric
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../02%20Carga%20de%20Datos/02-0%20Ingesta%20de%20Datos%20en%20Microsoft%20Fabric/" class="md-tabs__link">
+          
+  
+  
+  02 Carga de Datos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  03 Ingenieria de Datos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-1%20Fabric%20como%20plataforma%20de%20Data%20Science/" class="md-tabs__link">
+          
+  
+  
+  04 Analisis Avanzado y Automatizacion
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../05%20Fabric%20Databases/05-1%20Fabric%20Databases/" class="md-tabs__link">
+          
+  
+  
+  05 Fabric Databases
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Curso Introducción a Microsoft Fabric" class="md-nav__button md-logo" aria-label="Curso Introducción a Microsoft Fabric" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Curso Introducción a Microsoft Fabric
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Seminario Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 Introduccion a Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    01 Introduccion a Microsoft Fabric
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-1%20Que%20es%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ¿Qué es Microsoft Fabric?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-2%20El%20Concepto%20de%20Onelake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 2 El Concepto de Onelake
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-3%20Escenarios%20End-to-End%20en%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 3 Escenarios End to End en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 Carga de Datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    02 Carga de Datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-0%20Ingesta%20de%20Datos%20en%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ingesta de Datos en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-1%20ELT%20con%20flujos%20de%20datos%20de%20Gen2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ELT con flujos de Generación 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-2%20Orquestando%20Cargas%20con%20Pipelines%20de%20Data%20Factory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    **Orquestando Cargas con Pipelines de Data Factory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-3%20Modelado%20Dimensional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelado Dimensional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-4%20Desarrollo%20con%20Apache%20Spark/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desarrollo con Apache Spark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-5%20Guia%20de%20Decisi%C3%B3n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    **Guía de decisión entre Actividad de Copia de un Pipeline, Dataflow Gen2 y Apache Spark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 Ingenieria de Datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    03 Ingenieria de Datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción a la Arquitectura Medallón
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción a la Arquitectura Medallón
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-concepto-de-bronce-plata-y-oro-estructura-de-capas-en-la-gestion-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Concepto de Bronce, Plata y Oro: Estructura de capas en la gestión de datos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Concepto de Bronce, Plata y Oro: Estructura de capas en la gestión de datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es-la-arquitectura-medallon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 ¿Qué es la Arquitectura Medallón?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capas-de-la-arquitectura-medallon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Capas de la Arquitectura Medallón
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔹 Capas de la Arquitectura Medallón">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capa-bronze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capa Bronze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capa-platavalidada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capa Plata(Validada)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capa-orocurada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capa Oro(Curada)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-estrategias-para-mover-datos-entre-capas-y-asegurar-la-calidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Estrategias para mover datos entre capas y asegurar la calidad
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Estrategias para mover datos entre capas y asegurar la calidad">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proceso-elt-en-la-arquitectura-medallon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Proceso ELT en la Arquitectura Medallón
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patrones-de-despliegue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Patrones de despliegue
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-delta-lakehouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Delta lakehouse
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Delta lakehouse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apache-parquet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Apache Parquet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#que-es-un-delta-lake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 ¿Qué es un Delta lake?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔹 ¿Qué es un Delta lake?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#z-ordering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Z-Ordering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-ordering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        V-Ordering
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-conclusion-y-preguntas-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Conclusión y Preguntas Clave
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Conclusión y Preguntas Clave">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preguntas-para-reflexion-y-discusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preguntas para reflexión y discusión
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-2%20Creaci%C3%B3n%20y%20Gesti%C3%B3n%20de%20un%20lakehouse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 2 Creación y Gestión de un lakehouse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-3%20Trabajo%20con%20Datawarehouse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trabajando con Datawarehouse en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 Analisis Avanzado y Automatizacion
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    04 Analisis Avanzado y Automatizacion
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-1%20Fabric%20como%20plataforma%20de%20Data%20Science/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-01 Microsoft Fabric como plataforma de Ciencia de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-2%20An%C3%A1lisis%20de%20Datos%20en%20Tiempo%20Real%20con%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-02Analítica en Tiempo Real en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-3%20Introducci%C3%B3n%20a%20Data%20Activator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-03 Introducción a Data Activator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    05 Fabric Databases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20Fabric%20Databases/05-1%20Fabric%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20Fabric%20Databases/05-2%20Escenarios%20de%20Fabric%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escenarios de uso de Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-concepto-de-bronce-plata-y-oro-estructura-de-capas-en-la-gestion-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Concepto de Bronce, Plata y Oro: Estructura de capas en la gestión de datos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Concepto de Bronce, Plata y Oro: Estructura de capas en la gestión de datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es-la-arquitectura-medallon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 ¿Qué es la Arquitectura Medallón?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capas-de-la-arquitectura-medallon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Capas de la Arquitectura Medallón
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔹 Capas de la Arquitectura Medallón">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capa-bronze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capa Bronze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capa-platavalidada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capa Plata(Validada)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capa-orocurada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capa Oro(Curada)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-estrategias-para-mover-datos-entre-capas-y-asegurar-la-calidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Estrategias para mover datos entre capas y asegurar la calidad
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Estrategias para mover datos entre capas y asegurar la calidad">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proceso-elt-en-la-arquitectura-medallon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Proceso ELT en la Arquitectura Medallón
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patrones-de-despliegue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Patrones de despliegue
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-delta-lakehouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Delta lakehouse
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Delta lakehouse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apache-parquet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Apache Parquet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#que-es-un-delta-lake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 ¿Qué es un Delta lake?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔹 ¿Qué es un Delta lake?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#z-ordering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Z-Ordering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-ordering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        V-Ordering
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-conclusion-y-preguntas-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Conclusión y Preguntas Clave
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Conclusión y Preguntas Clave">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preguntas-para-reflexion-y-discusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preguntas para reflexión y discusión
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="introduccion-a-la-arquitectura-medallon"><strong>Introducción a la Arquitectura Medallón</strong><a class="headerlink" href="#introduccion-a-la-arquitectura-medallon" title="Permanent link">&para;</a></h1>
+<p>La <strong>arquitectura Medallón</strong> es un enfoque de diseño de datos en lagos de datos (<strong>Data Lakes</strong>) que organiza la información en <strong>tres capas o zonas</strong> para garantizar calidad, gobernanza y eficiencia en el análisis. Su objetivo es estructurar los datos desde su ingestión hasta su consumo, asegurando integridad y optimización en la consulta y transformación.</p>
+<p>Microsoft Fabric, con <strong>OneLake</strong> como núcleo central, permite la implementación de esta arquitectura de manera <strong>nativa</strong>, proporcionando una solución unificada para la gestión de datos empresariales.</p>
+<h2 id="1-concepto-de-bronce-plata-y-oro-estructura-de-capas-en-la-gestion-de-datos"><strong>1. Concepto de Bronce, Plata y Oro: Estructura de capas en la gestión de datos</strong><a class="headerlink" href="#1-concepto-de-bronce-plata-y-oro-estructura-de-capas-en-la-gestion-de-datos" title="Permanent link">&para;</a></h2>
+<h3 id="que-es-la-arquitectura-medallon">🔹 <strong>¿Qué es la Arquitectura Medallón?</strong><a class="headerlink" href="#que-es-la-arquitectura-medallon" title="Permanent link">&para;</a></h3>
+<p>La <strong>Arquitectura Medallón</strong> es un enfoque de gestión de datos en capas que mejora la calidad y accesibilidad de los datos almacenados en un <strong>Data Lake</strong> o <strong>Lakehouse</strong>. En Microsoft Fabric, esta arquitectura se implementa en <strong>OneLake</strong>, permitiendo gestionar la evolución de los datos desde su ingesta hasta su consumo​. Existen diferentes nomenclaturas para denominar a las capas (bronze, silver, gold ; raw, validated, curated,...) en la documentación oficial de Onelake, Microsoft opta por bronze, silver, gold, así que esa utilizaremos durante este curso. </p>
+<p><img alt="Arquitectura Medallón" src="../imagenes/Arquitectura%20Medall%C3%B3n.png" /></p>
+<h3 id="capas-de-la-arquitectura-medallon">🔹 <strong>Capas de la Arquitectura Medallón</strong><a class="headerlink" href="#capas-de-la-arquitectura-medallon" title="Permanent link">&para;</a></h3>
+<h4 id="capa-bronze"><strong>Capa Bronze</strong><a class="headerlink" href="#capa-bronze" title="Permanent link">&para;</a></h4>
+<p><strong>Propósito:</strong> Almacenar los datos en su formato original tal y como llegan desde las fuentes.</p>
+<p>📌 <strong>Características:</strong></p>
+<ul>
+<li>Datos sin procesar, extraídos directamente de fuentes transaccionales, archivos, APIs, sensores IoT, etc.</li>
+<li><strong>Formato:</strong> JSON, CSV, Parquet, Avro, Delta Lake.</li>
+<li><strong>Gobernanza mínima</strong>, solo controles de acceso.</li>
+<li><strong>Ejemplo en Fabric:</strong> Ingesta con <strong>Data Factory</strong> y almacenamiento en <strong>OneLake</strong>.</li>
+</ul>
+<h4 id="capa-platavalidada"><strong>Capa Plata(Validada)</strong><a class="headerlink" href="#capa-platavalidada" title="Permanent link">&para;</a></h4>
+<p>📌 <strong>Propósito:</strong> Refinar y limpiar los datos para hacerlos útiles en análisis.</p>
+<p>📌 <strong>Características:</strong></p>
+<ul>
+<li>Se eliminan valores nulos, se corrigen errores y se filtran registros.</li>
+<li>Se generan particiones y optimizaciones para mejorar rendimiento.</li>
+<li>Se aplican <strong>modelos de gobernanza y seguridad</strong>.</li>
+</ul>
+<p>📌 <strong>Ejemplo en Fabric:</strong> Aplicación de transformaciones en <strong>Data Engineering</strong> y almacenamiento en Delta Lake sobre <strong>OneLake</strong>.</p>
+<h4 id="capa-orocurada"><strong>Capa Oro(Curada)</strong><a class="headerlink" href="#capa-orocurada" title="Permanent link">&para;</a></h4>
+<p>📌 <strong>Propósito:</strong> Servir datos listos para análisis y modelos de negocio.</p>
+<p>📌 <strong>Características:</strong></p>
+<ul>
+<li>Datos enriquecidos, agregados y optimizados.</li>
+<li>Indexación para consultas eficientes.</li>
+<li>Modelado <strong>dimensional (star schema)</strong> para integración con BI.</li>
+</ul>
+<p>📌 <strong>Ejemplo en Fabric:</strong></p>
+<ul>
+<li>Uso de <strong>Data Warehouse</strong> en Fabric para modelado relacional.</li>
+<li>Creación de vistas optimizadas para <strong>Power BI</strong>.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>Capa</strong></th>
+<th><strong>Propósito</strong></th>
+<th><strong>Ejemplo de uso</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bronce (Raw Layer)</strong></td>
+<td>Almacena los datos sin procesar, tal como llegan desde las fuentes.</td>
+<td>Datos de sensores IoT o logs de transacciones sin transformación.</td>
+</tr>
+<tr>
+<td><strong>Plata (Clean Layer)</strong></td>
+<td>Se aplican procesos de limpieza, transformación y deduplicación.</td>
+<td>Eliminación de valores nulos y normalización de datos.</td>
+</tr>
+<tr>
+<td><strong>Oro (Curated Layer)</strong></td>
+<td>Datos listos para el consumo empresarial, optimizados para BI y analítica.</td>
+<td>Tablas agregadas para informes financieros en Power BI.</td>
+</tr>
+</tbody>
+</table>
+<p>📌 <strong>Beneficio clave:</strong> Permite manejar datos <strong>a gran escala</strong>, asegurando que las transformaciones se realicen de manera eficiente y escalable en Fabric​.</p>
+<hr />
+<h2 id="2-estrategias-para-mover-datos-entre-capas-y-asegurar-la-calidad"><strong>2. Estrategias para mover datos entre capas y asegurar la calidad</strong><a class="headerlink" href="#2-estrategias-para-mover-datos-entre-capas-y-asegurar-la-calidad" title="Permanent link">&para;</a></h2>
+<h3 id="proceso-elt-en-la-arquitectura-medallon">🔹 <strong>Proceso ELT en la Arquitectura Medallón</strong><a class="headerlink" href="#proceso-elt-en-la-arquitectura-medallon" title="Permanent link">&para;</a></h3>
+<p>Cada capa tiene un conjunto de transformaciones clave que garantizan la <strong>calidad y gobernanza de los datos</strong> en Fabric.</p>
+<p>🔹 <strong>Estrategias para mover datos entre capas:</strong></p>
+<p>1️⃣ <strong>De Bronce a Plata:</strong><br />
+✅ <strong>Filtrado de datos erróneos o duplicados</strong>.(de-duplicación)<br />
+✅ <strong>Conversión de formatos</strong> (JSON → Parquet, CSV → Delta Lake).<br />
+✅ <strong>Enriquecimiento con datos de otras fuentes</strong>.</p>
+<p>2️⃣ <strong>De Plata a Oro:</strong><br />
+✅ <strong>Agregaciones y cálculos avanzados</strong> para optimizar consultas.<br />
+✅ <strong>Creación de vistas optimizadas</strong> en un Data Warehouse.<br />
+✅ <strong>Indexación y particionamiento</strong> para mejorar el rendimiento​.</p>
+<p>📌 <strong>Ejemplo práctico:</strong> Un pipeline de Data Factory puede extraer datos brutos de sensores (Bronce), limpiarlos y calcular promedios por hora (Plata), y finalmente generar reportes con tendencias de uso (Oro).</p>
+<hr />
+<h3 id="patrones-de-despliegue">🔹 <strong>Patrones de despliegue</strong><a class="headerlink" href="#patrones-de-despliegue" title="Permanent link">&para;</a></h3>
+<p>Para implementar la arquitectura medallion en Fabric, podemos usar lakehouses (uno para cada zona), un datawarehouse o una combinación de ambos. La decisión dependerá de nuestras preferencias y de la experiencia de su equipo. Fabric no ofrece flexibilidad: podemos usar diferentes motores analíticos que trabajan con una única copia de los datos en OneLake.</p>
+<p>Aquí hay dos patrones que podemos considerar:</p>
+<p>🔹 <strong>Patrón 1</strong>: Crear cada zona como un lakehouse. En este caso, los usuarios empresariales acceden a los datos a través del punto de conexión de análisis SQL.</p>
+<p>🔹 <strong>Patrón 2</strong>: Configurar las zonas de bronce y plata como lakehouse y la zona oro como datawarehouse. Aquí, los usuarios empresariales acceden a los datos mediante el punto de conexión de almacenamiento de datos.</p>
+<p>Aunque podemos crear todos los almacenes de lago dentro de una única área de trabajo en Fabric, lo recomendable es que cada almacén tenga su propia área de trabajo independiente. Este enfoque nos da más control y mejor gobernanza a nivel de zona.</p>
+<p>Para la <strong>zona bronce</strong>, lo ideal es almacenar los datos en su formato original o usar Parquet o Delta Lake. Siempre que sea posible, debemos de mantener los datos en su formato original. Si los datos de origen provienen de OneLake, Azure Data Lake Store Gen2 (ADLS Gen2), Amazon S3 o Google, es mejor crear un acceso directo en la zona bronce en lugar de copiarlos.</p>
+<p>Para las <strong>zonas plata y oro</strong>, se recomienda usar tablas Delta por las funcionalidades adicionales y mejoras de rendimiento que ofrecen. Fabric normaliza el formato Delta Lake y, por defecto, cada motor de Fabric escribe los datos en este formato. Además, estos motores aplican la optimización en tiempo de escritura <strong>V-Order</strong> al formato de archivo Parquet, lo que permite lecturas extremadamente rápidas para motores como Power BI, SQL, Apache Spark y otros. </p>
+<hr />
+<h2 id="3-delta-lakehouse"><strong>3. Delta lakehouse</strong><a class="headerlink" href="#3-delta-lakehouse" title="Permanent link">&para;</a></h2>
+<h3 id="apache-parquet">🔹 <strong>Apache Parquet</strong><a class="headerlink" href="#apache-parquet" title="Permanent link">&para;</a></h3>
+<p><strong>Parquet</strong> es un formato de almacenamiento columnar de código abierto que se creó como parte de Apache Hadoop y que actualmente se utiliza en muchos otros sistemas.
+Su principal característica es que organiza los datos en columnas, a diferencia de otros formatos que los organizan en filas, como CSV. Además, a cada columna se le asigna un tipo de dato. Esto tiene varias ventajas, entre ellas quiero resaltar las dos que me parecen más importantes.
+La primera ventaja es la reducción del espacio de almacenamiento, ya que los datos de cada columna se pueden codificar de manera independiente, con un algoritmo específico para el tipo de dato de la columna. Por ejemplo, para una columna con textos donde los valores se repitan mucho, en lugar de almacenar directamente el texto de cada fila, se puede crear primero un diccionario con los valores únicos y luego para cada fila almacenar un valor numérico con el índice al diccionario. De esta forma se logra reducir el espacio requerido para almacenar la columna. Parquet soporta varios métodos de codificación.
+Además de esta codificación, Parquet también soporta varios tipos de compresión, como <strong>Snappy</strong> o GZIP, con lo cuál se logra reducir aún más el espacio de almacenamiento.
+Para dar una idea de cuanto se comprimen los datos, he convertido un archivo CSV con 11 millones de filas a Parquet. El tamaño en disco del CSV es de unos 500 MB mientras que el tamaño del archivo Parquet es de unos 42 MB.
+Por lo tanto, con los archivos Parquet podemos reducir los costes de almacenamiento, sobre todo si estamos usando almacenamiento en la nube como es el caso de <strong>Onelake</strong>.
+La segunda ventaja es que las columnas se pueden leer de manera independiente, o sea, si sólo se quieren obtener los datos de algunas columnas, estos se pueden ir a buscar directamente, sin necesidad de cargar los datos de las columnas restantes. </p>
+<p>Otras dos características muy importantes de Parquet son:</p>
+<ul>
+<li><strong>Metadatos</strong>: además de los datos, guarda información sobre los nombres y los tipos de las columnas, estadísticas de los datos, entre otras cosas.</li>
+<li><strong>Estructuras anidadas</strong>: es capaz de representar datos con una estructura compleja, por ejemplo, que una columna contenga a su vez otra tabla.</li>
+</ul>
+<p>Se convirtió rápidamente en el formato de referencia en el paradigma Big Data, por la compresión que ayudaba a reducir costes, por poder manejar gran cantidad de datos y estar orientado al análisis, y por facilitar los patrones de ELT, con una estructura de metadata integrada. </p>
+<hr />
+<h3 id="que-es-un-delta-lake">🔹 <strong>¿Qué es un Delta lake?</strong><a class="headerlink" href="#que-es-un-delta-lake" title="Permanent link">&para;</a></h3>
+<p>Delta Lake es una capa de almacenamiento open source que ofrece transacciones ACID (atomicidad, coherencia, aislamiento y durabilidad) para cargas de trabajo de macrodatos de Apache Spark. Está basado en una evolución del formato Apache Parquet, denominada Delta, desarrollada por Databricks, que a día de hoy se ha convertido en un estándar de facto en el mundo lakehouse, desde que Databricks decidió liberarlo como un proyecto Open Source también.  Por lo tanto el <strong>formato de fichero Delta</strong> es un estándar de almacenamiento optimizado basado en <strong>Parquet</strong>, diseñado para mejorar la eficiencia en la gestión de datos en lagos de datos y almacenes analíticos. Microsoft Fabric adopta <strong>Delta Lake</strong> como formato principal para almacenamiento en <strong>OneLake</strong>, asegurando compatibilidad con múltiples motores analíticos y soporte para transacciones ACID. A continuación se detallas las principales características de este formato:</p>
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Transacciones ACID</strong></td>
+<td>Los lakehouses suelen llenarse con múltiples procesos y canalizaciones, donde algunos escriben datos mientras otros los leen. Delta Lake  ofrece transacciones ACID para garantizar la integridad de los datos, evitando problemas en los registros. Así podemos asegurarnos de que los datos sean consistentes y fiables.</td>
+</tr>
+<tr>
+<td><strong>Control escalable de metadatos</strong></td>
+<td>Administrar grandes volúmenes de datos puede ser complicado, pero Delta Lake maneja incluso los metadatos a gran escala. Aprovecha la potencia de Spark para procesarlos de manera distribuida, lo que permite gestionar datos en la escala de petabytes sin perder eficiencia.</td>
+</tr>
+<tr>
+<td><strong>Viaje en el tiempo (control de versiones de datos)</strong></td>
+<td>¿Necesitas volver a una versión anterior de los datos? Con Delta Lake podemos "deshacer" cambios y recuperar versiones pasadas, lo que facilita auditorías, análisis de tendencias y recuperación de información en caso de errores.</td>
+</tr>
+<tr>
+<td><strong>Formato abierto</strong></td>
+<td>Delta Lake utiliza Apache Parquet como formato de referencia, lo que nos permite beneficiarse de esquemas de compresión y codificación eficientes sin depender de formatos propietarios.</td>
+</tr>
+<tr>
+<td><strong>Lote unificado y origen/receptor de streaming</strong></td>
+<td>Las tablas en Delta Lake pueden funcionar tanto para procesamiento por lotes como en streaming. Podemos ingerir datos en tiempo real, reponer históricos de manera sencilla y ejecutar consultas interactivas sin problemas.</td>
+</tr>
+<tr>
+<td><strong>Aplicación de esquemas</strong></td>
+<td>Se aseguran de que los tipos de datos sean correctos y de que todas las columnas necesarias estén presentes. Así evitan inconsistencias y mantienen la coherencia de los datos.</td>
+</tr>
+<tr>
+<td><strong>Evolución del esquema</strong></td>
+<td>Pueden realizar cambios en los esquemas de las tablas sin necesidad de escribir DDL de migración manualmente. Así, la estructura de los datos se adapta automáticamente a nuevas necesidades.</td>
+</tr>
+<tr>
+<td><strong>Historial de auditorías</strong></td>
+<td>Delta Lake registra automáticamente cada cambio en los datos, permitiéndoles realizar auditorías completas y rastrear modificaciones de manera sencilla.</td>
+</tr>
+<tr>
+<td><strong>Actualizaciones y eliminaciones</strong></td>
+<td>Pueden actualizar y eliminar datos fácilmente con operaciones como MERGE, UPDATE y DELETE, sin complicaciones y garantizando el cumplimiento de normativas.</td>
+</tr>
+<tr>
+<td><strong>100% compatible con la API de Apache Spark</strong></td>
+<td>No necesitan hacer cambios en sus canalizaciones de datos actuales para usar Delta Lake, ya que es totalmente compatible con Spark.</td>
+</tr>
+</tbody>
+</table>
+<p>Uno de los mayores desafíos en el almacenamiento de datos es garantizar que las consultas sean rápidas y eficientes. En el formato <strong>Delta Lake</strong>, existen dos estrategias clave para mejorar la ejecución de consultas analíticas sobre grandes volúmenes de datos: <strong>Z-Ordering</strong> y <strong>V-Ordering</strong>. Ambas técnicas optimizan la organización de los datos dentro de los archivos <strong>Parquet</strong>, reduciendo el tiempo de búsqueda y mejorando la latencia de las consultas.</p>
+<hr />
+<h4 id="z-ordering"><strong>Z-Ordering</strong><a class="headerlink" href="#z-ordering" title="Permanent link">&para;</a></h4>
+<p><strong>Z-Ordering</strong> es una técnica de <strong>clustering</strong> que mejora la eficiencia de las consultas al <strong>reorganizar los datos dentro de los archivos Delta según una columna clave</strong>. Esta optimización es particularmente útil en escenarios donde las consultas filtran frecuentemente por una o varias columnas específicas.</p>
+<p>📌 <strong>¿Cómo funciona?</strong></p>
+<ul>
+<li>Organiza los datos utilizando un <strong>algoritmo de Morton (Z-order curve)</strong>, que <strong>agrupa valores similares dentro del mismo archivo</strong>.</li>
+<li>Reduce <strong>la cantidad de archivos que deben escanearse</strong> en consultas con filtros en columnas clave.</li>
+<li>Mejora la <strong>localidad de los datos</strong>, facilitando la lectura secuencial en almacenamiento distribuido.</li>
+</ul>
+<p>👉 <strong>Casos de uso óptimos:</strong></p>
+<ul>
+<li>Tablas con <strong>grandes volúmenes de datos</strong> y <strong>consultas que filtran por rangos en columnas específicas</strong>.</li>
+<li>Datos con <strong>altos índices de cardinalidad</strong>, donde la dispersión de valores en los archivos podría generar <strong>lecturas innecesarias</strong>.</li>
+</ul>
+<hr />
+<h4 id="v-ordering"><strong>V-Ordering</strong><a class="headerlink" href="#v-ordering" title="Permanent link">&para;</a></h4>
+<p><strong>V-Ordering</strong> (Vertical Ordering) es un <strong>método de ordenación dentro de los archivos Parquet</strong> que mejora el rendimiento de las consultas al <strong>minimizar los costos de descompresión y escaneo</strong>. La aplicación de V-Ordering es automática cuando almacenamos datos en formato delta en Onelake. </p>
+<p>📌 <strong>¿Cómo funciona?</strong></p>
+<ul>
+<li>Reordena los datos <strong>dentro de cada archivo Parquet</strong> en un patrón de <strong>valores agrupados y ordenados</strong>.</li>
+<li>Optimiza la lectura de <strong>columnas altamente repetitivas</strong>, como dimensiones con pocos valores únicos.</li>
+<li>Reduce el <strong>tamaño del archivo comprimido</strong>, ya que los valores similares se agrupan de forma más eficiente.</li>
+</ul>
+<p>👉 <strong>Casos de uso óptimos:</strong></p>
+<ul>
+<li>Datos con <strong>alta repetición en columnas específicas</strong>, donde la organización de los valores mejora la compresión.</li>
+<li>Consultas con <strong>agregaciones frecuentes</strong>, ya que permite <strong>lecturas más eficientes y menos I/O</strong>.</li>
+</ul>
+<hr />
+<h2 id="4-conclusion-y-preguntas-clave"><strong>4. Conclusión y Preguntas Clave</strong><a class="headerlink" href="#4-conclusion-y-preguntas-clave" title="Permanent link">&para;</a></h2>
+<p>✅ <strong>La Arquitectura Medallón mejora la calidad y estructuración de los datos en Fabric.</strong><br />
+✅ <strong>Cada capa (Bronce, Plata y Oro) tiene un propósito específico para la gestión de datos.</strong><br />
+✅ <strong>Fabric proporciona herramientas para mover datos entre capas de manera eficiente con Spark y Data Factory.</strong></p>
+<h3 id="preguntas-para-reflexion-y-discusion"><strong>Preguntas para reflexión y discusión</strong><a class="headerlink" href="#preguntas-para-reflexion-y-discusion" title="Permanent link">&para;</a></h3>
+<p>1️⃣ ¿Cómo puedo asegurar la gobernanza y calidad de los datos en cada capa?<br />
+2️⃣ ¿Cuándo debo utilizar un Data Warehouse en vez de un Lakehouse para la capa Oro?<br />
+3️⃣ ¿Qué impacto tiene la arquitectura Medallón en el rendimiento de las consultas en Fabric?</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.expand", "navigation.sections", "navigation.tabs", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

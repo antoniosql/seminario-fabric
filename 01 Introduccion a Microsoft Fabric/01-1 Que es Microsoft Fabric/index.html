@@ -1,0 +1,2237 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../01-2%20El%20Concepto%20de%20Onelake/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>¿Qué es Microsoft Fabric? - Curso Introducción a Microsoft Fabric</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#que-es-microsoft-fabric" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Curso Introducción a Microsoft Fabric" class="md-header__button md-logo" aria-label="Curso Introducción a Microsoft Fabric" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Curso Introducción a Microsoft Fabric
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ¿Qué es Microsoft Fabric?
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Seminario Microsoft Fabric
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  01 Introduccion a Microsoft Fabric
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../02%20Carga%20de%20Datos/02-0%20Ingesta%20de%20Datos%20en%20Microsoft%20Fabric/" class="md-tabs__link">
+          
+  
+  
+  02 Carga de Datos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../03%20Ingenieria%20de%20Datos/03-1%20Introducci%C3%B3n%20a%20la%20Arquitectura%20Medall%C3%B3n/" class="md-tabs__link">
+          
+  
+  
+  03 Ingenieria de Datos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-1%20Fabric%20como%20plataforma%20de%20Data%20Science/" class="md-tabs__link">
+          
+  
+  
+  04 Analisis Avanzado y Automatizacion
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../05%20Fabric%20Databases/05-1%20Fabric%20Databases/" class="md-tabs__link">
+          
+  
+  
+  05 Fabric Databases
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Curso Introducción a Microsoft Fabric" class="md-nav__button md-logo" aria-label="Curso Introducción a Microsoft Fabric" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Curso Introducción a Microsoft Fabric
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Seminario Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 Introduccion a Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    01 Introduccion a Microsoft Fabric
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ¿Qué es Microsoft Fabric?
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ¿Qué es Microsoft Fabric?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduccion-a-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción a Microsoft Fabric
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Introducción a Microsoft Fabric">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es-microsoft-fabric_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 ¿Qué es Microsoft Fabric?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principales-ventajas-de-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Principales ventajas de Microsoft Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-comparacion-entre-microsoft-fabric-y-power-bi-cuando-usar-cada-uno" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Comparación entre Microsoft Fabric y Power BI: ¿Cuándo usar cada uno?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-integracion-de-microsoft-fabric-con-otras-herramientas-de-microsoft" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Integración de Microsoft Fabric con otras herramientas de Microsoft
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Integración de Microsoft Fabric con otras herramientas de Microsoft">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onelake-y-azure-data-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 OneLake y Azure Data Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#power-bi-y-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Power BI y Microsoft Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inteligencia-artificial-y-machine-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Inteligencia Artificial y Machine Learning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orquestacion-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Orquestación de Datos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-licenciamiento-y-unidades-de-capacidad-en-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Licenciamiento y Unidades de Capacidad en Microsoft Fabric
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Licenciamiento y Unidades de Capacidad en Microsoft Fabric">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capacidades-y-skus-disponibles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Capacidades y SKUs disponibles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fabric-trial-evaluacion-gratuita" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Fabric Trial: Evaluación Gratuita
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pero-entonces-que-licenciamos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Pero entonces, ¿Qué licenciamos?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capacidades-y-consumos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Capacidades y Consumos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔹 Capacidades y Consumos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es-una-unidad-de-capacidad-cu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué es una Unidad de Capacidad (CU)?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gestion-dinamica-de-recursos-bursting-y-smoothing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestión Dinámica de Recursos: Bursting y Smoothing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-resumen-de-capacidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Resumen de Capacidades
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-creacion-del-recurso-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Creación del recurso Fabric
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Creación del recurso Fabric">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#asignar-la-capacidad-al-espacio-de-trabajo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Asignar la capacidad al espacio de trabajo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pausar-e-iniciar-la-capacidad-de-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Pausar e iniciar la capacidad de Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-conclusion-y-preguntas-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Conclusión y Preguntas Clave
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Conclusión y Preguntas Clave">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resumen-de-conceptos-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Resumen de conceptos clave
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preguntas-para-reflexionar-y-discusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Preguntas para reflexionar y discusión
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-2%20El%20Concepto%20de%20Onelake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 2 El Concepto de Onelake
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-3%20Escenarios%20End-to-End%20en%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 3 Escenarios End to End en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 Carga de Datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    02 Carga de Datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-0%20Ingesta%20de%20Datos%20en%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ingesta de Datos en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-1%20ELT%20con%20flujos%20de%20datos%20de%20Gen2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ELT con flujos de Generación 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-2%20Orquestando%20Cargas%20con%20Pipelines%20de%20Data%20Factory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    **Orquestando Cargas con Pipelines de Data Factory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-3%20Modelado%20Dimensional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelado Dimensional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-4%20Desarrollo%20con%20Apache%20Spark/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desarrollo con Apache Spark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-5%20Guia%20de%20Decisi%C3%B3n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    **Guía de decisión entre Actividad de Copia de un Pipeline, Dataflow Gen2 y Apache Spark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 Ingenieria de Datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    03 Ingenieria de Datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Ingenieria%20de%20Datos/03-1%20Introducci%C3%B3n%20a%20la%20Arquitectura%20Medall%C3%B3n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción a la Arquitectura Medallón
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Ingenieria%20de%20Datos/03-2%20Creaci%C3%B3n%20y%20Gesti%C3%B3n%20de%20un%20lakehouse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 2 Creación y Gestión de un lakehouse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Ingenieria%20de%20Datos/03-3%20Trabajo%20con%20Datawarehouse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trabajando con Datawarehouse en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 Analisis Avanzado y Automatizacion
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    04 Analisis Avanzado y Automatizacion
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-1%20Fabric%20como%20plataforma%20de%20Data%20Science/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-01 Microsoft Fabric como plataforma de Ciencia de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-2%20An%C3%A1lisis%20de%20Datos%20en%20Tiempo%20Real%20con%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-02Analítica en Tiempo Real en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-3%20Introducci%C3%B3n%20a%20Data%20Activator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-03 Introducción a Data Activator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    05 Fabric Databases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20Fabric%20Databases/05-1%20Fabric%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20Fabric%20Databases/05-2%20Escenarios%20de%20Fabric%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escenarios de uso de Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduccion-a-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción a Microsoft Fabric
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Introducción a Microsoft Fabric">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es-microsoft-fabric_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 ¿Qué es Microsoft Fabric?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principales-ventajas-de-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Principales ventajas de Microsoft Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-comparacion-entre-microsoft-fabric-y-power-bi-cuando-usar-cada-uno" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Comparación entre Microsoft Fabric y Power BI: ¿Cuándo usar cada uno?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-integracion-de-microsoft-fabric-con-otras-herramientas-de-microsoft" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Integración de Microsoft Fabric con otras herramientas de Microsoft
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Integración de Microsoft Fabric con otras herramientas de Microsoft">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onelake-y-azure-data-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 OneLake y Azure Data Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#power-bi-y-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Power BI y Microsoft Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inteligencia-artificial-y-machine-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Inteligencia Artificial y Machine Learning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orquestacion-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Orquestación de Datos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-licenciamiento-y-unidades-de-capacidad-en-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Licenciamiento y Unidades de Capacidad en Microsoft Fabric
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Licenciamiento y Unidades de Capacidad en Microsoft Fabric">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capacidades-y-skus-disponibles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Capacidades y SKUs disponibles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fabric-trial-evaluacion-gratuita" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Fabric Trial: Evaluación Gratuita
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pero-entonces-que-licenciamos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Pero entonces, ¿Qué licenciamos?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capacidades-y-consumos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Capacidades y Consumos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔹 Capacidades y Consumos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es-una-unidad-de-capacidad-cu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué es una Unidad de Capacidad (CU)?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gestion-dinamica-de-recursos-bursting-y-smoothing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestión Dinámica de Recursos: Bursting y Smoothing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-resumen-de-capacidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Resumen de Capacidades
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-creacion-del-recurso-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Creación del recurso Fabric
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Creación del recurso Fabric">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#asignar-la-capacidad-al-espacio-de-trabajo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Asignar la capacidad al espacio de trabajo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pausar-e-iniciar-la-capacidad-de-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Pausar e iniciar la capacidad de Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-conclusion-y-preguntas-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Conclusión y Preguntas Clave
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Conclusión y Preguntas Clave">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resumen-de-conceptos-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Resumen de conceptos clave
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preguntas-para-reflexionar-y-discusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Preguntas para reflexionar y discusión
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="que-es-microsoft-fabric"><strong>¿Qué es Microsoft Fabric?</strong><a class="headerlink" href="#que-es-microsoft-fabric" title="Permanent link">&para;</a></h1>
+<h2 id="1-introduccion-a-microsoft-fabric"><strong>1. Introducción a Microsoft Fabric</strong><a class="headerlink" href="#1-introduccion-a-microsoft-fabric" title="Permanent link">&para;</a></h2>
+<h3 id="que-es-microsoft-fabric_1">🔹 <strong>¿Qué es Microsoft Fabric?</strong><a class="headerlink" href="#que-es-microsoft-fabric_1" title="Permanent link">&para;</a></h3>
+<p>Microsoft Fabric es una plataforma <strong>unificada de datos y análisis</strong> que permite a las organizaciones integrar, procesar y analizar datos en un entorno centralizado. Diseñada como una solución <strong>SaaS (Software as a Service)</strong>, Fabric simplifica la gestión de datos eliminando la necesidad de combinar múltiples servicios y herramientas.</p>
+<p><img alt="Fabric SaaS" src="../imagenes/Fabric%20SaaS.png" /></p>
+<p>Microsoft Fabric ofrece un conjunto de servicios que incluyen:</p>
+<ul>
+<li><strong>Data Engineering:</strong> Procesamiento de datos a gran escala con Spark.</li>
+<li><strong>Data Factory:</strong> Orquestación de cargas de datos con Dataflows Gen2 y Pipelines.</li>
+<li><strong>Data Science:</strong> Creación y despliegue de modelos de Machine Learning con integración en Azure AI.</li>
+<li><strong>Data Warehouse:</strong> Un servicio de almacenamiento y análisis optimizado para SQL.</li>
+<li><strong>Real-Time Analytics:</strong> Procesamiento de eventos en tiempo real.</li>
+<li><strong>Power BI:</strong> Visualización y exploración de datos con modelos semánticos.</li>
+</ul>
+<p>💡 <strong>Diferencia clave:</strong> Mientras que otras soluciones requieren ensamblar múltiples servicios de diferentes proveedores, Microsoft Fabric proporciona un <strong>ecosistema completo y unificado</strong> bajo una única interfaz.</p>
+<h3 id="principales-ventajas-de-microsoft-fabric">🔹 <strong>Principales ventajas de Microsoft Fabric</strong><a class="headerlink" href="#principales-ventajas-de-microsoft-fabric" title="Permanent link">&para;</a></h3>
+<p>✅ <strong>Unificación de almacenamiento</strong> con <strong>OneLake</strong>: Todos los datos en un solo lago de datos, sin necesidad de replicarlos en diferentes sistemas.<br />
+✅ <strong>Simplicidad operativa:</strong> Eliminación de la complejidad de integración entre herramientas y plataformas.<br />
+✅ <strong>Capacidad de análisis en tiempo real:</strong> Permite tomar decisiones informadas con datos en streaming.<br />
+✅ <strong>Inteligencia Artificial integrada:</strong> Fabric cuenta con capacidades de <strong>Copilot</strong> para asistir a los usuarios en la exploración y análisis de datos.</p>
+<hr />
+<h2 id="2-comparacion-entre-microsoft-fabric-y-power-bi-cuando-usar-cada-uno"><strong>2. Comparación entre Microsoft Fabric y Power BI: ¿Cuándo usar cada uno?</strong><a class="headerlink" href="#2-comparacion-entre-microsoft-fabric-y-power-bi-cuando-usar-cada-uno" title="Permanent link">&para;</a></h2>
+<p>Tanto <strong>Microsoft Fabric como Power BI</strong> forman parte del ecosistema de datos de Microsoft, pero tienen propósitos distintos.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Característica</strong></th>
+<th><strong>Microsoft Fabric</strong></th>
+<th><strong>Power BI</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Propósito</strong></td>
+<td>Plataforma completa de datos que abarca ingesta, almacenamiento, transformación, modelado y visualización.</td>
+<td>Herramienta de Business Intelligence (BI) centrada en modelado y visualización.</td>
+</tr>
+<tr>
+<td><strong>Almacenamiento</strong></td>
+<td>Utiliza <strong>OneLake</strong>, un lago de datos unificado basado en Azure Data Lake Storage Gen2.</td>
+<td>Depende de datasets importados o conexiones en vivo.</td>
+</tr>
+<tr>
+<td><strong>Procesamiento</strong></td>
+<td>Soporta <strong>ETL, Machine Learning, Streaming, Data Warehousing y más</strong>.</td>
+<td>Se enfoca en <strong>modelado de datos y visualización</strong>.</td>
+</tr>
+<tr>
+<td><strong>Usuarios clave</strong></td>
+<td><strong>Ingenieros de datos, científicos de datos, arquitectos de soluciones</strong>.</td>
+<td><strong>Analistas de negocio, directivos, usuarios de negocio</strong>.</td>
+</tr>
+<tr>
+<td><strong>Integración con Fabric</strong></td>
+<td>Nativo, todos los datos están en OneLake y pueden ser usados sin movimiento de datos.</td>
+<td>Consume datos de Fabric pero depende de datasets creados externamente.</td>
+</tr>
+</tbody>
+</table>
+<p>📌 <strong>¿Cuándo usar cada uno?</strong><br />
+✅ <strong>Si se necesita una solución completa de datos</strong>, desde ingesta hasta visualización → <strong>Microsoft Fabric</strong>.<br />
+✅ <strong>Si solo se requiere análisis y visualización de datos</strong> sin procesamiento complejo → <strong>Power BI</strong>.<br />
+✅ <strong>Si ya se usa Power BI y se quiere integrar con una plataforma más robusta</strong>, Fabric proporciona un backend potente para centralizar los datos y los procesos de ingeniería y ciencia de datos necesarios.</p>
+<hr />
+<h2 id="3-integracion-de-microsoft-fabric-con-otras-herramientas-de-microsoft"><strong>3. Integración de Microsoft Fabric con otras herramientas de Microsoft</strong><a class="headerlink" href="#3-integracion-de-microsoft-fabric-con-otras-herramientas-de-microsoft" title="Permanent link">&para;</a></h2>
+<p>Microsoft Fabric está diseñado para trabajar de manera <strong>nativa con el ecosistema de Microsoft</strong>, incluyendo:</p>
+<h3 id="onelake-y-azure-data-services">🔹 <strong>OneLake y Azure Data Services</strong><a class="headerlink" href="#onelake-y-azure-data-services" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>OneLake</strong> es el lago de datos unificado que elimina la fragmentación de datos en la organización.</li>
+<li>Se integra con <strong>Azure Data Factory</strong> y <strong>Azure Synapse Analytics</strong>, facilitando la migración desde estos servicios hacia Fabric.</li>
+</ul>
+<h3 id="power-bi-y-microsoft-fabric">🔹 <strong>Power BI y Microsoft Fabric</strong><a class="headerlink" href="#power-bi-y-microsoft-fabric" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Power BI <strong>consume directamente los datos de Fabric</strong> sin necesidad de duplicaciones.</li>
+<li>Los modelos semánticos en Power BI pueden basarse en <strong>Data Warehouses y Lakehouses</strong> dentro de Fabric.</li>
+</ul>
+<h3 id="inteligencia-artificial-y-machine-learning">🔹 <strong>Inteligencia Artificial y Machine Learning</strong><a class="headerlink" href="#inteligencia-artificial-y-machine-learning" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Azure AI</strong> permite entrenar y desplegar modelos de IA sobre los datos almacenados en Fabric.</li>
+<li>Soporte para <strong>Spark y MLlib</strong> dentro de los Notebooks de Fabric.</li>
+</ul>
+<h3 id="orquestacion-de-datos">🔹 <strong>Orquestación de Datos</strong><a class="headerlink" href="#orquestacion-de-datos" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Dataflows Gen2 y Pipelines</strong> permiten el diseño de ETL de manera eficiente.</li>
+<li>Fabric soporta conectores para <strong>Snowflake, Google BigQuery y Databricks</strong>, facilitando la integración con otras plataformas.</li>
+</ul>
+<hr />
+<h2 id="4-licenciamiento-y-unidades-de-capacidad-en-microsoft-fabric"><strong>4. Licenciamiento y Unidades de Capacidad en Microsoft Fabric</strong><a class="headerlink" href="#4-licenciamiento-y-unidades-de-capacidad-en-microsoft-fabric" title="Permanent link">&para;</a></h2>
+<p>Microsoft Fabric se ofrece bajo un modelo de <strong>Capacidad (Capacity-based licensing)</strong>. Esto significa que los recursos están disponibles en función del nivel de capacidad contratado.</p>
+<h3 id="capacidades-y-skus-disponibles">🔹 <strong>Capacidades y SKUs disponibles</strong><a class="headerlink" href="#capacidades-y-skus-disponibles" title="Permanent link">&para;</a></h3>
+<p>Fabric utiliza <strong>unidades de capacidad (CU)</strong>, que definen la cantidad de recursos disponibles en una suscripción.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Capacidad</strong></th>
+<th><strong>Unidades de Capacidad (CU)</strong></th>
+<th><strong>Casos de Uso</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>F2</strong></td>
+<td>2 CU</td>
+<td>Pruebas y pequeños proyectos.</td>
+</tr>
+<tr>
+<td><strong>F4</strong></td>
+<td>4 CU</td>
+<td>Modelado de datos y cargas de trabajo ligeras.</td>
+</tr>
+<tr>
+<td><strong>F8</strong></td>
+<td>8 CU</td>
+<td>Proyectos medianos con ETL y análisis en Power BI.</td>
+</tr>
+<tr>
+<td><strong>F16</strong></td>
+<td>16 CU</td>
+<td>Workloads más exigentes con integración de ML y big data.</td>
+</tr>
+<tr>
+<td><strong>F32 y superiores</strong></td>
+<td>32 CU o más</td>
+<td>Implementaciones a gran escala con cargas de trabajo distribuidas.</td>
+</tr>
+</tbody>
+</table>
+<p>📌 <strong>Facturación basada en Capacidad</strong></p>
+<ul>
+<li>La capacidad se crea a nivel de <strong>tenant</strong> en Entra ID (anteriormente Azure AD).</li>
+<li>Se puede compartir entre varios <strong>workspaces</strong> dentro del mismo tenant</li>
+<li>Podemos tener tantas capacidades como queramos, asignadas a diferentes espacios de trabajo</li>
+<li>Los precios varían según el <strong>nivel de capacidad</strong> y el consumo de recursos.</li>
+</ul>
+<p>Existen algunas funcionalidades, como las de Copilot, que solo están disponibles a partir de la F64. A partir de esta SKU F64, no es necesario disponer de licenciamiento de Power BI para poder visualizar informes, solo los usuarios que necesiten publicar contenido, necesitarían licenciamiento de Power BI Pro</p>
+<p><img alt="Costes Fabric" src="../imagenes/Costes%20Fabric.png" /></p>
+<pre><code>                *Precios a fecha 10 de Febrero de 2025*
+</code></pre>
+<p>Realmente el coste se establece por CU, que es la unidad mínima que se puede reservar, y pueden reservarse unidades impares y el coste se establece a día de hoy (Febrero 2025) en 150,33€ por CU, sin reserva y para todo el mes. Con este cálculo, podemos también saber cuando nos costaría cada CU por hora, tomando unas 720 horas mensuales, tendríamos un coste hora de CU de 0,21€/hora</p>
+<h3 id="fabric-trial-evaluacion-gratuita">🔹 <strong>Fabric Trial: Evaluación Gratuita</strong><a class="headerlink" href="#fabric-trial-evaluacion-gratuita" title="Permanent link">&para;</a></h3>
+<p>Microsoft ofrece una <strong>versión de prueba gratuita</strong> de Fabric con <strong>64 CU durante 60 días</strong>. Esta trial permite experimentar con todas las funcionalidades antes de adquirir una suscripción, y nos permite hacer las pruebas necesarias, para ver que capacidad es la que necesitamos realmente. </p>
+<p>💡 <strong>¿Cómo elegir la capacidad correcta?</strong>
+- Si tu empresa solo usa Fabric para Power BI, una <strong>capacidad baja (F2-F4)</strong> puede ser suficiente.
+- Si necesitas <strong>procesamiento de grandes volúmenes de datos</strong>, se recomienda <strong>F16 en adelante</strong>.
+- Para análisis en tiempo real y machine learning, es mejor optar por <strong>F32 o superior</strong>.</p>
+<h3 id="pero-entonces-que-licenciamos">🔹<strong>Pero entonces, ¿Qué licenciamos?</strong><a class="headerlink" href="#pero-entonces-que-licenciamos" title="Permanent link">&para;</a></h3>
+<p>Realmente, es la intersección entre el espacio de trabajo y el usuario, es decir, un usuario sin licenciamiento de Power BI Pro, podría, por ejemplo, visualizar informes que estuviesen publicados en un espacio de trabajo que tiene asignada una capacidad F64 o superior, pero no podría acceder a informes que estuviesen desplegados en espacios de trabajo con capacidades inferiores o con licenciamiento Power BI Pro. 
+Es importante mencionar también, que los costes mostrados, son de pago por uso, sin ningún tipo de compromiso, es decir, podemos parar e iniciar la capacidad de Fabric, y pagar únicamente por el tiempo en el que esté activa. El coste mostrado, es el que tendrían esas capacidades en caso de que estuviesen iniciadas continuamente. Si optamos por tener un descuento por compromiso de uno o tres años, entonces se nos cobrará el importe acordado al compromiso, independientemente de que esté la capacidad iniciada o pausada. </p>
+<p>El detalle de los costes podemos verlo en este enlace https://azure.microsoft.com/es-es/pricing/details/microsoft-fabric/ </p>
+<h3 id="capacidades-y-consumos">🔹 <strong>Capacidades y Consumos</strong><a class="headerlink" href="#capacidades-y-consumos" title="Permanent link">&para;</a></h3>
+<h4 id="que-es-una-unidad-de-capacidad-cu">¿Qué es una Unidad de Capacidad (CU)?<a class="headerlink" href="#que-es-una-unidad-de-capacidad-cu" title="Permanent link">&para;</a></h4>
+<p>En Microsoft Fabric, una <strong>Unidad de Capacidad (CU)</strong> es la medida que define la cantidad de recursos de cómputo y almacenamiento asignados a una capacidad específica. Estas unidades determinan el rendimiento y la eficiencia de las cargas de trabajo que se ejecutan en la plataforma. Las capacidades se ofrecen en diferentes tamaños o SKU, que van desde F2 (2 CUs) hasta F2048 (2048 CUs), permitiendo a las organizaciones seleccionar la capacidad que mejor se adapte a sus necesidades operativas.</p>
+<h4 id="gestion-dinamica-de-recursos-bursting-y-smoothing">Gestión Dinámica de Recursos: Bursting y Smoothing<a class="headerlink" href="#gestion-dinamica-de-recursos-bursting-y-smoothing" title="Permanent link">&para;</a></h4>
+<p>Para optimizar el uso de los recursos y manejar eficientemente las fluctuaciones en la demanda, Microsoft Fabric implementa dos mecanismos clave: <strong>Bursting</strong> y <strong>Smoothing</strong>.</p>
+<p>El <strong>Bursting</strong> permite que una capacidad consuma más CUs de las asignadas temporalmente para completar tareas que requieren un alto rendimiento en menos tiempo. Por ejemplo, si una capacidad F2 tiene 2 CUs asignadas, pero una carga de trabajo intensa necesita más recursos, el sistema puede proporcionar capacidad adicional momentáneamente para acelerar la ejecución de la tarea. Este enfoque es especialmente útil para manejar picos de demanda sin necesidad de escalar permanentemente la capacidad contratada.</p>
+<p>El <strong>Smoothing</strong> se encarga de equilibrar el consumo de CUs a lo largo del tiempo, distribuyendo el uso de los recursos para evitar picos y optimizar la eficiencia. Después de un período de bursting, el sistema "suaviza" el consumo adicional distribuyéndolo en intervalos de tiempo específicos: para operaciones interactivas, el consumo se promedia en un mínimo de 5 minutos, mientras que para trabajos en segundo plano o programados, se extiende hasta 24 horas. Este mecanismo permite que las organizaciones planifiquen su capacidad en función del uso promedio en lugar del máximo, optimizando así los costos y recursos.</p>
+<p>Es importante tener en cuenta que, aunque el bursting y smoothing ofrecen flexibilidad, existen límites definidos para evitar el uso excesivo de recursos. Si una capacidad excede continuamente su rendimiento asignado, se aplicarán políticas de regulación o "throttling", donde las nuevas tareas no se ejecutarán hasta que haya suficientes recursos disponibles. Además, las capacidades pueden pausarse y reanudarse según sea necesario, y se facturan por segundo, lo que permite un control más preciso de los costos operativos.</p>
+<p>Fabric está diseñado para ofrecer un rendimiento óptimo, permitiendo que las operaciones utilicen más CU de las asignadas temporalmente. Para gestionar este comportamiento, se implementa un proceso de <strong>suavizado</strong> que promedia el uso de CU en intervalos de tiempo específicos: 
+- <strong>Operaciones Interactivas</strong>: El consumo de CU se suaviza durante un mínimo de 5 minutos, permitiendo manejar picos temporales sin aplicar limitaciones inmediatas. 
+- <strong>Operaciones en Segundo Plano</strong>: Para tareas de larga duración, el suavizado se extiende hasta 24 horas, facilitando la ejecución de trabajos programados sin preocuparse por picos de carga.</p>
+<p>La limitación se aplica en fases, dependiendo del nivel de consumo de CU: 
+1. <strong>Alerta de Consumo Completo</strong>: Cuando una capacidad consume el 100% de sus CU aprovisionadas, se envía una alerta al administrador, indicando que podría ser necesario ajustar la capacidad. 
+2. <strong>Primera Fase de Limitación</strong>: Si el consumo excede las CU disponibles para los próximos 10 minutos, se introduce un retraso de 20 segundos en las nuevas operaciones interactivas. 
+3. <strong>Segunda Fase de Limitación</strong>: Si la deuda de CU alcanza una hora, las solicitudes interactivas adicionales son rechazadas, pero las operaciones en segundo plano continúan ejecutándose. 
+4. <strong>Fase Crítica de Limitación</strong>: Si la deuda de CU llega a 24 horas, todas las operaciones, incluidas las de segundo plano, son rechazadas hasta que la deuda se reduzca.</p>
+<p>Para recuperar una capacidad que ha entrado en un estado de limitación severa, podemos tomar las siguientes acciones: 
+- <strong>Esperar</strong>: Permitir que la capacidad se recupere naturalmente a medida que la deuda de CU se reduce con el tiempo. 
+- <strong>Ajustar la SKU</strong>: Incrementar temporalmente el tamaño de la SKU de la capacidad para proporcionar más recursos y acelerar la recuperación. 
+- <strong>Reasignar Áreas de Trabajo</strong>: Mover áreas de trabajo de menor prioridad o que consumen muchos recursos a otras capacidades para equilibrar la carga.</p>
+<p>Para monitorizar los consumos y ver el detalle, disponemos de una aplicación, llamada <strong>Microsoft Fabric Capacity Metrics</strong> https://learn.microsoft.com/es-es/fabric/enterprise/metrics-app </p>
+<p><img alt="Fabric Capacity Metrics" src="../imagenes/Fabric%20Capacity%20Metrics.png" /></p>
+<hr />
+<h2 id="5-resumen-de-capacidades"><strong>5. Resumen de Capacidades</strong><a class="headerlink" href="#5-resumen-de-capacidades" title="Permanent link">&para;</a></h2>
+<p>A continuación, verás una tabla resumen de lo que proporciona cada una de las capacidades de Fabric en cuanto a recursos</p>
+<table>
+<thead>
+<tr>
+<th>Capacidad</th>
+<th>CU</th>
+<th>Memoria Máxima</th>
+<th>Power BI v-cores</th>
+<th>Spark vCores</th>
+<th>Max Spark vCores con Burst Factor</th>
+<th>Limite de Cola</th>
+<th>Tareas Dataflow Gen2 en paralelo</th>
+<th>Refresco del modelo en paralelo</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F2</td>
+<td>2</td>
+<td>3</td>
+<td>0.25</td>
+<td>4</td>
+<td>20</td>
+<td>4</td>
+<td>96</td>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>F4</td>
+<td>4</td>
+<td>3</td>
+<td>0.5</td>
+<td>8</td>
+<td>24</td>
+<td>4</td>
+<td>96</td>
+<td>2</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>F8</td>
+<td>8</td>
+<td>3</td>
+<td>1</td>
+<td>16</td>
+<td>48</td>
+<td>8</td>
+<td>96</td>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>F16</td>
+<td>16</td>
+<td>5</td>
+<td>2</td>
+<td>32</td>
+<td>96</td>
+<td>16</td>
+<td>96</td>
+<td>10</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>F32</td>
+<td>32</td>
+<td>10</td>
+<td>4</td>
+<td>64</td>
+<td>192</td>
+<td>32</td>
+<td>96</td>
+<td>20</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>F64</td>
+<td>64</td>
+<td>25</td>
+<td>8</td>
+<td>128</td>
+<td>384</td>
+<td>64</td>
+<td>384</td>
+<td>40</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>F128</td>
+<td>128</td>
+<td>50</td>
+<td>16</td>
+<td>256</td>
+<td>768</td>
+<td>128</td>
+<td>384</td>
+<td>80</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>F256</td>
+<td>256</td>
+<td>100</td>
+<td>32</td>
+<td>512</td>
+<td>1536</td>
+<td>256</td>
+<td>384</td>
+<td>160</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>F512</td>
+<td>512</td>
+<td>200</td>
+<td>64</td>
+<td>1024</td>
+<td>3072</td>
+<td>512</td>
+<td>1536</td>
+<td>320</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>F1024</td>
+<td>1024</td>
+<td>400</td>
+<td>128</td>
+<td>2048</td>
+<td>6144</td>
+<td>1024</td>
+<td>1536</td>
+<td>640</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>F2048</td>
+<td>2048</td>
+<td>400</td>
+<td></td>
+<td>4096</td>
+<td>12288</td>
+<td>2048</td>
+<td>1536</td>
+<td>1280</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>El detalle completo puedes revisarlo en este enlace https://learn.microsoft.com/en-us/power-bi/enterprise/service-premium-what-is#capacities-and-skus</p>
+<hr />
+<h2 id="6-creacion-del-recurso-fabric"><strong>6. Creación del recurso Fabric</strong><a class="headerlink" href="#6-creacion-del-recurso-fabric" title="Permanent link">&para;</a></h2>
+<p>Tal y como hemos comentado, para crear una capacidad de Fabric, es necesario crear un recurso de Fabric en una suscripción de Azure. A la hora de crear el recurso, debemos de especificar las propiedades que se muestran en la siguiente imagen:</p>
+<p><img alt="Crear Recurso Fabric" src="../imagenes/Crear%20Recurso%20Fabric.png" /></p>
+<p>En la actualidad, Fabric soporte el concepto de multiregión, por lo que no tenemos por qué crear nuestra capacidad en la misma región en la que esté nuestro tenant (que será donde estén los recursos de Power BI y nuestro Onelake) , pero eso puede tener implicaciones de rendimiento, por lo que no es aconsejable. Las capacidades pueden escalar de tamaño en cualquier momento, y podemos agregar más administradores en caso de que lo necesitemos. </p>
+<h3 id="asignar-la-capacidad-al-espacio-de-trabajo">🔹 <strong>Asignar la capacidad al espacio de trabajo</strong><a class="headerlink" href="#asignar-la-capacidad-al-espacio-de-trabajo" title="Permanent link">&para;</a></h3>
+<p>Una vez que tenemos la capacidad creada, e iniciada, podemos asignar esa capacidad a nuestros espacios de trabajo, tanto en el momento de su creación, como una vez estén creados desde la configuración del espacio de trabajo. Para ello es necesario que el usuario que está configurando el espacio de trabajo, tenga permisos sobre esa capacidad para poder asignarla.</p>
+<p><img alt="Asignar Capcidad" src="../imagenes/Asignar%20Capacidad.png" /></p>
+<p>Del mismo modo, si tenemos permisos de administración, desde la administración del portal, podemos ver las capacidades que tenemos desplegadas en nuestro tenant, y los permisos que tenemos sobre ellas, así como los espacios de trabajo que están utilizando esas capacidades. </p>
+<h3 id="pausar-e-iniciar-la-capacidad-de-fabric">🔹 <strong>Pausar e iniciar la capacidad de Fabric</strong><a class="headerlink" href="#pausar-e-iniciar-la-capacidad-de-fabric" title="Permanent link">&para;</a></h3>
+<p>Tal y como hemos comentado, sino hemos adquirido la capacidad de Fabric con un compromiso de utilización, solo pagaremos por ella cuando la instancia esté iniciada. Obviamente, cuando una capacidad de Fabric está pausada, no es posible acceder a los objetos de Fabric que esté sirviendo esa capacidad en los espacios de trabajo en los que esté asignada, ni siquiera a lo almacenado en Onelake. </p>
+<p>Pausar e iniciar la capacidad es una tarea que debemos de realizar en el portal de Azure, como se muestra en la imagen</p>
+<p><img alt="Pausar Capacidad" src="../imagenes/Pausar%20capacidad.png" /></p>
+<p>No tenemos una forma "directa" de automatizar el pausado e inicio de la capacidad, pero es posible realizarlo de múltiples maneras, con un script a través del API, utilizando Power Automate, o directamente con recursos de Automatización de Azure, dependiendo de con que solución nos encontremos más cómodos.  </p>
+<hr />
+<h2 id="7-conclusion-y-preguntas-clave"><strong>7. Conclusión y Preguntas Clave</strong><a class="headerlink" href="#7-conclusion-y-preguntas-clave" title="Permanent link">&para;</a></h2>
+<h3 id="resumen-de-conceptos-clave">🔹 <strong>Resumen de conceptos clave</strong><a class="headerlink" href="#resumen-de-conceptos-clave" title="Permanent link">&para;</a></h3>
+<p>✅ <strong>Microsoft Fabric es una plataforma unificada para gestión de datos y analítica avanzada.</strong><br />
+✅ <strong>Ofrece capacidades de almacenamiento, procesamiento y visualización en un solo entorno.</strong><br />
+✅ <strong>Power BI y Microsoft Fabric están integrados, pero Fabric es una solución más completa.</strong><br />
+✅ <strong>El modelo de licenciamiento se basa en unidades de capacidad (CU) con diferentes SKUs disponibles.</strong></p>
+<h3 id="preguntas-para-reflexionar-y-discusion">🔹 <strong>Preguntas para reflexionar y discusión</strong><a class="headerlink" href="#preguntas-para-reflexionar-y-discusion" title="Permanent link">&para;</a></h3>
+<ol>
+<li>¿Cómo Fabric puede ayudar a mi organización a reducir los silos de datos?</li>
+<li>¿Qué diferencias clave encuentro entre Fabric y Power BI en mi caso de uso?</li>
+<li>¿Cuál es la capacidad ideal para mi empresa en función del volumen de datos?</li>
+</ol>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.expand", "navigation.sections", "navigation.tabs", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

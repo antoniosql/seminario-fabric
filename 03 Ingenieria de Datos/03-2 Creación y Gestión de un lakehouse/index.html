@@ -1,0 +1,1912 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../03-1%20Introducci%C3%B3n%20a%20la%20Arquitectura%20Medall%C3%B3n/">
+      
+      
+        <link rel="next" href="../03-3%20Trabajo%20con%20Datawarehouse/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>03 2 Creación y Gestión de un lakehouse - Curso Introducción a Microsoft Fabric</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-definicion-y-ventajas-de-un-lakehouse-frente-a-un-data-warehouse-tradicional" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Curso Introducción a Microsoft Fabric" class="md-header__button md-logo" aria-label="Curso Introducción a Microsoft Fabric" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Curso Introducción a Microsoft Fabric
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              03 2 Creación y Gestión de un lakehouse
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Seminario Microsoft Fabric
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-1%20Que%20es%20Microsoft%20Fabric/" class="md-tabs__link">
+          
+  
+  
+  01 Introduccion a Microsoft Fabric
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../02%20Carga%20de%20Datos/02-0%20Ingesta%20de%20Datos%20en%20Microsoft%20Fabric/" class="md-tabs__link">
+          
+  
+  
+  02 Carga de Datos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../03-1%20Introducci%C3%B3n%20a%20la%20Arquitectura%20Medall%C3%B3n/" class="md-tabs__link">
+          
+  
+  
+  03 Ingenieria de Datos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-1%20Fabric%20como%20plataforma%20de%20Data%20Science/" class="md-tabs__link">
+          
+  
+  
+  04 Analisis Avanzado y Automatizacion
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../05%20Fabric%20Databases/05-1%20Fabric%20Databases/" class="md-tabs__link">
+          
+  
+  
+  05 Fabric Databases
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Curso Introducción a Microsoft Fabric" class="md-nav__button md-logo" aria-label="Curso Introducción a Microsoft Fabric" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Curso Introducción a Microsoft Fabric
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Seminario Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 Introduccion a Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    01 Introduccion a Microsoft Fabric
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-1%20Que%20es%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ¿Qué es Microsoft Fabric?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-2%20El%20Concepto%20de%20Onelake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 2 El Concepto de Onelake
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Introduccion%20a%20Microsoft%20Fabric/01-3%20Escenarios%20End-to-End%20en%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 3 Escenarios End to End en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 Carga de Datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    02 Carga de Datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-0%20Ingesta%20de%20Datos%20en%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ingesta de Datos en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-1%20ELT%20con%20flujos%20de%20datos%20de%20Gen2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ELT con flujos de Generación 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-2%20Orquestando%20Cargas%20con%20Pipelines%20de%20Data%20Factory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    **Orquestando Cargas con Pipelines de Data Factory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-3%20Modelado%20Dimensional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelado Dimensional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-4%20Desarrollo%20con%20Apache%20Spark/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desarrollo con Apache Spark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Carga%20de%20Datos/02-5%20Guia%20de%20Decisi%C3%B3n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    **Guía de decisión entre Actividad de Copia de un Pipeline, Dataflow Gen2 y Apache Spark
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 Ingenieria de Datos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    03 Ingenieria de Datos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-1%20Introducci%C3%B3n%20a%20la%20Arquitectura%20Medall%C3%B3n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción a la Arquitectura Medallón
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 2 Creación y Gestión de un lakehouse
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 2 Creación y Gestión de un lakehouse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-definicion-y-ventajas-de-un-lakehouse-frente-a-un-data-warehouse-tradicional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Definición y ventajas de un Lakehouse frente a un Data Warehouse tradicional
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Definición y ventajas de un Lakehouse frente a un Data Warehouse tradicional">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es-un-lakehouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 ¿Qué es un Lakehouse?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-implementacion-practica-de-un-lakehouse-en-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Implementación práctica de un Lakehouse en Microsoft Fabric
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Implementación práctica de un Lakehouse en Microsoft Fabric">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pasos-para-crear-un-lakehouse-en-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Pasos para crear un Lakehouse en Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ficheros-y-tablas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Ficheros y Tablas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔹 Ficheros y Tablas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tablas-administradas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tablas administradas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tablas-externas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tablas externas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accesos-directos-de-tabla" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accesos directos de tabla
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-el-sql-analytics-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. El SQL Analytics Endpoint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. El SQL Analytics Endpoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#consultando-con-sql-el-lakehouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Consultando con SQL el lakehouse
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-gobernanza-y-seguridad-configuracion-de-accesos-y-permisos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Gobernanza y seguridad: Configuración de accesos y permisos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Gobernanza y seguridad: Configuración de accesos y permisos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#esquemas-en-un-lakehouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Esquemas en un lakehouse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modelo-de-seguridad-en-un-lakehouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Modelo de seguridad en un Lakehouse
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-mantenimiento-de-tablas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Mantenimiento de tablas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-direct-lake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Direct Lake
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-conclusion-y-preguntas-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Conclusión y Preguntas Clave
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Conclusión y Preguntas Clave">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preguntas-para-reflexion-y-discusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preguntas para reflexión y discusión
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-3%20Trabajo%20con%20Datawarehouse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trabajando con Datawarehouse en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 Analisis Avanzado y Automatizacion
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    04 Analisis Avanzado y Automatizacion
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-1%20Fabric%20como%20plataforma%20de%20Data%20Science/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-01 Microsoft Fabric como plataforma de Ciencia de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-2%20An%C3%A1lisis%20de%20Datos%20en%20Tiempo%20Real%20con%20Microsoft%20Fabric/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-02Analítica en Tiempo Real en Microsoft Fabric
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Analisis%20Avanzado%20y%20Automatizacion/04-3%20Introducci%C3%B3n%20a%20Data%20Activator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04-03 Introducción a Data Activator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    05 Fabric Databases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20Fabric%20Databases/05-1%20Fabric%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20Fabric%20Databases/05-2%20Escenarios%20de%20Fabric%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escenarios de uso de Fabric Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-definicion-y-ventajas-de-un-lakehouse-frente-a-un-data-warehouse-tradicional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Definición y ventajas de un Lakehouse frente a un Data Warehouse tradicional
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Definición y ventajas de un Lakehouse frente a un Data Warehouse tradicional">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es-un-lakehouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 ¿Qué es un Lakehouse?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-implementacion-practica-de-un-lakehouse-en-microsoft-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Implementación práctica de un Lakehouse en Microsoft Fabric
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Implementación práctica de un Lakehouse en Microsoft Fabric">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pasos-para-crear-un-lakehouse-en-fabric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Pasos para crear un Lakehouse en Fabric
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ficheros-y-tablas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Ficheros y Tablas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔹 Ficheros y Tablas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tablas-administradas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tablas administradas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tablas-externas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tablas externas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accesos-directos-de-tabla" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accesos directos de tabla
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-el-sql-analytics-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. El SQL Analytics Endpoint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. El SQL Analytics Endpoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#consultando-con-sql-el-lakehouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹Consultando con SQL el lakehouse
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-gobernanza-y-seguridad-configuracion-de-accesos-y-permisos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Gobernanza y seguridad: Configuración de accesos y permisos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Gobernanza y seguridad: Configuración de accesos y permisos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#esquemas-en-un-lakehouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Esquemas en un lakehouse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modelo-de-seguridad-en-un-lakehouse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Modelo de seguridad en un Lakehouse
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-mantenimiento-de-tablas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Mantenimiento de tablas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-direct-lake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Direct Lake
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-conclusion-y-preguntas-clave" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Conclusión y Preguntas Clave
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Conclusión y Preguntas Clave">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preguntas-para-reflexion-y-discusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preguntas para reflexión y discusión
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>03 2 Creación y Gestión de un lakehouse</h1>
+
+<h2 id="1-definicion-y-ventajas-de-un-lakehouse-frente-a-un-data-warehouse-tradicional"><strong>1. Definición y ventajas de un Lakehouse frente a un Data Warehouse tradicional</strong><a class="headerlink" href="#1-definicion-y-ventajas-de-un-lakehouse-frente-a-un-data-warehouse-tradicional" title="Permanent link">&para;</a></h2>
+<h3 id="que-es-un-lakehouse">🔹 <strong>¿Qué es un Lakehouse?</strong><a class="headerlink" href="#que-es-un-lakehouse" title="Permanent link">&para;</a></h3>
+<p>Un <strong>Lakehouse</strong> en Microsoft Fabric es una arquitectura híbrida que combina lo mejor de un <strong>Data Lake</strong> y un <strong>Data Warehouse</strong>, permitiendo almacenar, procesar y analizar tanto datos estructurados como no estructurados en un solo entorno​.</p>
+<p>📌 <strong>Diferencias clave entre un Lakehouse y un Data Warehouse</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Característica</strong></th>
+<th><strong>Lakehouse</strong></th>
+<th><strong>Data Warehouse</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tipo de datos</strong></td>
+<td>Estructurados, semiestructurados y no estructurados.</td>
+<td>Solo datos estructurados.</td>
+</tr>
+<tr>
+<td><strong>Almacenamiento</strong></td>
+<td>Basado en <strong>OneLake</strong> con formato <strong>Delta Lake</strong>.</td>
+<td>Bases de datos relacionales con ACID completo.</td>
+</tr>
+<tr>
+<td><strong>Procesamiento</strong></td>
+<td>Compatible con <strong>Spark, SQL y Pipelines de Data Factory</strong>.</td>
+<td>Optimizado para consultas SQL transaccionales.</td>
+</tr>
+<tr>
+<td><strong>Flexibilidad</strong></td>
+<td>Almacena archivos en diferentes formatos (Parquet, JSON, CSV).</td>
+<td>Depende de modelos tabulares predefinidos.</td>
+</tr>
+<tr>
+<td><strong>Costos</strong></td>
+<td>Escalable según el consumo, sin necesidad de hardware dedicado.</td>
+<td>Costoso debido a infraestructura optimizada para rendimiento SQL.</td>
+</tr>
+</tbody>
+</table>
+<p>📌 <strong>¿Cuándo usar un Lakehouse?</strong><br />
+✅ <strong>Cuando se manejan datos diversos</strong> (logs, sensores IoT, imágenes, documentos y datos tabulares).<br />
+✅ <strong>Si se requiere alta escalabilidad y flexibilidad</strong> sin necesidad de una estructura rígida.<br />
+✅ <strong>Cuando se desea combinar Spark con SQL</strong> para análisis avanzados​.</p>
+<hr />
+<h2 id="2-implementacion-practica-de-un-lakehouse-en-microsoft-fabric"><strong>2. Implementación práctica de un Lakehouse en Microsoft Fabric</strong><a class="headerlink" href="#2-implementacion-practica-de-un-lakehouse-en-microsoft-fabric" title="Permanent link">&para;</a></h2>
+<h3 id="pasos-para-crear-un-lakehouse-en-fabric">🔹 <strong>Pasos para crear un Lakehouse en Fabric</strong><a class="headerlink" href="#pasos-para-crear-un-lakehouse-en-fabric" title="Permanent link">&para;</a></h3>
+<p>1️⃣ <strong>Acceder al entorno de Fabric</strong></p>
+<ul>
+<li>Ir a <strong>Microsoft Fabric</strong> → <strong>Data Engineering</strong> → <strong>Nuevo Lakehouse</strong>.</li>
+<li>Asignar un nombre y confirmar la creación​.</li>
+</ul>
+<p>2️⃣ <strong>Cargar datos en OneLake</strong></p>
+<p><code>df = spark.read.format("csv").option("header", "true").load("onelake://empresa/datos_ventas/") df.write.format("delta").save("onelake://empresa/lakehouse/ventas/")</code></p>
+<p>📌 <strong>Explicación:</strong></p>
+<ul>
+<li>Se ingestan datos en formato CSV.</li>
+<li>Se convierten a <strong>Delta Lake</strong> para mayor eficiencia.</li>
+</ul>
+<p>3️⃣ <strong>Consulta de datos en SQL Analytics Endpoint</strong></p>
+<p><code>SELECT categoria, SUM(ventas) AS total_ventas FROM lakehouse.ventas GROUP BY categoria;</code></p>
+<p>📌 <strong>Permite a analistas y usuarios SQL acceder a los datos directamente</strong>​</p>
+<p>4️⃣ <strong>Visualización en Power BI con Direct Lake</strong></p>
+<ul>
+<li>Conectar Power BI con el <strong>SQL Analytics Endpoint del Lakehouse</strong>.</li>
+<li>Crear dashboards interactivos en tiempo real​.</li>
+</ul>
+<h3 id="ficheros-y-tablas">🔹 <strong>Ficheros y Tablas</strong><a class="headerlink" href="#ficheros-y-tablas" title="Permanent link">&para;</a></h3>
+<p>Dentro de un lakehouse, tenemos dos áreas diferenciadas de almacenamiento, la de Ficheros y la tablas. El área de <strong>ficheros</strong>, está destinada fundamentalmente a actuar como zona de aterrizaje (landing) de los datos, y para alojar datos no estructurados, como pueden ser imágenes, dentro de nuestro lakehouse. La funcionalidad de accesos directos, ya comentada, proporciona una capa de "virtualización" que intenta minimizar el movimeinto de datos, posibilitando el acceso entre diferentes orígenes, incluso entre diferentes proveedores de nube pública. </p>
+<p>Por lo que respecta al área de <strong>tablas</strong>, su función es la de proporcionarnos una experiencia warehouse, sobre los datos que tenemos almacenados en nuestro onelake, siempre en formato Delta. Podemos crear básicamente tres tipos diferenciados de tablas dentro de este área: tablas administradas, tablas externas, y accesos directos de tabla</p>
+<h4 id="tablas-administradas"><strong>Tablas administradas</strong><a class="headerlink" href="#tablas-administradas" title="Permanent link">&para;</a></h4>
+<p>Son aquellas tablas de las que el motor Spark del lakehouse se encarga de gestionar y mantener, tanto en esquema como en datos. Son el tipo de tabla determinado, y el que proporciona toda la funcionalidad a nuestro lakehouse de control y mantenimiento de los datos. </p>
+<h4 id="tablas-externas"><strong>Tablas externas</strong><a class="headerlink" href="#tablas-externas" title="Permanent link">&para;</a></h4>
+<p>Se conocen también como tablas externas, y en este caso, la tabla no es más que una definición de un esquema, que apunta a una ubicación externa. El esquema se fuerza únicamente en el momento de consulta de esa tabla. 
+Nos puede ser útil, fundamentalmente en la capa silver, en escenarios en los que el esquema de los datos de origen, es susceptible de cambiar con frecuencia.</p>
+<h4 id="accesos-directos-de-tabla"><strong>Accesos directos de tabla</strong><a class="headerlink" href="#accesos-directos-de-tabla" title="Permanent link">&para;</a></h4>
+<p>Además de poder crear shortcuts a almacenamientos de ficheros en el área <strong>Files</strong>  de un lakehouse, también podemos crear estos accesos directos a tablas externas, lo que nos permitirá poder acceder a esas tablas desde el SQL Endpoint, como si estuviesen realmente almacenadas en ese ítem de lakehouse. 
+Si pensamos en nuestra arquitectura medallón, y en el paso entre capas, los shortcuts nos pueden servir para, por ejemplo, referenciar tablas que no necesitamos modificar en el paso entre capas, evitando así tener que copiar y duplicar esas tablas entre las diferentes capas.  </p>
+<hr />
+<h2 id="3-el-sql-analytics-endpoint">3. El SQL Analytics Endpoint<a class="headerlink" href="#3-el-sql-analytics-endpoint" title="Permanent link">&para;</a></h2>
+<h3 id="consultando-con-sql-el-lakehouse">🔹<strong>Consultando con SQL el lakehouse</strong><a class="headerlink" href="#consultando-con-sql-el-lakehouse" title="Permanent link">&para;</a></h3>
+<p>El <strong>punto de conexión de análisis SQL</strong> en Microsoft Fabric ofrece una experiencia basada en SQL para interactuar con las tablas Delta dentro de un almacén de lago (<em>lakehouse</em>). A continuación, se detallan sus características principales:</p>
+<ul>
+<li><strong>Creación automática</strong>: Al generar un almacén de lago, se crea automáticamente un punto de conexión de análisis SQL que apunta al almacenamiento de tablas Delta del mismo.    </li>
+<li><strong>Modo de solo lectura</strong>: Este punto de conexión permite únicamente operaciones de lectura sobre las tablas Delta. Para modificar los datos, es necesario cambiar al modo de almacén de lago y utilizar Apache Spark.</li>
+<li><strong>Flexibilidad en la gestión de datos</strong>: Aunque las operaciones de escritura no están permitidas, se pueden crear funciones, definir vistas e implementar seguridad a nivel de objeto en SQL para estructurar y gestionar el acceso a los datos de manera efectiva.</li>
+<li><strong>Control de acceso mediante seguridad SQL</strong>: Es posible establecer reglas de seguridad a nivel de objeto que se aplican al acceder a los datos a través del punto de conexión de análisis SQL. Para garantizar que los datos no sean accesibles por otros medios, se deben configurar los roles y permisos adecuados en el área de trabajo.</li>
+<li><strong>Reaprovisionamiento del punto de conexión</strong>: Si el aprovisionamiento inicial falla, se ofrece la opción de reintentar directamente desde el almacén de lago, evitando la necesidad de crear uno nuevo.</li>
+<li><strong>Limitaciones actuales</strong>: Las tablas Delta externas creadas con código Spark no son visibles para el punto de conexión de análisis SQL. </li>
+</ul>
+<p>Resumiendo, el punto de conexión de análisis SQL en Microsoft Fabric facilita el análisis y la gestión de datos en lakehouses mediante T-SQL, proporcionando una integración fluida y herramientas robustas para el control de acceso y la estructuración de datos.</p>
+<hr />
+<h2 id="4-gobernanza-y-seguridad-configuracion-de-accesos-y-permisos"><strong>4. Gobernanza y seguridad: Configuración de accesos y permisos</strong><a class="headerlink" href="#4-gobernanza-y-seguridad-configuracion-de-accesos-y-permisos" title="Permanent link">&para;</a></h2>
+<h3 id="esquemas-en-un-lakehouse">🔹 <strong>Esquemas en un lakehouse</strong><a class="headerlink" href="#esquemas-en-un-lakehouse" title="Permanent link">&para;</a></h3>
+<p>Microsoft Fabric Lakehouse admite la creación de esquemas personalizados, lo que permite agrupar tablas para mejorar la detección de datos, el control de acceso y la organización. Al crear un nuevo lakehouse, es posible habilitar esta función seleccionando la opción "Esquemas de lakehouse (versión preliminar pública)". Una vez creado, nos encontraremos un esquema predeterminado llamado "dbo" bajo la sección de Tablas, el cual es permanente y no puede ser modificado o eliminado. </p>
+<p>Para almacenar una tabla en un esquema específico, es necesario especificar el nombre del esquema al guardar la tabla. Si no se indica, la tabla se ubicará en el esquema predeterminado "dbo". Por ejemplo, utilizando PySpark, se podemos guardar una tabla en el esquema "ventas" con el siguiente comando:</p>
+<p><code>df.write.mode("Overwrite").saveAsTable("ventas.nombre_tabla")</code></p>
+<p>Además, el <strong>Explorador</strong> de Lakehouse permite organizar las tablas mediante la función de arrastrar y soltar, facilitando su reubicación entre diferentes esquemas. Es importante tener en cuenta que, al modificar una tabla, también se deben actualizar los elementos relacionados, como el código en cuadernos o los flujos de datos, para asegurar que estén alineados con el esquema correcto. Obviamente estas tareas no se realizan automáticamente. </p>
+<ul>
+<li>
+<p>Para <strong>referenciar múltiples tablas Delta</strong> desde otro lakehouse de Fabric o desde un almacenamiento externo, se puede utilizar un acceso directo de esquema. Este acceso muestra todas las tablas bajo el esquema o carpeta seleccionados, reflejando cualquier cambio realizado en las tablas de la ubicación de origen. </p>
+</li>
+<li>
+<p>En el contexto de la elaboración de informes con <strong>Power BI</strong>, al crear un modelo semántico, es posible seleccionar tablas de diferentes esquemas. Si existen tablas con el mismo nombre en distintos esquemas, se mostrarán números junto a los nombres de las tablas en la vista de modelo para diferenciarlas.</p>
+</li>
+<li>
+<p>Al trabajar con <strong>cuadernos</strong> en un lakehouse que tiene habilitados los esquemas, las tablas se organizan según sus respectivos esquemas en el explorador de objetos del cuaderno. Es posible arrastrar y soltar una tabla en una celda de código para obtener un fragmento de código que hace referencia al esquema correspondiente. La nomenclatura para referenciar una tabla sigue el formato: "área_de_trabajo.lakehouse.esquema.tabla". Si se omite algún elemento, el ejecutor utilizará la configuración predeterminada; por ejemplo, si solo se proporciona el nombre de la tabla, se asumirá el esquema "dbo" del lakehouse predeterminado para el cuaderno.</p>
+</li>
+<li>Para realizar <strong>consultas SQL de Spark</strong> que involucren múltiples áreas de trabajo, se utiliza la nomenclatura "área_de_trabajo.lakehouse.esquema.tabla" al referenciar las tablas en el código. Esto permite combinar tablas de diferentes áreas de trabajo, siempre que el usuario que ejecuta el código tenga los permisos necesarios para acceder a dichas tablas. Es fundamental asegurarse de que las tablas provengan de lakehouses con esquemas habilitados, ya que la combinación de tablas de lakehouses sin esquemas habilitados no funcionará.</li>
+</ul>
+<p>Actualmente (Febrero 2025), en la versión preliminar pública, existen algunas limitaciones. Por ejemplo, el uso del área de trabajo en el espacio de nombres para lakehouses compartidos no funciona correctamente, y obtener el esquema para tablas administradas en formatos no Delta (como CSV) no está soportado. </p>
+<h3 id="modelo-de-seguridad-en-un-lakehouse">🔹 <strong>Modelo de seguridad en un Lakehouse</strong><a class="headerlink" href="#modelo-de-seguridad-en-un-lakehouse" title="Permanent link">&para;</a></h3>
+<p>📌 Microsoft Fabric permite la gestión de permisos en un <strong>Lakehouse</strong> mediante <strong>roles y controles de acceso</strong>​.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Rol</strong></th>
+<th><strong>Permisos</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Admin</strong></td>
+<td>Acceso total, configuración y eliminación de Lakehouse.</td>
+</tr>
+<tr>
+<td><strong>Member</strong></td>
+<td>Lectura y escritura de datos, ejecución de scripts.</td>
+</tr>
+<tr>
+<td><strong>Contributor</strong></td>
+<td>Creación y modificación de objetos, sin configuración de seguridad.</td>
+</tr>
+<tr>
+<td><strong>Viewer</strong></td>
+<td>Solo lectura de datos desde SQL Analytics Endpoint.</td>
+</tr>
+<tr>
+<td>Estos permisos se establecen a nivel de workspace y se heredan en todos los items, también los lakehouse.</td>
+<td></td>
+</tr>
+<tr>
+<td>### 🔹 <strong>Implementación de seguridad en Lakehouse</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Desde el punto de vista de acceso al lakehouse, como cualquier otro item del espacio de trabajo, tendrán acceso predeterminado los usuarios a los que hayamos dado acceso a través de los roles del espacio de trabajo. En el caso de los usuarios con el rol de visor, tendrán acceso al SQL EndPoint, pero no podrán acceder al item de lakehouse. Sin embargo, podemos compartir con un usuario el acceso al endpoint SQL de nuestro lakehouse, sin necesidad de darle permisos sobre ningún otro item del espacio de trabajo. Esto lo realizamos desde la opción de compartir del lakehouse</p>
+<p>![[Compartir acceso lakehouse.png]]
+Una vez hemos configurado el acceso, podemos llegar a niveles más granulares, controlando el acceso a las tablas, a través de los roles que veremos en el SQL Endpoint y la seguridad a nivel de columna y a nivel de fila, que configuramos a través de las políticas de seguridad. </p>
+<p>1️⃣ <strong>Definir accesos mediante RBAC (Role-Based Access Control)</strong></p>
+<p><code>GRANT SELECT ON lakehouse.ventas TO [grupo_finanzas];</code></p>
+<p>📌 <strong>Restringe acceso solo a usuarios autorizados</strong>​.</p>
+<p>2️⃣ <strong>Uso de Column-Level Security (CLS) y Row-Level Security (RLS)</strong></p>
+<p><code>CREATE SECURITY POLICY Ventas_Politica ADD FILTER PREDICATE usuario_region = USER() ON lakehouse.ventas;</code></p>
+<p>📌 <strong>Permite restringir filas según el usuario autenticado</strong>​.</p>
+<p>3️⃣ <strong>Uso de Shortcuts en OneLake para compartir datos sin replicarlos</strong></p>
+<p><code>CREATE SHORTCUT ventas_region TO "onelake://empresa/lakehouse/ventas/"</code></p>
+<p>📌 <strong>Facilita compartir datos con otros equipos sin duplicaciones</strong>​.</p>
+<p>Tenemos que asegurarnos también, de que antes de todo esto, los usuarios tienen los permisos necesarios a nivel de almacenamiento de Onelake. Podemos ver la combinación de opciones en este enlace de la documentación <a href="https://learn.microsoft.com/es-es/fabric/onelake/security/data-access-control-model?wt.mc_id=MVP_329801">Seguridad RBAC y Onelake</a></p>
+<hr />
+<h2 id="5-mantenimiento-de-tablas"><strong>5. Mantenimiento de tablas</strong><a class="headerlink" href="#5-mantenimiento-de-tablas" title="Permanent link">&para;</a></h2>
+<p>Como ocurre en cualquier motor de datos, debemos de realizar labores de mantenimiento sobre nuestros datos. Disponemos de una opción a través del interfaz gráfico de mantenimiento de tablas que nos proporciona las funcionalidades mínimas para realizar ese mantenimiento. </p>
+<p>![[Mantenimiento tablas lakehouse.png]]</p>
+<p>La característica de mantenimiento de tablas nos ofrece tres operaciones.</p>
+<ul>
+<li><strong>Optimización</strong>: consolida varios archivos Parquet pequeños en archivos grandes. Las arquitecturas de big data y lakehouse, están pensadas para trabajar con archivos de gran tamaño. Tener archivos de tamaño superior a 128 MB y, de forma óptima, cerca de 1 GB, mejora la compresión y la distribución de datos, en los nodos del clúster. Reduce la necesidad de examinar numerosos archivos pequeños para realizar operaciones de lectura eficaces. Por lo tanto, se recomienda ejectura estrategias de optimización orientadas a reducir el número de ficheros. </li>
+<li><strong>Orden en V (V-order)</strong>: aplica la ordenación, la codificación y la compresión optimizadas a los archivos Parquet delta para permitir operaciones de lectura rápidas en todos los motores de Fabric. Para más detalle sobre el funcionamiento de esta optimización, podemos consultar este enlace de la documentación oficial  <a href="https://learn.microsoft.com/es-es/fabric/data-engineering/delta-optimization-and-v-order?wt.mc_id=MVP_329801&amp;tabs=sparksql">V-Order</a> </li>
+<li><strong>Vacuum</strong>: quita los archivos antiguos a los que ya no hace referencia un registro de tabla de Delta. Los archivos deben ser más antiguos que el umbral de retención, y este es por defecto de siete días. Todas las tablas delta de OneLake tienen el mismo período de retención. El período de retención de archivos es el mismo independientemente del motor de proceso de Fabric que estemos utilizando. Este mantenimiento es importante para optimizar el costo de almacenamiento. Establecer un período de retención más corto afecta a las funcionalidades de viaje en el tiempo de Delta. </li>
+</ul>
+<hr />
+<h2 id="6-direct-lake"><strong>6. Direct Lake</strong><a class="headerlink" href="#6-direct-lake" title="Permanent link">&para;</a></h2>
+<p><strong>Direct Lake</strong> es una opción de modo de almacenamiento para las tablas de un modelo semántico de Power BI almacenado en un área de trabajo de Microsoft Fabric. Está optimizado para grandes volúmenes de datos que se pueden cargar rápidamente en la memoria desde tablas Delta, las cuales almacenan sus datos en archivos Parquet en <strong>OneLake</strong>, el repositorio unificado para todos los datos analíticos. Una vez cargados en memoria, el modelo semántico permite consultas de alto rendimiento, eliminando la necesidad de importar datos al modelo, lo que suele ser un proceso lento y costoso.</p>
+<p><img alt="Direct Lake" src="../imagenes/Direct%20lake.png" /></p>
+<ul>
+<li><strong>Carga Rápida de Datos</strong>: Permite la carga eficiente de grandes volúmenes de datos en memoria, facilitando análisis más rápidos.    </li>
+<li><strong>Actualizaciones Eficientes</strong>: Las operaciones de actualización analizan los metadatos de las tablas Delta y actualizan el modelo para referenciar los archivos más recientes en OneLake, reduciendo el tiempo y los recursos necesarios en comparación con las actualizaciones tradicionales.    </li>
+<li><strong>Optimización de Recursos</strong>: Al eliminar la necesidad de importar datos, se reduce el consumo de recursos de capacidad, como memoria y CPU.</li>
+</ul>
+<p>Los modelos semánticos en modo Direct Lake se conectan a tablas o vistas de un único lakehouse o warehouse en Fabric. Durante una operación de actualización, el modelo analiza los metadatos de la versión más reciente de las tablas Delta y se actualiza para referenciar los archivos más recientes en OneLake. Este proceso, conocido como "operación de enmarcado", es rápido y de bajo costo en comparación con las actualizaciones tradicionales que implican la copia completa de los datos</p>
+<hr />
+<h2 id="7-conclusion-y-preguntas-clave"><strong>7. Conclusión y Preguntas Clave</strong><a class="headerlink" href="#7-conclusion-y-preguntas-clave" title="Permanent link">&para;</a></h2>
+<p>✅ <strong>Un Lakehouse en Microsoft Fabric combina lo mejor de los Data Lakes y Data Warehouses.</strong><br />
+✅ <strong>Se puede implementar rápidamente en OneLake y optimizar su rendimiento con Delta Lake.</strong><br />
+✅ <strong>Los controles de seguridad y accesos permiten restringir y gestionar usuarios de manera eficiente.</strong></p>
+<h3 id="preguntas-para-reflexion-y-discusion"><strong>Preguntas para reflexión y discusión</strong><a class="headerlink" href="#preguntas-para-reflexion-y-discusion" title="Permanent link">&para;</a></h3>
+<p>1️⃣ ¿Cuáles son las ventajas de un <strong>Lakehouse</strong> sobre un <strong>Data Warehouse</strong> en mi empresa?<br />
+2️⃣ ¿Cómo se pueden aplicar <strong>Row-Level Security</strong> y <strong>Column-Level Security</strong> en Fabric?<br />
+3️⃣ ¿Cuándo usar <strong>Power BI con Direct Lake</strong> en vez de otros modelos de conexión?</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.expand", "navigation.sections", "navigation.tabs", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
